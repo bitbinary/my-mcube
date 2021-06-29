@@ -6,7 +6,7 @@
   "extends": ["react-app"],
   "rules": {
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "linebreak-style": ["error", "unix"],
+    // "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
     "arrow-body-style": [2, "as-needed"],
     "lines-between-class-members": ["error", "always"],
