@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import NavBar from './Navigation/NavBar';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 function Dashboard() {
   return (
     <div className='container'>
