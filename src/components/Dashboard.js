@@ -1,28 +1,48 @@
-import logo from 'logo.svg';
+import { Layout } from 'antd';
+import NavBar from './Navigation/NavBar';
 
+const { Header, Footer, Sider, Content } = Layout;
 function Dashboard() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo"/>
-        <p>Create React App Template Preconfigured with</p>
-        <ol style={{textAlign: 'left'}}>
-          <li>Redux</li>
-          <li>React Router</li>
-          <li>AntD</li>
-          <li>Axios</li>
-          <li>Redux Saga</li>
-          <li> Basic Authentication / Routes</li>
-          <li> SASS</li>
-        </ol>
-        <a
-          className="App-link"
-          href="https://github.com/Nilanth/cra-template-redux-auth-starter"
-          target="_blank"
-          rel="noopener noreferrer"
-        > Learn More</a>
-      </header>
+    <div className='container'>
+      <Layout>
+        <Header>
+          <NavBar></NavBar>
+        </Header>
+        <Layout className='App-header'>
+          {/* <Sider className='primary-color'>Sider</Sider> */}
+          <Content>Content</Content>
+        </Layout>
+        <Footer>fOOOOTER</Footer>
+      </Layout>
     </div>
+    // <Menu onClick={handleClick} selectedKeys={[mail]} mode="horizontal">
+    //   <Menu.Item key="mail" icon={<MailOutlined />}>
+    //     Navigation One
+    //   </Menu.Item>
+    //   <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
+    //     Navigation Two
+    //   </Menu.Item>
+    //   <SubMenu
+    //     key="SubMenu"
+    //     icon={<SettingOutlined />}
+    //     title="Navigation Three - Submenu"
+    //   >
+    //     <Menu.ItemGroup title="Item 1">
+    //       <Menu.Item key="setting:1">Option 1</Menu.Item>
+    //       <Menu.Item key="setting:2">Option 2</Menu.Item>
+    //     </Menu.ItemGroup>
+    //     <Menu.ItemGroup title="Item 2">
+    //       <Menu.Item key="setting:3">Option 3</Menu.Item>
+    //       <Menu.Item key="setting:4">Option 4</Menu.Item>
+    //     </Menu.ItemGroup>
+    //   </SubMenu>
+    //   <Menu.Item key="alipay">
+    //     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+    //       Navigation Four - Link
+    //     </a>
+    //   </Menu.Item>
+    // </Menu>
   );
 }
 
