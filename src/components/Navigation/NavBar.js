@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Menu } from 'antd';
+import { Menu } from 'antd';
 import { useState } from 'react';
 import {
   MailOutlined,
@@ -13,7 +13,6 @@ const { SubMenu } = Menu;
 export default function NavBar() {
   const [mail, setMail] = useState('');
   const handleClick = (e) => {
-    console.log('click ', e);
     setMail(e.key);
   };
 
