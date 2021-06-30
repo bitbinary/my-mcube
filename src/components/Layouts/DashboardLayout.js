@@ -1,17 +1,20 @@
 import { Layout } from 'antd';
-import NavBarPublic from './Navigation/NavBarPublic';
+import ContentWrapper from '../ContentWrapper';
+import NavBar from '../Navigation/NavBar';
 
 const { Header, Footer, Content } = Layout;
-function PublicLayout({ children }) {
+function DashboardLayout() {
   return (
     <div className='container'>
       <Layout>
         <Header>
-          <NavBarPublic></NavBarPublic>
+          <NavBar></NavBar>
         </Header>
         <Layout className='App-header'>
           {/* <Sider className='primary-color'>Sider</Sider> */}
-          <Content style={{}}>{children}</Content>
+          <Content style={{}}>
+            <ContentWrapper></ContentWrapper>
+          </Content>
         </Layout>
         <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer>
       </Layout>
@@ -46,4 +49,4 @@ function PublicLayout({ children }) {
   );
 }
 
-export default PublicLayout;
+export default DashboardLayout;
