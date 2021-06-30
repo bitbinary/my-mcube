@@ -10,6 +10,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import logo from 'logo.svg';
+// import logocube from 'logocube.svg';
 import { useHistory } from 'react-router-dom';
 
 const { SubMenu } = Menu;
@@ -35,7 +36,10 @@ export default function NavBar() {
     <>
       <Menu onClick={handleClick} selectedKeys={[mail]} mode='horizontal'>
         <Menu.Item className='App-logo' key='applogo'>
-          <img src={logo} className='logo' alt='logo' key='logo' />
+          <div>
+            {/* <img src={logocube} className='logo' alt='logo' key='logo' /> */}
+            <img src={logo} className='logo' alt='logo' key='logo' />
+          </div>
         </Menu.Item>
         <Menu.Item key='messages' icon={<MailOutlined />}>
           Messages
