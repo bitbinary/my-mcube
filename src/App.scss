@@ -29,17 +29,26 @@
 //     transform: rotate(360deg);
 //   }
 // }
-
+html,
+body {
+  min-height: 100%;
+  min-width: 100%;
+}
+#root {
+  min-height: 100%;
+  display: flex;
+}
 .container {
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  flex: 1;
 }
 .container-login {
   display: flex;
   justify-content: center;
   padding: 10px;
-  height: 100vh;
+  flex: 1;
+  height: 100%;
   .form {
     width: 400px;
     margin: auto;
@@ -50,6 +59,10 @@
 }
 
 //  ANT- DESIGN OVERRIDES
+.ant-layout {
+  display: flex;
+  flex-direction: column;
+}
 .ant-layout-header {
   padding: 0 0;
 }
