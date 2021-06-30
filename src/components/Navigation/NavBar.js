@@ -13,7 +13,7 @@ import logo from 'logo.svg';
 // import logocube from 'logocube.svg';
 import { useHistory } from 'react-router-dom';
 
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 export default function NavBar() {
   //Variables
   const history = useHistory();
