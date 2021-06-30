@@ -5,7 +5,7 @@ import actions from 'redux/Authenticate/actions';
 import { useState } from 'react';
 import {
   MailOutlined,
-  SettingOutlined,
+  GoldOutlined,
   LogoutOutlined,
   UserOutlined,
 } from '@ant-design/icons';
@@ -47,23 +47,19 @@ export default function NavBar() {
         {/* <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
               Navigation Two
             </Menu.Item> */}
-
-        <SubMenu key='SubMenu' icon={<SettingOutlined />} title='Settings'>
-          <Menu.ItemGroup>
-            <Menu.Item key='Profile' icon={<UserOutlined />}>
-              Profile
-            </Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup>
-            <Menu.Item
-              key='LogOut'
-              icon={<LogoutOutlined />}
-              onClick={() => logout()}
-            >
-              Logout
-            </Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
+        <Menu.Item key='Profile' icon={<UserOutlined />}>
+          Profile
+        </Menu.Item>
+        <Menu.Item key='forum' icon={<GoldOutlined />}>
+          Forum
+        </Menu.Item>
+        <Menu.Item
+          key='LogOut'
+          icon={<LogoutOutlined />}
+          onClick={() => logout()}
+        >
+          Logout
+        </Menu.Item>
       </Menu>
     </>
   );
