@@ -77,7 +77,6 @@ function RegisterPage() {
 
           <Form.Item>
             <Button
-              loading={loader}
               type='secondary'
               onClick={() => toLoginPage()}
               className='login-form-button'

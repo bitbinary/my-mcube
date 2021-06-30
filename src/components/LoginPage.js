@@ -88,7 +88,6 @@ function LoginPage() {
           </Form.Item>
           <Form.Item>
             <Button
-              loading={loader}
               type='secondary'
               className='login-form-button'
               size='large'
