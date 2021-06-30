@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Form, Input, Button, Checkbox, PageHeader } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-function LoginPage() {
+function RegisterPage() {
   const history = useHistory();
   const { loader } = useSelector((state) => state.authenticateReducer);
 
@@ -16,16 +16,16 @@ function LoginPage() {
       payload: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
     });
   };
-  const toRegisterPage = () => {
-    history.push('/register');
+  const toLoginPage = () => {
+    history.push('/login');
   };
 
   return (
     <>
       <PageHeader
         className='site-page-header'
-        title='Login'
-        subTitle='Welcome back'
+        title='Registration'
+        subTitle='Welcome Onboard'
       />
       <div className='container-login'>
         <Form
@@ -78,23 +78,23 @@ function LoginPage() {
           <Form.Item>
             <Button
               loading={loader}
-              type='primary'
-              htmlType='submit'
+              type='secondary'
+              onClick={() => toLoginPage()}
               className='login-form-button'
               size='large'
             >
-              Log in
+              Sign in
             </Button>
           </Form.Item>
           <Form.Item>
             <Button
               loading={loader}
-              type='secondary'
+              type='primary'
               className='login-form-button'
               size='large'
-              onClick={() => toRegisterPage()}
+              htmlType='submit'
             >
-              Sign Up
+              Register
             </Button>
           </Form.Item>
         </Form>
@@ -103,4 +103,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;
