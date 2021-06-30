@@ -1,4 +1,5 @@
 import { Layout } from 'antd';
+import ContentWrapper from './Navigation/ContentWrapper';
 import NavBar from './Navigation/NavBar';
 
 const { Header, Footer, Content } = Layout;
@@ -11,9 +12,11 @@ function Dashboard() {
         </Header>
         <Layout className='App-header'>
           {/* <Sider className='primary-color'>Sider</Sider> */}
-          <Content>Content</Content>
+          <Content style={{ padding: '50px' }}>
+            <ContentWrapper></ContentWrapper>
+          </Content>
         </Layout>
-        <Footer>fOOOOTER</Footer>
+        <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer>
       </Layout>
     </div>
     // <Menu onClick={handleClick} selectedKeys={[mail]} mode="horizontal">

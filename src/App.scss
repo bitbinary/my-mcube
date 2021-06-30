@@ -33,7 +33,7 @@
 .container {
   display: flex;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 .container-login {
   display: flex;
@@ -48,6 +48,7 @@
     }
   }
 }
+
 //  ANT- DESIGN OVERRIDES
 .ant-layout-header {
   padding: 0 0;
@@ -63,4 +64,9 @@
 
 .ant-menu-sub {
   color: #262833;
+}
+
+.site-layout-content {
+  background-color: #ffffff;
+  height: 100%;
 }
