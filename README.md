@@ -1,3 +1,5 @@
+# DEMO
+View the demo at <https://saas-21t2-group3.github.io/mcube>
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
