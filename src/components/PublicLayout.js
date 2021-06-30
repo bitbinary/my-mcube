@@ -11,7 +11,7 @@ function PublicLayout({ children }) {
         </Header>
         <Layout className='App-header'>
           {/* <Sider className='primary-color'>Sider</Sider> */}
-          <Content style={{ padding: '50px' }}>{children}</Content>
+          <Content style={{}}>{children}</Content>
         </Layout>
         <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer>
       </Layout>

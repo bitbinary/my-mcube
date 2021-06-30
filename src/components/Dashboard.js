@@ -12,7 +12,7 @@ function Dashboard() {
         </Header>
         <Layout className='App-header'>
           {/* <Sider className='primary-color'>Sider</Sider> */}
-          <Content style={{ padding: '50px' }}>
+          <Content style={{}}>
             <ContentWrapper></ContentWrapper>
           </Content>
         </Layout>
