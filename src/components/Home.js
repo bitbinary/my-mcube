@@ -1,23 +1,9 @@
-import { Layout } from 'antd';
 import ContentWrapper from './ContentWrapper';
-import NavBar from './Navigation/NavBar';
 
-const { Header, Footer, Content } = Layout;
-function Dashboard() {
+function Home() {
   return (
     <div className='container'>
-      <Layout>
-        <Header>
-          <NavBar></NavBar>
-        </Header>
-        <Layout className='App-header'>
-          {/* <Sider className='primary-color'>Sider</Sider> */}
-          <Content style={{ padding: '50px' }}>
-            <ContentWrapper></ContentWrapper>
-          </Content>
-        </Layout>
-        <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer>
-      </Layout>
+      <ContentWrapper></ContentWrapper>
     </div>
     // <Menu onClick={handleClick} selectedKeys={[mail]} mode="horizontal">
     //   <Menu.Item key="mail" icon={<MailOutlined />}>
@@ -49,4 +35,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Home;
