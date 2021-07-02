@@ -8,10 +8,10 @@ import { useSelector } from 'react-redux';
 import './App.scss';
 import LoginPage from 'components/LoginPage';
 import RegisterPage from 'components/RegisterPage';
-import Dashboard from 'components/Dashboard';
+import DashboardLayout from 'components/Layouts/DashboardLayout';
 import Home from 'components/Home';
 import Users from 'components/Users';
-import PublicLayout from 'components/PublicLayout';
+import PublicLayout from 'components/Layouts/PublicLayout';
 function App() {
   //Getting isAuthenticated store value from Authentication reducer.
   const { isAuthenticated } = useSelector((state) => state.authenticateReducer);
@@ -82,7 +82,7 @@ function ProtectedRoutes() {
   return (
     <Switch>
       <Route path='/dashboard'>
-        <Dashboard />
+        <DashboardLayout />
       </Route>
       <Route path='/users'>
         <Users />
