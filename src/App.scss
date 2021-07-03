@@ -6,6 +6,8 @@
 }
 
 @import '~antd/dist/antd.css';
+$banner-img: url('banner.jpg');
+
 .App {
   text-align: center;
 }
@@ -82,4 +84,78 @@ body {
 .site-layout-content {
   background-color: #ffffff;
   height: 100%;
+}
+
+.ant-drawer-body {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-top: 1.5rem;
+}
+
+.ant-drawer-content-wrapper {
+  width: 300px !important;
+}
+//Home page
+.home-page-container {
+  background-color: #e2e5f5;
+  position: relative;
+  max-width: 1200px;
+  margin: auto;
+  min-height: 500px;
+  padding: 20px;
+}
+.home-page-text-wrapper {
+  border-radius: 3rem;
+  max-width: 400px;
+}
+
+//************** common utils styles****************//
+
+//App titles
+.app-titles {
+  margin: 0.5rem;
+
+  .large {
+    font-size: 2rem;
+  }
+  .medium {
+    font-size: 1.5rem;
+  }
+  .small {
+    font-size: 1rem;
+  }
+}
+
+.app-texts {
+  margin: 0.5rem;
+
+  .large {
+    font-size: 1.5rem;
+  }
+  .medium {
+    font-size: 1rem;
+  }
+  .small {
+    font-size: 0.75rem;
+  }
+  .xsmall {
+    font-size: 0.5rem;
+  }
+}
+
+.app-button {
+  margin: 0.5rem;
+  .large {
+    font-size: 1.5rem;
+  }
+  .medium {
+    font-size: 1rem;
+  }
+  .small {
+    font-size: 0.75rem;
+  }
+  .xsmall {
+    font-size: 0.5rem;
+  }
 }

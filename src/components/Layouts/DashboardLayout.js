@@ -2,8 +2,8 @@ import { Layout } from 'antd';
 import ContentWrapper from '../ContentWrapper';
 import NavBar from '../Navigation/NavBar';
 
-const { Header, Footer, Content } = Layout;
-function DashboardLayout() {
+const { Header, Content } = Layout;
+function DashboardLayout({ children }) {
   return (
     <div className='container'>
       <Layout>
@@ -13,10 +13,9 @@ function DashboardLayout() {
         <Layout className='App-header'>
           {/* <Sider className='primary-color'>Sider</Sider> */}
           <Content style={{}}>
-            <ContentWrapper></ContentWrapper>
+            <ContentWrapper>{children}</ContentWrapper>
           </Content>
         </Layout>
-        <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer>
       </Layout>
     </div>
     // <Menu onClick={handleClick} selectedKeys={[mail]} mode="horizontal">

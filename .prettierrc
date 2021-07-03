@@ -4,5 +4,6 @@
   "endOfLine": "lf",
   "jsxSingleQuote": true,
   "singleQuote": true,
-  "embeddedLanguageFormatting": "auto"
+  "embeddedLanguageFormatting": "auto",
+  "trailingComma": "all"
 }

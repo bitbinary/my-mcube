@@ -1,10 +1,19 @@
 import ContentWrapper from './ContentWrapper';
+import HomeBanner from './HomePage/HomeBanner/HomeBanner';
+import SectionDivider from './utils/SectionDivider';
+import AppTexts from 'components/utils/AppTexts';
 
 function Home() {
   return (
-    <div className='container'>
-      <ContentWrapper></ContentWrapper>
-    </div>
+    <ContentWrapper>
+      <br />
+      <HomeBanner></HomeBanner>
+      <SectionDivider
+        content={<AppTexts className='medium' content="What's Inside !" />}
+        orientation='left'
+      />
+      <HomeBanner></HomeBanner>
+    </ContentWrapper>
     // <Menu onClick={handleClick} selectedKeys={[mail]} mode="horizontal">
     //   <Menu.Item key="mail" icon={<MailOutlined />}>
     //     Navigation One
