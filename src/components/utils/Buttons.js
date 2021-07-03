@@ -6,11 +6,18 @@ export default function Buttons({
   size = 'medium',
   type = '',
   content = '',
+  handleClick,
   rest,
 }) {
   return (
     <div className='app-button'>
-      <Button {...rest} className={className} type={type} size={size}>
+      <Button
+        {...rest}
+        onClick={handleClick}
+        className={className}
+        type={type}
+        size={size}
+      >
         {content}
       </Button>
     </div>

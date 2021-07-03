@@ -8,35 +8,38 @@ import chat from 'images/chat.png';
 function Home() {
   return (
     <ContentWrapper>
-      <HomeBanner></HomeBanner>
+      <HomeBanner
+        bannerTitle='Explore Learn Share.'
+        bannerDescription='Explore the opportunities that lie ahead, Find out the people who can help you learn, Share knowlegde with other who seek advice'
+      ></HomeBanner>
 
       <HomeFeature
         dividerText="Explore what's inside the box"
         featureImage={forum}
         featureName='Forum'
-        featureTitle='Landing Page Hero Heading'
+        featureTitle='Reach out to the community.'
         imageOrientation='right'
-        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing .'
       ></HomeFeature>
       <HomeFeature
         featureImage={search}
         featureName='Search'
-        featureTitle='Landing Page Hero Heading'
-        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        featureTitle='Find the perfect opportunity'
+        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing.'
         imageOrientation='left'
       ></HomeFeature>
       <HomeFeature
         featureImage={recommendation}
         featureName='Search'
-        featureTitle='Landing Page Hero Heading'
-        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        featureTitle='We are here to help you with recommendations'
+        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing.'
         imageOrientation='right'
       ></HomeFeature>
       <HomeFeature
         featureImage={chat}
         featureName='Search'
-        featureTitle='Landing Page Hero Heading'
-        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        featureTitle="Let's talk about it"
+        featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing.'
         imageOrientation='left'
       ></HomeFeature>
     </ContentWrapper>
