@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTexts from 'components/utils/AppTexts';
-import Buttons from 'components/utils/Buttons';
+// import Buttons from 'components/utils/Buttons';
 import SectionDivider from 'components/utils/SectionDivider';
 export default function HomeFeature({
   dividerText = '',
@@ -13,8 +13,7 @@ export default function HomeFeature({
   featureTitle,
   featureDescription,
 }) {
-  let imagePosition = imageOrientation == 'left' ? 0 : 1;
-  console.log(imagePosition);
+  let imagePosition = imageOrientation === 'left' ? 0 : 1;
   return (
     <Row className='home-page-container' justify='space-between' align='middle'>
       {dividerText ? (
