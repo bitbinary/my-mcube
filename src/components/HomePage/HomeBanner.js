@@ -4,10 +4,15 @@ import { Col, Row } from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTexts from 'components/utils/AppTexts';
 import Buttons from 'components/utils/Buttons';
+import { useHistory } from 'react-router-dom';
 // import { Container, TextWrapper, Content } from './styles';
-export default function HomeBanner() {
+export default function HomeBanner({ bannerTitle, bannerDescription }) {
+  const history = useHistory();
+  const goToDashboard = () => {
+    history.push('/dashboard');
+  };
   return (
-    <Row className='home-page-container' justify='space-between' align='middle'>
+    <Row className='home-page-section' justify='space-between' align='middle'>
       <Col
         lg={24}
         md={24}
@@ -17,18 +22,20 @@ export default function HomeBanner() {
         align='middle'
       >
         <Row className='' justify='center' align='middle'>
-          <Col lg={16} md={16} sm={24} xs={24}>
+          <Col lg={20} md={20} sm={24} xs={24}>
             <AppTitles
               className='xlarge strong home-landing-title'
-              content='Landing Page Hero Heading'
+              content={bannerTitle}
             />
             <div className='home-page-text-wrapper'>
-              <AppTexts
-                className='medium'
-                content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              />
-              <Buttons type='primary' size='' content='Get Started' />
+              <AppTexts className='medium' content={bannerDescription} />
             </div>
+            <Buttons
+              handleClick={() => goToDashboard()}
+              type='primary'
+              size=''
+              content='Get Started'
+            />
           </Col>
         </Row>
       </Col>

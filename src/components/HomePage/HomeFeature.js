@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTexts from 'components/utils/AppTexts';
+import useWindowSize from 'components/tools/useWindowSize';
 // import Buttons from 'components/utils/Buttons';
 import SectionDivider from 'components/utils/SectionDivider';
 export default function HomeFeature({
@@ -13,9 +14,13 @@ export default function HomeFeature({
   featureTitle,
   featureDescription,
 }) {
-  let imagePosition = imageOrientation === 'left' ? 0 : 1;
+  const size = useWindowSize();
+  let imagePosition = 0;
+  if (size.width > 768) {
+    imagePosition = imageOrientation === 'left' ? 0 : 1;
+  }
   return (
-    <Row className='home-page-container' justify='space-between' align='middle'>
+    <Row className='home-page-section' justify='space-between' align='middle'>
       {dividerText ? (
         <SectionDivider
           content={
@@ -56,13 +61,14 @@ export default function HomeFeature({
         justify='space-between'
         align='middle'
         order={imagePosition}
+        className='home-feature-sections'
       >
         <Row
           className='home-feature-image-wrapper'
           justify='center'
           align='middle'
         >
-          <Col lg={16} md={24} sm={24} xs={24}>
+          <Col lg={16} md={24} sm={12} xs={24}>
             <img
               src={featureImage}
               className='home-feature-image'

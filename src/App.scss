@@ -101,8 +101,8 @@ body {
 }
 
 //Home page
-.home-page-container {
-  background-color: #fdfdfd;
+.home-page-section {
+  background-color: #f8f9fa;
   position: relative;
   max-width: 1600px;
   margin: auto;
@@ -111,11 +111,15 @@ body {
   margin-bottom: 40px;
 }
 .home-landing-title {
-  color: #3c85ca;
+  color: #696969;
+}
+.home-feature-sections {
+  margin: 20px 0;
 }
 .home-page-text-wrapper {
   border-radius: 3rem;
   max-width: 400px;
+  margin: 20px 0;
 }
 
 .home-feature-image-wrapper {
@@ -126,7 +130,7 @@ body {
   }
 }
 .feature-divider {
-  color: #11518d;
+  color: #5d5d5d;
 }
 
 //************** common utils styles****************//
@@ -156,7 +160,6 @@ body {
 
 .app-texts {
   margin: 0.5rem;
-  color: #3c85ca;
   .xlarge {
     font-size: 2rem;
   }
