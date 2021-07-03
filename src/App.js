@@ -12,6 +12,7 @@ import DashboardLayout from './components/Layouts/DashboardLayout';
 import Home from './components/HomePage/Home';
 import Users from './components/Users';
 import PublicLayout from './components/Layouts/PublicLayout';
+import Forum from 'components/Forum/Forum';
 function App() {
   //Getting isAuthenticated store value from Authentication reducer.
   const { isAuthenticated } = useSelector((state) => state.authenticateReducer);
@@ -86,6 +87,9 @@ function ProtectedRoutes() {
       </Route>
       <Route path='/users'>
         <Users />
+      </Route>
+      <Route path='/forum'>
+        <Forum />
       </Route>
     </Switch>
   );
