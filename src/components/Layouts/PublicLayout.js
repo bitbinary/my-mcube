@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import NavBarPublic from '../Navigation/NavBarPublic';
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content } = Layout;
 function PublicLayout({ children }) {
   return (
     <div className='container'>
@@ -13,7 +13,7 @@ function PublicLayout({ children }) {
           {/* <Sider className='primary-color'>Sider</Sider> */}
           <Content style={{}}>{children}</Content>
         </Layout>
-        <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer>
+        {/* <Footer>SaaS-Term2_group3 Copyrights Reserved :P</Footer> */}
       </Layout>
     </div>
     // <Menu onClick={handleClick} selectedKeys={[mail]} mode="horizontal">
