@@ -7,7 +7,7 @@ export default function Buttons({
   type = '',
   content = '',
   handleClick,
-  rest,
+  ...rest
 }) {
   return (
     <div className='app-button'>
