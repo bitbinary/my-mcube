@@ -6,6 +6,8 @@
 }
 
 @import '~antd/dist/antd.css';
+$banner-img: url('banner.jpg');
+
 .App {
   text-align: center;
 }
@@ -82,4 +84,115 @@ body {
 .site-layout-content {
   background-color: #ffffff;
   height: 100%;
+}
+
+.ant-drawer-body {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding-top: 1.5rem;
+}
+
+.ant-drawer-content-wrapper {
+  width: 300px !important;
+}
+.ant-typography {
+  color: #4a4b4e;
+}
+
+//Home page
+.home-page-container {
+  background-color: #fdfdfd;
+  position: relative;
+  max-width: 1600px;
+  margin: auto;
+  min-height: 500px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.home-landing-title {
+  color: #3c85ca;
+}
+.home-page-text-wrapper {
+  border-radius: 3rem;
+  max-width: 400px;
+}
+
+.home-feature-image-wrapper {
+  overflow: hidden;
+  img {
+    max-height: 500px;
+    width: 100%;
+  }
+}
+.feature-divider {
+  color: #11518d;
+}
+
+//************** common utils styles****************//
+
+//App titles
+.app-titles {
+  margin: 0.5rem;
+  .xlarge {
+    font-size: 2.5rem;
+  }
+  .large {
+    font-size: 2rem;
+  }
+  .medium {
+    font-size: 1.5rem;
+  }
+  .small {
+    font-size: 1rem;
+  }
+  .strong {
+    font-weight: 600;
+  }
+  .xstrong {
+    font-weight: 900;
+  }
+}
+
+.app-texts {
+  margin: 0.5rem;
+  color: #3c85ca;
+  .xlarge {
+    font-size: 2rem;
+  }
+  .large {
+    font-size: 1.5rem;
+  }
+  .medium {
+    font-size: 1rem;
+  }
+  .small {
+    font-size: 0.75rem;
+  }
+  .xsmall {
+    font-size: 0.5rem;
+  }
+
+  .strong {
+    font-weight: 600;
+  }
+  .xstrong {
+    font-weight: 900;
+  }
+}
+
+.app-button {
+  margin: 0.5rem;
+  .large {
+    font-size: 1.5rem;
+  }
+  .medium {
+    font-size: 1rem;
+  }
+  .small {
+    font-size: 0.75rem;
+  }
+  .xsmall {
+    font-size: 0.5rem;
+  }
 }

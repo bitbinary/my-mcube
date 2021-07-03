@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './App.scss';
-import LoginPage from 'components/LoginPage';
-import RegisterPage from 'components/RegisterPage';
-import DashboardLayout from 'components/Layouts/DashboardLayout';
-import Home from 'components/Home';
-import Users from 'components/Users';
-import PublicLayout from 'components/Layouts/PublicLayout';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import DashboardLayout from './components/Layouts/DashboardLayout';
+import Home from './components/HomePage/Home';
+import Users from './components/Users';
+import PublicLayout from './components/Layouts/PublicLayout';
 function App() {
   //Getting isAuthenticated store value from Authentication reducer.
   const { isAuthenticated } = useSelector((state) => state.authenticateReducer);
@@ -42,7 +42,7 @@ function PrivateRoute({ children, isAuthenticated, ...rest }) {
       {...rest}
       render={({ location }) =>
         isAuthenticated ? (
-          children
+          <DashboardLayout>{children}</DashboardLayout>
         ) : (
           <Redirect
             to={{
@@ -82,7 +82,7 @@ function ProtectedRoutes() {
   return (
     <Switch>
       <Route path='/dashboard'>
-        <DashboardLayout />
+        <Users />
       </Route>
       <Route path='/users'>
         <Users />
