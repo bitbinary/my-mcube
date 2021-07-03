@@ -17,14 +17,17 @@ export default function HomeBanner() {
         align='middle'
       >
         <Row className='' justify='center' align='middle'>
-          <Col lg={12} md={12} sm={24} xs={24}>
-            <AppTitles className='large' content='Landing Page Hero Heading' />
+          <Col lg={16} md={16} sm={24} xs={24}>
+            <AppTitles
+              className='xlarge strong home-landing-title'
+              content='Landing Page Hero Heading'
+            />
             <div className='home-page-text-wrapper'>
               <AppTexts
                 className='medium'
                 content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
               />
-              <Buttons type='ghost' size='' content='Get Started' />
+              <Buttons type='primary' size='' content='Get Started' />
             </div>
           </Col>
         </Row>

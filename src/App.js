@@ -9,7 +9,7 @@ import './App.scss';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import DashboardLayout from './components/Layouts/DashboardLayout';
-import Home from './components/Home';
+import Home from './components/HomePage/Home';
 import Users from './components/Users';
 import PublicLayout from './components/Layouts/PublicLayout';
 function App() {
