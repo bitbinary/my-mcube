@@ -154,9 +154,12 @@ body {
   display: flex;
 }
 .multiselect {
-  min-width: 150px;
+  min-width: 180px;
   margin: auto;
   flex: 1;
+}
+.new-post-submit {
+  float: right;
 }
 // .forum-search-skill-select{}
 // .forum-search-type-select{}

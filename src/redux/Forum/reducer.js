@@ -5,6 +5,16 @@ const initialState = {
   loader: true,
   searchselectedskills: [],
   searchselectedtypes: [],
+  recommendationsselectedtypes: [],
+  addPostDraftState: false,
+  addPostDraft: {
+    postTitle: '',
+    postDescription: '',
+    relatedProjectID: '',
+  },
+  addPostLoader: false,
+  searchLoader: false,
+  recommendationLoader: false,
 };
 
 function Reducer(state = initialState, action) {
@@ -23,6 +33,8 @@ function Reducer(state = initialState, action) {
       return { ...state, forumpage: action.payload.forumpage, loader: false };
     case actions.TOGGLELOADING:
       return { ...state, loader: action.payload.loader };
+    case actions.TOGGLESTATE:
+      return { ...state, [action.payload.label]: action.payload.value };
     case actions.UPDATESEARCHSKILLS:
       return {
         ...state,
@@ -32,6 +44,12 @@ function Reducer(state = initialState, action) {
       return {
         ...state,
         searchselectedtypes: action.payload.searchselectedtypes,
+      };
+    case actions.UPDATERECOMTYPES:
+      return {
+        ...state,
+        recommendationsselectedtypes:
+          action.payload.recommendationsselectedtypes,
       };
     default:
       return state;

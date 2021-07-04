@@ -9,10 +9,9 @@ export default function MultipleSelects({
   return (
     <Select
       mode='multiple'
-      style={{ width: '100%' }}
       onChange={(value) => handleChange(value)}
       allowClear
-      maxTagCount='responsive'
+      maxTagCount={3}
       {...rest}
     >
       {selectOptions.map((tag) => (
