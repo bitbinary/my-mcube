@@ -146,6 +146,20 @@ body {
 .forum-page-wrapper {
   height: 100%;
 }
+
+.forum-page-header-extra-wrapper {
+  background-color: #ffffff;
+}
+.forum-page-header-extra-container {
+  display: flex;
+}
+.multiselect {
+  min-width: 150px;
+  margin: auto;
+  flex: 1;
+}
+// .forum-search-skill-select{}
+// .forum-search-type-select{}
 //************** common utils styles****************//
 
 //App titles
