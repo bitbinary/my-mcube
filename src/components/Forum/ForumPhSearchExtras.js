@@ -1,7 +1,7 @@
 import React from 'react';
 import Buttons from 'components/utils/Buttons';
 import { SearchOutlined } from '@ant-design/icons';
-import { Row, Col } from 'antd';
+import { Row, Space } from 'antd';
 import MultipleSelects from 'components/utils/MultipleSelects';
 import actions from 'redux/Forum/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -91,16 +91,9 @@ export default function ForumPhSearchExtras() {
       align='middle'
       className='forum-page-header-extra-wrapper'
     >
-      <Col
-        lg={24}
-        md={24}
-        sm={24}
-        xs={24}
-        justify='space-between'
-        align='start'
-        className='forum-page-header-extra-container'
-      >
+      <Space>
         <MultipleSelects
+          key='multiselectSkills'
           defaultValue={searchselectedskills}
           selectOptions={options}
           placeholder='Search Skills'
@@ -109,6 +102,7 @@ export default function ForumPhSearchExtras() {
           // tagRender={() => <>{null}</>}
         />
         <MultipleSelects
+          key='multiselectTypes'
           defaultValue={searchselectedtypes}
           selectOptions={optionsType}
           placeholder='Search Types'
@@ -116,14 +110,14 @@ export default function ForumPhSearchExtras() {
           // tagRender={() => <>{null}</>}
           className='multiselect forum-search-type-select'
         />
-        <Buttons
-          type='primary'
-          shape='round'
-          icon={<SearchOutlined />}
-          content='Search'
-          handleClick={() => toggleLoading()}
-        />
-      </Col>
+      </Space>
+      <Buttons
+        type='primary'
+        shape='round'
+        icon={<SearchOutlined />}
+        content='Search'
+        handleClick={() => toggleLoading()}
+      />
     </Row>
   );
 }

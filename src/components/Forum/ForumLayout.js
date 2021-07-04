@@ -49,9 +49,7 @@ export default function ForumLayout({ children }) {
               title={forumpage}
               extra={<ForumPageHeaderExtras />}
             >
-              <ForumPageHeaderSelections
-                page={forumpage}
-              ></ForumPageHeaderSelections>
+              <ForumPageHeaderSelections page={forumpage} />
             </PageHeader>
             <Row
               className='forum-page-posts-wrapper'

@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import ForumPhSearchExtras from './ForumPhSearchExtras';
 import ForumPhFeedsExtras from './ForumPhFeedsExtras';
-import ForumPgRecomExtras from './ForumPgRecomExtras';
+import ForumPhRecomExtras from './ForumPhRecomExtras';
 export default function ForumPageHeaderExtras() {
   const { forumpage } = useSelector((state) => state.forumReducer);
 
@@ -12,6 +12,6 @@ export default function ForumPageHeaderExtras() {
     return <ForumPhSearchExtras key='extrasSearch' />;
   }
   if (forumpage === 'Recommendations') {
-    return <ForumPgRecomExtras key='extraRecommendations' />;
+    return <ForumPhRecomExtras key='extraRecommendations' />;
   }
 }
