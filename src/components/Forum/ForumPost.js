@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Skeleton, Card, Avatar } from 'antd';
 import {
   EditOutlined,
   DeleteOutlined,
   RollbackOutlined,
 } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 const { Meta } = Card;
 
 export default function ForumPost() {
-  const [loading] = useState(true);
+  const { loader } = useSelector((state) => state.forumReducer);
   //   const onChange = (checked) => {
   //     setLoading(!checked);
   //   };
@@ -22,7 +23,7 @@ export default function ForumPost() {
       ]}
     >
       {/* <Switch checked={!loading} onChange={onChange} /> */}
-      <Skeleton loading={loading} avatar active>
+      <Skeleton loading={loader} avatar active>
         <Meta
           avatar={
             <Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
