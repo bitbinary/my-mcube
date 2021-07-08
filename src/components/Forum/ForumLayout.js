@@ -1,13 +1,13 @@
 import React from 'react';
-import { Row, Col, PageHeader } from 'antd';
-// import { Radio } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Tabs, BackTop, PageHeader } from 'antd';
+import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
+import { useDispatch } from 'react-redux';
 import actions from 'redux/Forum/actions';
-import ForumPageRadios from './ForumPageRadios';
 import ForumPageHeaderExtras from './ForumPageHeaderExtras';
 import ForumPageHeaderSelections from './ForumPageHeaderSelections';
+const { TabPane } = Tabs;
+
 export default function ForumLayout({ children }) {
-  const { forumpage } = useSelector((state) => state.forumReducer);
   const dispatch = useDispatch();
   const onChange = (value) => {
     dispatch({
@@ -17,60 +17,42 @@ export default function ForumLayout({ children }) {
   };
 
   return (
-    <Row className='forum-wrapper' justify='center' align='start'>
-      <Col
-        lg={20}
-        md={20}
-        sm={20}
-        xs={24}
-        justify='space-between'
-        align='middle'
-        className='forum-container'
-      >
-        <ForumPageRadios
-          className='forum-pageselect-radio'
-          defaultValue='Feeds'
-          buttonStyle='solid'
-          handleChange={(value) => onChange(value)}
-        />
-
-        <Row className='forum-page-wrapper' justify='center' align='start'>
-          <Col
-            lg={24}
-            md={24}
-            sm={24}
-            xs={24}
-            justify='space-between'
-            align='start'
-            className='forum-page-container'
+    <ViewWrapper>
+      <Tabs onTabClick={onChange} centered type='card'>
+        <TabPane tab='Feeds' key='Feeds' className='forum-page-content '>
+          <PageHeader
+            className='forum-page-header'
+            title='Feeds'
+            extra={<ForumPageHeaderExtras page='Feeds' />}
           >
-            <PageHeader
-              className='forum-page-header'
-              title={forumpage}
-              extra={<ForumPageHeaderExtras />}
-            >
-              <ForumPageHeaderSelections page={forumpage} />
-            </PageHeader>
-            <Row
-              className='forum-page-posts-wrapper'
-              justify='center'
-              align='start'
-            >
-              <Col
-                lg={24}
-                md={24}
-                sm={24}
-                xs={24}
-                justify='space-between'
-                align='start'
-                className='forum-page-posts-container'
-              >
-                {children}
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+            <ForumPageHeaderSelections page='Feeds' />
+          </PageHeader>
+          {children}
+          <BackTop />
+        </TabPane>
+        <TabPane tab='Search' key='Search'>
+          <PageHeader
+            className='forum-page-header'
+            title='Search'
+            extra={<ForumPageHeaderExtras page='Search' />}
+          >
+            <ForumPageHeaderSelections page='Search' />
+          </PageHeader>
+          {children}
+          <BackTop />
+        </TabPane>
+        <TabPane tab='Recommendations' key='Recommendations'>
+          <PageHeader
+            className='forum-page-header'
+            title='Recommendations'
+            extra={<ForumPageHeaderExtras page='Recommendations' />}
+          >
+            <ForumPageHeaderSelections page='Recommendations' />
+          </PageHeader>
+          {children}
+          <BackTop />
+        </TabPane>
+      </Tabs>
+    </ViewWrapper>
   );
 }

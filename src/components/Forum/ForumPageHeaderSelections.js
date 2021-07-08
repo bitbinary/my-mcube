@@ -4,12 +4,11 @@ import actions from 'redux/Forum/actions';
 import { Row, Col, Tag, Form, Input, InputNumber } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import { SendOutlined } from '@ant-design/icons';
-export default function ForumPageHeaderSelections() {
+export default function ForumPageHeaderSelections({ page }) {
   const {
-    forumpage,
     searchselectedskills,
     searchselectedtypes,
-    recommendationsselectedtypes,
+    // recommendationsselectedtypes,
   } = useSelector((state) => state.forumReducer);
   const dispatch = useDispatch();
 
@@ -35,20 +34,20 @@ export default function ForumPageHeaderSelections() {
       payload: { searchselectedtypes: newlist },
     });
   };
-  const removeRecomType = (type) => {
-    let newlist = [...recommendationsselectedtypes];
-    const index = newlist.indexOf(type);
-    if (index > -1) {
-      newlist.splice(index, 1);
-    }
-    dispatch({
-      type: actions.UPDATESEARCHTYPES,
-      payload: { recommendationsselectedtypes: newlist },
-    });
-  };
-  if (forumpage === 'Feeds') {
+  // const removeRecomType = (type) => {
+  //   let newlist = [...recommendationsselectedtypes];
+  //   const index = newlist.indexOf(type);
+  //   if (index > -1) {
+  //     newlist.splice(index, 1);
+  //   }
+  //   dispatch({
+  //     type: actions.UPDATESEARCHTYPES,
+  //     payload: { recommendationsselectedtypes: newlist },
+  //   });
+  // };
+  if (page === 'Feeds') {
     return <ForumPageHeaderAddPost />;
-  } else if (forumpage === 'Search') {
+  } else if (page === 'Search') {
     return (
       <ForumPageHeaderSelectionViewTags
         key='selectionsSearch'
@@ -59,7 +58,7 @@ export default function ForumPageHeaderSelections() {
       />
     );
   }
-  if (forumpage === 'Recommendations') {
+  if (page === 'Recommendations') {
     return <></>;
   }
 }
