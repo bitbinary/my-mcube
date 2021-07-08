@@ -11,6 +11,7 @@ import RegisterPage from './components/RegisterPage';
 import DashboardLayout from './components/Layouts/DashboardLayout';
 import Home from './components/HomePage/Home';
 import Users from './components/Users';
+import Profile from './components/Profile/Profile';
 import PublicLayout from './components/Layouts/PublicLayout';
 import Forum from 'components/Forum/Forum';
 function App() {
@@ -87,6 +88,9 @@ function ProtectedRoutes() {
       </Route>
       <Route path='/users'>
         <Users />
+      </Route>
+      <Route path='/profile'>
+        <Profile />
       </Route>
       <Route path='/forum'>
         <Forum />
