@@ -15,6 +15,9 @@ const initialState = {
   addPostLoader: false,
   searchLoader: false,
   recommendationLoader: false,
+  contentFeeds: [],
+  contentSearch: [],
+  contentRecom: [],
 };
 
 function Reducer(state = initialState, action) {

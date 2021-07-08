@@ -60,13 +60,7 @@ export default function ForumPageHeaderSelections() {
     );
   }
   if (forumpage === 'Recommendations') {
-    return (
-      <ForumPageHeaderSelectionViewTags
-        key='selectionsRecommendations'
-        types={recommendationsselectedtypes}
-        removeTagTypes={(recomType) => removeRecomType(recomType)}
-      />
-    );
+    return <></>;
   }
 }
 
