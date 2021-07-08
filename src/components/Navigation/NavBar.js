@@ -35,6 +35,9 @@ export default function NavBar() {
     });
     history.push('/login');
   };
+  const changeToForum = () => {
+    history.push('/forum');
+  };
 
   //Render
   return (
@@ -59,7 +62,11 @@ export default function NavBar() {
         >
           Profile
         </Menu.Item>
-        <Menu.Item key='forum' icon={<GoldOutlined />}>
+        <Menu.Item
+          key='forum'
+          icon={<GoldOutlined />}
+          onClick={() => changeToForum()}
+        >
           Forum
         </Menu.Item>
         <Menu.Item

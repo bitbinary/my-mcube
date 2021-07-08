@@ -9,10 +9,11 @@ import './App.scss';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import DashboardLayout from './components/Layouts/DashboardLayout';
-import Home from './components/Home';
+import Home from './components/HomePage/Home';
 import Users from './components/Users';
 import Profile from './components/Profile/Profile';
 import PublicLayout from './components/Layouts/PublicLayout';
+import Forum from 'components/Forum/Forum';
 function App() {
   //Getting isAuthenticated store value from Authentication reducer.
   const { isAuthenticated } = useSelector((state) => state.authenticateReducer);
@@ -47,7 +48,7 @@ function PrivateRoute({ children, isAuthenticated, ...rest }) {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: '/home',
               state: { from: location },
             }}
           />
@@ -90,6 +91,9 @@ function ProtectedRoutes() {
       </Route>
       <Route path='/profile'>
         <Profile />
+      </Route>
+      <Route path='/forum'>
+        <Forum />
       </Route>
     </Switch>
   );
