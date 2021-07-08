@@ -1,18 +1,11 @@
 import React from 'react';
-// import { Radio } from 'antd';
-import ForumPost from './ForumPost';
+import ForumPage from './ForumPage';
 import ForumLayout from './ForumLayout';
 export default function Forum() {
+  console.log('loading Forum');
   return (
     <ForumLayout>
-      <ForumPost />
-      <ForumPost />
-      <ForumPost />
-      <ForumPost />
-      <ForumPost />
-      <ForumPost />
-      <ForumPost />
-      <ForumPost />
+      <ForumPage />
     </ForumLayout>
   );
 }

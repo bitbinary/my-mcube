@@ -15,20 +15,32 @@ const initialState = {
   addPostLoader: false,
   searchLoader: false,
   recommendationLoader: false,
+  contentFeeds: [],
+  contentSearch: [],
+  contentRecom: [],
+  feedLoading: true,
 };
 
 function Reducer(state = initialState, action) {
   switch (action.type) {
-    // case actions.LOGIN:
-    //   return { ...state, loader: true };
-    // case actions.LOGOUT:
-    //   return { ...state, isAuthenticated: false, loader: false };
-    // case actions.LOGIN_SUCCESS:
-    //   return {
-    //     ...state,
-    //     isAuthenticated: !!action.response.data.token,
-    //     loader: false,
-    //   };
+    case actions.GETFEEDS_SUCCESS:
+      return {
+        ...state,
+        contentFeeds: [...action.data],
+        feedLoading: false,
+      };
+    case actions.GETFEEDS_FAILURE:
+      return { ...state };
+    case actions.ADDFEEDS_SUCCESS:
+      return {
+        ...state,
+        contentFeeds: [...state.contentFeeds, ...action.data],
+        feedLoading: false,
+      };
+    case actions.ADDFEEDS_FAILURE:
+      return { ...state };
+    case actions.FEEDLOADING:
+      return { ...state, feedLoading: action.isloading };
     case actions.FORUMPAGECHANGE:
       return { ...state, forumpage: action.payload.forumpage, loader: false };
     case actions.TOGGLELOADING:
