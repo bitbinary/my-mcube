@@ -11,6 +11,7 @@ import RegisterPage from './components/RegisterPage';
 import DashboardLayout from './components/Layouts/DashboardLayout';
 import Home from './components/Home';
 import Users from './components/Users';
+import Profile from './components/Profile/Profile';
 import PublicLayout from './components/Layouts/PublicLayout';
 function App() {
   //Getting isAuthenticated store value from Authentication reducer.
@@ -86,6 +87,9 @@ function ProtectedRoutes() {
       </Route>
       <Route path='/users'>
         <Users />
+      </Route>
+      <Route path='/profile'>
+        <Profile />
       </Route>
     </Switch>
   );

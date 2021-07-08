@@ -24,6 +24,11 @@ export default function NavBar() {
   const handleClick = (e) => {
     setMail(e.key);
   };
+
+  const profile = () => {
+    history.push('/profile');
+  };
+
   const logout = () => {
     dispatch({
       type: actions.LOGOUT,
@@ -47,7 +52,11 @@ export default function NavBar() {
         {/* <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
               Navigation Two
             </Menu.Item> */}
-        <Menu.Item key='Profile' icon={<UserOutlined />}>
+        <Menu.Item
+          key='Profile'
+          icon={<UserOutlined />}
+          onClick={() => profile()}
+        >
           Profile
         </Menu.Item>
         <Menu.Item key='forum' icon={<GoldOutlined />}>
