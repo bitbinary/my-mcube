@@ -3,7 +3,7 @@ import { Tabs, BackTop, PageHeader } from 'antd';
 import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
 import { useDispatch } from 'react-redux';
 import actions from 'redux/Forum/actions';
-import ForumPageHeaderExtras from './ForumPageHeaderExtras';
+import ForumPageHeaderExtras from './HeaderExtras/ForumPageHeaderExtras';
 import ForumPageHeaderSelections from './ForumPageHeaderSelections';
 const { TabPane } = Tabs;
 

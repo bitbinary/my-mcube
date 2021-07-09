@@ -145,6 +145,7 @@ body {
 }
 .forum-page-wrapper {
   height: 100%;
+  padding: 24px;
 }
 
 .forum-page-header-extra-wrapper {
@@ -164,6 +165,9 @@ body {
 .feed-loader-wrapper {
   display: flex;
   justify-content: center;
+}
+.feed-list-wrapper {
+  text-align: left;
 }
 // .forum-search-skill-select{}
 // .forum-search-type-select{}
