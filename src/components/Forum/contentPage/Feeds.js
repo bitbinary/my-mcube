@@ -49,40 +49,44 @@ export default function Feeds() {
   };
   if (data.length > 0) {
     return (
-      <InfiniteScroll
-        pageStart={0}
-        initialLoad={false}
-        loadMore={() => addMoreFeeds()}
-        hasMore={true || false}
-        // element={ListWrapper}
-        loader={
-          <div className='feed-loader-wrapper' key={0}>
-            <Space direction='vertical'>
-              <Buttons
-                type='primary'
-                loading={feedLoading}
-                handleClick={() => addMoreFeeds()}
-                content={feedLoading ? 'Loading More' : 'Load More'}
-              ></Buttons>
-            </Space>
-          </div>
-        }
-        threshold={100}
-      >
-        {data.map((feed, index) => (
-          <Feed
-            key={feed.title + index}
-            index={index}
-            title={feed.title}
-            description={feed.description}
-            lastModified={feed.lastModifiedAt}
-            createdAt={feed.createdAt}
-            postOwner={feed.postOwner}
-            commentCount={feed.commentCount}
-            loading={feed?.loading}
-          />
-        ))}
-      </InfiniteScroll>
+      <>
+        <InfiniteScroll
+          pageStart={0}
+          initialLoad={false}
+          loadMore={() => addMoreFeeds()}
+          hasMore={true || false}
+          // element={ListWrapper}
+          loader={
+            <div className='feed-loader-wrapper' key={0}>
+              <Space direction='vertical'>
+                <Buttons
+                  type='primary'
+                  loading={feedLoading}
+                  handleClick={() => addMoreFeeds()}
+                  content={feedLoading ? 'Loading More' : 'Load More'}
+                ></Buttons>
+              </Space>
+            </div>
+          }
+          threshold={100}
+        >
+          <Space size={10} className='full-wide' direction='vertical'>
+            {data.map((feed, index) => (
+              <Feed
+                key={feed.title + index}
+                index={index}
+                title={feed.title}
+                description={feed.description}
+                lastModified={feed.lastModifiedAt}
+                createdAt={feed.createdAt}
+                postOwner={feed.postOwner}
+                commentCount={feed.commentCount}
+                loading={feed?.loading}
+              />
+            ))}
+          </Space>
+        </InfiniteScroll>
+      </>
     );
   } else if (feedLoading) {
     return (
