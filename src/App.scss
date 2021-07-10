@@ -225,6 +225,64 @@ body {
 // .forum-search-skill-select{}
 // .forum-search-type-select{}
 
+//MESSAGES
+.messages-page-wrapper {
+  display: flex;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: stretch;
+  .ant-tabs {
+    flex: 1;
+  }
+  .ant-tabs-content {
+    height: 100%;
+  }
+}
+.messages-tab-pane {
+  height: 100%;
+}
+.messager-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.message-preview-pane {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  flex-flow: column;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+  .text-left {
+    .messager-preview-message {
+      border-radius: 8px 0 8px 0;
+    }
+  }
+  .text-right {
+    .messager-preview-message {
+      border-radius: 0 8px 0 8px;
+    }
+  }
+}
+.message-input-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.message-send-button {
+  height: 100%;
+}
+.messager-preview-message {
+  background-color: #3982ee;
+  color: white;
+  padding: 10px 10px;
+  margin: 5px;
+}
+// .message-input {
+//   width: 100%;
+// }
+
 //************** common utils styles****************//
 
 //App titles
@@ -305,4 +363,11 @@ body {
 
 .full-wide {
   width: 100%;
+}
+
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
 }

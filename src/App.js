@@ -14,6 +14,7 @@ import Users from './components/Users';
 import Profile from './components/Profile/Profile';
 import PublicLayout from './components/Layouts/PublicLayout';
 import Forum from 'components/Forum/Forum';
+import Messages from 'components/Messages/Message';
 function App() {
   //Getting isAuthenticated store value from Authentication reducer.
   const { isAuthenticated } = useSelector((state) => state.authenticateReducer);
@@ -94,6 +95,9 @@ function ProtectedRoutes() {
       </Route>
       <Route path='/forum'>
         <Forum />
+      </Route>
+      <Route path='/messages'>
+        <Messages />
       </Route>
     </Switch>
   );
