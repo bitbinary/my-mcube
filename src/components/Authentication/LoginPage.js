@@ -2,9 +2,7 @@ import { Card, Tabs } from 'antd';
 import LoginForm from './LoginForm';
 const { TabPane } = Tabs;
 function LoginPage() {
-  function callback(key) {
-    console.log(key);
-  }
+  function callback(key) {}
   return (
     <>
       {/* <PageHeader
