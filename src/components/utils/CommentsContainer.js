@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Comment,
-  Tooltip,
-  Input,
-  Form,
-  Button,
-  List,
-  Spin,
-  Avatar,
-  Space,
-} from 'antd';
+import { Tooltip, Input, Form, List, Spin, Avatar, Space } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
 import AppTexts from './AppTexts';
@@ -156,10 +146,9 @@ export default function CommentsContainer({ ItemId }) {
   const [submitting, setSubmitting] = useState(false);
   const [newComment, setNewComment] = useState('');
   // const [data, setData] = useState([])
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
+  const [loading] = useState(false);
+  const [hasMore] = useState(true);
   const handleSubmit = () => {
-    console.log(newComment);
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
@@ -169,9 +158,7 @@ export default function CommentsContainer({ ItemId }) {
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
-  const handleInfiniteOnLoad = (e) => {
-    console.log('load more comments');
-  };
+  const handleInfiniteOnLoad = (e) => {};
   return (
     <>
       <Space direction='vertical' className='comment-list-spacer'>
