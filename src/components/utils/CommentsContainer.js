@@ -13,6 +13,7 @@ import {
 import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
 import AppTexts from './AppTexts';
+import Buttons from './Buttons';
 const { TextArea } = Input;
 const data = [
   {
@@ -132,7 +133,7 @@ const data = [
 ];
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
   <>
-    <Form.Item>
+    <Form.Item className='comment-input-wrapper'>
       <TextArea
         className='add-comment-input'
         rows={4}
@@ -140,15 +141,14 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
         value={value}
       />
     </Form.Item>
-    <Form.Item>
-      <Button
+    <Form.Item className='comment-submit-wrapper'>
+      <Buttons
         htmlType='submit'
         loading={submitting}
-        onClick={onSubmit}
+        handleClick={onSubmit}
         type='primary'
-      >
-        Add Comment
-      </Button>
+        content='Add Comment'
+      ></Buttons>
     </Form.Item>
   </>
 );
@@ -192,7 +192,11 @@ export default function CommentsContainer({ ItemId }) {
                     avatar={
                       <Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
                     }
-                    title={<a href='https://ant.design'>{item.title}</a>}
+                    title={
+                      <AppTexts href='https://ant.design'>
+                        {item.title}
+                      </AppTexts>
+                    }
                     description={<AppTexts content={item.content} />}
                   />
                   <div>Extra Content</div>
