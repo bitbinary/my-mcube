@@ -3,9 +3,7 @@ import RegisterForm from './RegisterForm';
 const { TabPane } = Tabs;
 
 function RegisterPage() {
-  function callback(key) {
-    console.log(key);
-  }
+  function callback(key) {}
   return (
     <>
       {/* <PageHeader
