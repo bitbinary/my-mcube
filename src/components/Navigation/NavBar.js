@@ -28,6 +28,9 @@ export default function NavBar() {
   const profile = () => {
     history.push('/profile');
   };
+  const goToMesages = () => {
+    history.push('/messages');
+  };
 
   const logout = () => {
     dispatch({
@@ -49,7 +52,7 @@ export default function NavBar() {
             <img src={logo} className='logo' alt='logo' key='logo' />
           </div>
         </Menu.Item>
-        <Menu.Item key='messages' icon={<MailOutlined />}>
+        <Menu.Item key='messages' icon={<MailOutlined />} onClick={goToMesages}>
           Messages
         </Menu.Item>
         {/* <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
