@@ -41,6 +41,7 @@ body {
   display: flex;
 }
 .container {
+  width: 100%;
   display: flex;
   justify-content: center;
   flex: 1;
@@ -67,6 +68,7 @@ body {
 .ant-layout {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .ant-layout-header {
   padding: 0 0;
@@ -151,6 +153,13 @@ body {
   padding: 24px;
   margin: 24px;
   border-radius: 8px;
+  @media screen and (max-width: 576px) {
+    .ant-list-item {
+      flex-wrap: nowrap;
+    }
+    margin: 0px;
+    padding: 0px;
+  }
   // box-shadow: 0 -3px 42px -17px #c7d2e8;
 }
 
