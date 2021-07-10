@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './App.scss';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
+import LoginPage from './components/Authentication/LoginPage';
+import RegisterPage from './components/Authentication/RegisterPage';
 import DashboardLayout from './components/Layouts/DashboardLayout';
 import Home from './components/HomePage/Home';
 import Users from './components/Users';
