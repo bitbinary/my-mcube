@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, List, Avatar, Button, Skeleton } from 'antd';
 import reqwest from 'reqwest';
 import { UserOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -12,20 +12,6 @@ function Reviews() {
   const [isLoading, setIsLoading] = useState(false);
   let [data, setData] = useState([]);
   let [list, setList] = useState([]);
-
-  useEffect(() => {
-    getData((res) => {
-      setInitLoading(false);
-      data = data.concat(res.results);
-      setData(data);
-      setList(data);
-    });
-  }, []);
-
-  /*useEffect(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, [data]);*/
-
   const getData = (callback) => {
     reqwest({
       url: fakeDataUrl,
@@ -37,6 +23,20 @@ function Reviews() {
       },
     });
   };
+  let d = useRef(data);
+  const gData = useRef(getData);
+  useEffect(() => {
+    gData.current((res) => {
+      setInitLoading(false);
+      d.current = d.current.concat(res.results);
+      setData(d.current);
+      setList(d.current);
+    });
+  }, []);
+
+  /*useEffect(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, [data]);*/
 
   const onLoadMore = () => {
     setIsLoading(true);

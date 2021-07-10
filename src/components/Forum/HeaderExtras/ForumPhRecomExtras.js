@@ -3,7 +3,7 @@ import Buttons from 'components/utils/Buttons';
 import { SearchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
-import MultipleSelects from 'components/utils/MultipleSelects';
+import SingleSelect from 'components/utils/SingleSelect';
 import { Space } from 'antd';
 
 const optionsType = ['Mentors', 'Mentees', 'Projects'];
@@ -13,9 +13,10 @@ export default function ForumPhRecomExtras() {
     (state) => state.forumReducer,
   );
   const onValueChangeTypes = (values) => {
+    // console.log(values);
     dispatch({
       type: actions.UPDATERECOMTYPES,
-      payload: { recommendationsselectedtypes: values },
+      payload: { recommendationsselectedtypes: [values.value] },
     });
   };
   const toggleLoading = () => {
@@ -26,7 +27,7 @@ export default function ForumPhRecomExtras() {
   };
   return (
     <Space>
-      <MultipleSelects
+      <SingleSelect
         defaultValue={recommendationsselectedtypes}
         selectOptions={optionsType}
         placeholder='Select Types'
