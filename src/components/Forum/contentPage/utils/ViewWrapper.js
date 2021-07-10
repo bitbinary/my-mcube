@@ -1,26 +1,28 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-export default function ViewWrapper({ children }) {
+export default function ViewWrapper({ children, grid = false }) {
   return (
-    <Row
-      lg={24}
-      md={24}
-      sm={24}
-      xs={24}
-      justify='center'
-      className='view-wrapper'
-    >
-      <Col
-        lg={24}
-        md={24}
+    <>
+      <Row
+        lg={grid ? 12 : 24}
+        md={grid ? 12 : 24}
         sm={24}
         xs={24}
-        justify='space-between'
-        align='middle'
-        className='view-container'
+        justify='center'
+        className='view-wrapper'
       >
-        {children}
-      </Col>
-    </Row>
+        <Col
+          lg={24}
+          md={24}
+          sm={24}
+          xs={24}
+          justify='space-between'
+          align='middle'
+          className='view-container'
+        >
+          {children}
+        </Col>
+      </Row>
+    </>
   );
 }

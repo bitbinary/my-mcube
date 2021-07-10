@@ -1,10 +1,15 @@
 import React from 'react';
 import Feeds from './contentPage/Feeds';
 import { useSelector } from 'react-redux';
+import Search from './contentPage/Search';
+import Recommendations from './contentPage/Recommendations';
 export default function ForumPage() {
   const { forumpage } = useSelector((state) => state.forumReducer);
-  if (forumpage === 'Feeds') return <Feeds />;
-  if (forumpage === 'Search') return <div>{forumpage}</div>;
-  if (forumpage === 'Recommendations') return <div>{forumpage}</div>;
-  else return <div>{forumpage}</div>;
+  return (
+    <div className='forum-page-wrapper'>
+      {forumpage === 'Feeds' && <Feeds />}
+      {forumpage === 'Search' && <Search />}
+      {forumpage === 'Recommendations' && <Recommendations />}
+    </div>
+  );
 }
