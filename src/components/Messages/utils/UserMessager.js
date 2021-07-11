@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Editor from 'components/Messages/utils/Editor';
 import MessagePreview from './MessagePreview';
-
-export default function UserMessager() {
+import { PageHeader } from 'antd';
+import { ArrowLeftOutlined, BarsOutlined } from '@ant-design/icons';
+export default function UserMessager({ contact, handleBack, collapsed }) {
   const [submitting, setSubmitting] = useState(false);
   const [newComment, setNewComment] = useState('');
 
@@ -18,6 +19,13 @@ export default function UserMessager() {
   };
   return (
     <div className='messager-wrapper'>
+      <PageHeader
+        className='site-page-header'
+        title={contact.name}
+        subTitle={contact.status}
+        onBack={handleBack}
+        backIcon={collapsed ? <BarsOutlined /> : <ArrowLeftOutlined />}
+      />
       <MessagePreview />
       <Editor
         handleChange={handleChange}
