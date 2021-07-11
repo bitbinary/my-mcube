@@ -4,7 +4,6 @@ import UserDetails from './UserDetails';
 import UserMessager from './utils/UserMessager';
 import { truncateName } from 'components/tools/getTruncatedName';
 
-import useWindowSize from 'components/tools/useWindowSize';
 const { Content, Sider } = Layout;
 const contacts = [
   { name: 'Amel Johny', status: 'Active', userId: 'asdf' },
@@ -20,11 +19,6 @@ const contacts = [
 export default function MessagesPage() {
   const [collapsed, setCollapsed] = useState(false);
   const [activeContact, setActiveContact] = useState(contacts[0]);
-  const size = useWindowSize();
-  let smallscreen = false;
-  if (size.width < 768) {
-    smallscreen = true;
-  }
 
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
