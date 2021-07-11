@@ -45,6 +45,7 @@ body {
   display: flex;
   justify-content: center;
   flex: 1;
+  min-width: 320px;
 }
 .container-login {
   display: flex;
@@ -162,17 +163,49 @@ body {
   }
   // box-shadow: 0 -3px 42px -17px #c7d2e8;
 }
-
+.forum-page-header {
+  @media screen and (max-width: 576px) {
+    padding: 10px 10px;
+  }
+  @media screen and (max-width: 768px) {
+    justify-content: flex-end;
+    .ant-page-header-heading {
+      justify-content: space-around;
+    }
+  }
+}
 .forum-page-header-extra-wrapper {
   background-color: #ffffff;
+  flex: 1 1 auto;
+  .ant-page-header-heading {
+    margin-left: auto;
+    align-content: space-between;
+  }
+  .ant-space {
+    justify-content: space-around;
+  }
+  justify-content: center;
 }
 .forum-page-header-extra-container {
   display: flex;
+  flex-wrap: wrap;
+}
+.forum-page-header-extra-spacer {
+  flex-wrap: wrap;
+  @media screen and (max-width: 576px) {
+    flex-flow: column;
+    .ant-space-item {
+      width: 100%;
+    }
+  }
 }
 .multiselect {
   min-width: 180px;
   margin: auto;
   flex: 1;
+  @media screen and (max-width: 576px) {
+    min-width: 150px;
+  }
 }
 .new-post-submit {
   float: right;
