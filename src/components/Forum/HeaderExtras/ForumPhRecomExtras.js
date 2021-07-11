@@ -4,7 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
 import SingleSelect from 'components/utils/SingleSelect';
-import { Space } from 'antd';
+import { Space, Row } from 'antd';
 
 const optionsType = ['Mentors', 'Mentees', 'Projects'];
 export default function ForumPhRecomExtras() {
@@ -26,22 +26,32 @@ export default function ForumPhRecomExtras() {
     });
   };
   return (
-    <Space>
-      <SingleSelect
-        defaultValue={recommendationsselectedtypes}
-        selectOptions={optionsType}
-        placeholder='Select Types'
-        handleChange={(values) => onValueChangeTypes(values)}
-        // tagRender={() => <>{null}</>}
-        className='multiselect forum-recom-type-select'
-      />
-      <Buttons
-        type='primary'
-        shape='round'
-        icon={<SearchOutlined />}
-        content='Get Recommendations'
-        handleClick={() => toggleLoading()}
-      />
-    </Space>
+    <Row
+      lg={20}
+      md={20}
+      sm={20}
+      xs={22}
+      justify='space-between'
+      align='middle'
+      className='forum-page-header-extra-wrapper'
+    >
+      <Space className='forum-page-header-extra-spacer'>
+        <SingleSelect
+          defaultValue={recommendationsselectedtypes}
+          selectOptions={optionsType}
+          placeholder='Select Types'
+          handleChange={(values) => onValueChangeTypes(values)}
+          // tagRender={() => <>{null}</>}
+          className='multiselect forum-recom-type-select'
+        />
+        <Buttons
+          type='primary'
+          shape='round'
+          icon={<SearchOutlined />}
+          content='Get Recommendations'
+          handleClick={() => toggleLoading()}
+        />
+      </Space>
+    </Row>
   );
 }
