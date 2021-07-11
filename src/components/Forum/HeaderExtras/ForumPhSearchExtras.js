@@ -91,7 +91,7 @@ export default function ForumPhSearchExtras() {
       align='middle'
       className='forum-page-header-extra-wrapper'
     >
-      <Space>
+      <Space className='forum-page-header-extra-spacer'>
         <MultipleSelects
           key='multiselectSkills'
           defaultValue={searchselectedskills}
