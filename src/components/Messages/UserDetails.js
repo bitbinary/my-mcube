@@ -12,6 +12,7 @@ export default function UserDetails() {
         <div>
           <Avatar
             large
+            className='user-details-avatar'
             src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
           />
         </div>

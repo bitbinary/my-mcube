@@ -39,7 +39,7 @@ export default function MessagesPage() {
           style={{
             overflow: 'auto',
             height: '100vh',
-            position: 'fixed',
+            position: 'absolute',
             left: 0,
             zIndex: 999,
           }}
@@ -54,7 +54,7 @@ export default function MessagesPage() {
             {contacts.map((contact) => (
               <Menu.Item
                 key={contact.userId}
-                style={{ paddingLeft: 10 }}
+                className='messager-sidebar-menu-item'
                 icon={
                   <Avatar
                     style={{ backgroundColor: '#87d068' }}
@@ -72,10 +72,7 @@ export default function MessagesPage() {
             ))}
           </Menu>
         </Sider>
-        <Layout
-          className='site-layout'
-          style={!collapsed ? { marginLeft: 205 } : { marginLeft: 85 }}
-        >
+        <Layout style={!collapsed ? { marginLeft: 205 } : { marginLeft: 85 }}>
           <Content style={{}}>
             <UserMessager
               contact={activeContact}
