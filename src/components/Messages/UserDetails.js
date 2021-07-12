@@ -7,10 +7,12 @@ export default function UserDetails() {
   return (
     <Card
       style={{ width: '100%' }}
+      className='messager-user-details-card'
       cover={
         <div>
           <Avatar
             large
+            className='user-details-avatar'
             src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
           />
         </div>
