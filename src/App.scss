@@ -105,7 +105,9 @@ body {
 .ant-typography {
   color: #4a4b4e;
 }
-
+.ant-layout-header .ant-menu {
+  border-bottom: none;
+}
 //Home page
 .home-page-section {
   background-color: #f8f9fa;
@@ -319,6 +321,15 @@ body {
 .message-menu-item-avatar {
   .ant-avatar-string {
     line-height: 33px;
+  }
+}
+.messager-user-details-card {
+  padding-top: 24px;
+  border: none;
+  background-color: transparent;
+  .ant-card-meta-title,
+  .ant-card-meta-description {
+    color: #fff;
   }
 }
 // .message-input {
