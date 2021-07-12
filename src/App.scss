@@ -105,7 +105,9 @@ body {
 .ant-typography {
   color: #4a4b4e;
 }
-
+.ant-layout-header .ant-menu {
+  border-bottom: none;
+}
 //Home page
 .home-page-section {
   background-color: #f8f9fa;
@@ -277,7 +279,11 @@ body {
 .messager-wrapper {
   display: flex;
   flex-direction: column;
+  position: relative;
   height: 100%;
+  .ant-page-header {
+    background-color: #0015290f;
+  }
 }
 .message-preview-pane {
   display: flex;
@@ -320,6 +326,22 @@ body {
   .ant-avatar-string {
     line-height: 33px;
   }
+}
+.messager-user-details-card {
+  padding-top: 24px;
+  border: none;
+  background-color: transparent;
+  .user-details-avatar {
+    height: 80px;
+    width: 80px;
+  }
+  .ant-card-meta-title,
+  .ant-card-meta-description {
+    color: #fff;
+  }
+}
+.messager-sidebar-menu-item {
+  margin: auto;
 }
 // .message-input {
 //   width: 100%;
