@@ -4,9 +4,13 @@ import React from 'react';
 
 export default function MessagePreview({
   messages = [
-    { message: 'Hi, How are you ', sender: 'text-left' },
-    { message: 'How are you!!? ', sender: 'text-right' },
+    {
+      message:
+        'Hi, How are you,Hi, How are you ,Hi, How are you ,Hi, How are you ',
+      sender: 'text-left',
+    },
     { message: 'I am fine, Thanks', sender: 'text-right' },
+    { message: 'How are you!!? ', sender: 'text-right' },
     { message: 'I am feeling great', sender: 'text-left' },
   ],
 }) {
@@ -18,6 +22,7 @@ export default function MessagePreview({
             <AppTexts
               content={message.message}
               className={'messager-preview-message'}
+              containerStyles={'messager-preview-message-container'}
             />
           </div>
         ))}
