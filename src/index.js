@@ -5,7 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from 'redux/store';
-
 ReactDOM.render(
   <React.StrictMode>
     {/*Redux Provider is included access the store values from anywhere inside the child components.*/}

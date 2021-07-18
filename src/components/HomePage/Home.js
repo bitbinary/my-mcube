@@ -10,7 +10,13 @@ function Home() {
     <ContentWrapper>
       <HomeBanner
         bannerTitle='Explore Learn Share.'
-        bannerDescription='Explore the opportunities that lie ahead, Find out the people who can help you learn, Share knowlegde with other who seek advice'
+        // bannerDescription={
+        //   <>
+        //     Explore the opportunities that lie ahead{<br />}Find out the people
+        //     who can help you learn {<br />}Share knowlegde with those who seek
+        //     for it
+        //   </>
+        // }
       ></HomeBanner>
 
       <HomeFeature
