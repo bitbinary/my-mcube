@@ -31,7 +31,7 @@ export default function Feed({
     setCommentsVisible(!commentsVisible);
   };
   return (
-    <ViewWrapper grid={true}>
+    <ViewWrapper>
       <List className='feed-list-wrapper'>
         <List.Item
           key={title + index}
