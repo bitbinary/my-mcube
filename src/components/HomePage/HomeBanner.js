@@ -15,7 +15,7 @@ export default function HomeBanner({ bannerTitle, bannerDescription }) {
   };
   return (
     <Row className='home-page-section' justify='space-between' align='middle'>
-      <div>
+      <div className='home-banner-video-container'>
         <video
           playsInline
           autoPlay
@@ -26,8 +26,6 @@ export default function HomeBanner({ bannerTitle, bannerDescription }) {
           className='home-banner-video'
         >
           <source src={bannerVideo} type='video/mp4' />
-          {/* <source src={bannerVideo2} type='video/mp4' />
-          <source src={bannerVideo3} type='video/mp4' /> */}
         </video>
         <div className='banner-video-tint'></div>
       </div>
