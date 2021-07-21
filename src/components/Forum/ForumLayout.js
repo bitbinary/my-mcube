@@ -17,7 +17,7 @@ export default function ForumLayout({ children }) {
   };
 
   return (
-    <ViewWrapper>
+    <ViewWrapper grid={true}>
       <Tabs onTabClick={onChange} centered type='card'>
         <TabPane tab='Feeds' key='Feeds' className='forum-page-content '>
           <PageHeader
