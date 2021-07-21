@@ -1,5 +1,5 @@
-import React from 'react';
-import { Row, Col, Select, PageHeader, Tag } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Select, Tag } from 'antd';
 import SectionDivider from '../utils/SectionDivider';
 import { Input, Tooltip } from 'antd';
 import { InfoCircleOutlined, TagsOutlined } from '@ant-design/icons';
@@ -8,32 +8,24 @@ const { Option } = Select;
 const { Search } = Input;
 
 function Skills() {
-  /*let tagsList;
   const [tags, setTags] = useState([]);
+  const [tagsList, setTagsList] = useState(null);
 
   useEffect(() => {
-    tagsList = null;
-    tagsList = tags.map(function (tag) {
+    let tagsList1 = null;
+    tagsList1 = tags.map(function (tag) {
       return <Tag color='rgb(43, 43, 183)'>{tag}</Tag>;
     });
-  }, [tags]);*/
+    setTagsList(tagsList1);
+  }, [tags]);
 
   function handleChange(value) {
     //console.log(`selected ${value}`);
-    // console.log(tags);
-    // console.log(value);
-    // setTags(value);
-    // console.log(tags);
+    setTags(value);
   }
 
   return (
     <>
-      <PageHeader
-        className='site-page-header'
-        title='Skills'
-        subTitle='Add skills to your Profile'
-        style={{ marginBottom: '20px' }}
-      />
       <Row gutter={16}>
         <Col span={18}>
           <Select
@@ -41,13 +33,13 @@ function Skills() {
             style={{ width: '100%' }}
             placeholder='select skills'
             size='small'
-            defaultValue={['Java', 'DataScience']}
+            defaultValue={['Java', 'Data Science']}
             onChange={handleChange}
           >
             <Option value='Java' label='Java'>
               <div className='demo-option-label-item'>Java</div>
             </Option>
-            <Option value='Data Science' label='ata Science'>
+            <Option value='Data Science' label='Data Science'>
               <div className='demo-option-label-item'>Data Science</div>
             </Option>
             <Option value='AI' label='AI'>
@@ -74,9 +66,9 @@ function Skills() {
       </Row>
       <SectionDivider />
       <div>
-        <Tag color='rgb(43, 43, 183)'>Java</Tag>
-        <Tag color='rgb(43, 43, 183)'>Data Science</Tag>
-        {/* {tagsList} */}
+        {/* <Tag color='rgb(43, 43, 183)'>Java</Tag>
+        <Tag color='rgb(43, 43, 183)'>Data Science</Tag> */}
+        {tagsList}
       </div>
     </>
   );
