@@ -5,6 +5,8 @@ import AppTitles from 'components/utils/AppTitles';
 import AppTexts from 'components/utils/AppTexts';
 import Buttons from 'components/utils/Buttons';
 import { useHistory } from 'react-router-dom';
+import bannerVideo from 'assets/homeBgVideo.mp4';
+import bannerimg from 'banner.jpg';
 // import { Container, TextWrapper, Content } from './styles';
 export default function HomeBanner({ bannerTitle, bannerDescription }) {
   const history = useHistory();
@@ -13,6 +15,20 @@ export default function HomeBanner({ bannerTitle, bannerDescription }) {
   };
   return (
     <Row className='home-page-section' justify='space-between' align='middle'>
+      <div className='home-banner-video-container'>
+        <video
+          playsInline
+          autoPlay
+          muted
+          loop
+          poster={bannerimg}
+          id='bgvid'
+          className='home-banner-video'
+        >
+          <source src={bannerVideo} type='video/mp4' />
+        </video>
+        <div className='banner-video-tint'></div>
+      </div>
       <Col
         lg={24}
         md={24}
@@ -22,13 +38,22 @@ export default function HomeBanner({ bannerTitle, bannerDescription }) {
         align='middle'
       >
         <Row className='' justify='center' align='middle'>
-          <Col lg={20} md={20} sm={24} xs={24}>
+          <Col
+            lg={20}
+            md={20}
+            sm={24}
+            xs={24}
+            className='home-banner-container'
+          >
             <AppTitles
-              className='xlarge strong home-landing-title'
+              className='xlarge xstrong home-landing-title text-white'
               content={bannerTitle}
             />
             <div className='home-page-text-wrapper'>
-              <AppTexts className='medium' content={bannerDescription} />
+              <AppTexts
+                className='medium  text-white'
+                content={bannerDescription}
+              />
             </div>
             <Buttons
               handleClick={() => goToDashboard()}
