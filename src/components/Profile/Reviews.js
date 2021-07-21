@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, List, Avatar, Button, Skeleton } from 'antd';
 import reqwest from 'reqwest';
 import { UserOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
@@ -10,8 +10,24 @@ function Reviews() {
 
   const [initLoading, setInitLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  let [data, setData] = useState([]);
-  let [list, setList] = useState([]);
+  const [data, setData] = useState([]);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    getData((res) => {
+      setInitLoading(false);
+      // eslint-disable-next-line
+      let data1 = data.concat(res.results);
+      setData(data1);
+      setList(data1);
+    });
+    // eslint-disable-next-line
+  }, []);
+
+  /*useEffect(() => {
+    window.dispatchEvent(new Event('resize'));
+  }, [data]);*/
+
   const getData = (callback) => {
     reqwest({
       url: fakeDataUrl,
@@ -23,20 +39,6 @@ function Reviews() {
       },
     });
   };
-  let d = useRef(data);
-  const gData = useRef(getData);
-  useEffect(() => {
-    gData.current((res) => {
-      setInitLoading(false);
-      d.current = d.current.concat(res.results);
-      setData(d.current);
-      setList(d.current);
-    });
-  }, []);
-
-  /*useEffect(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, [data]);*/
 
   const onLoadMore = () => {
     setIsLoading(true);
@@ -47,9 +49,9 @@ function Reviews() {
     );
 
     getData((res) => {
-      data = data.concat(res.results);
-      setData(data);
-      setList(data);
+      let data1 = data.concat(res.results);
+      setData(data1);
+      setList(data1);
       setIsLoading(false);
     });
   };
@@ -75,7 +77,7 @@ function Reviews() {
     <>
       <List
         className='demo-loadmore-list'
-        style={{ 'min-height': '350px' }}
+        style={{ 'minHeight': '350px' }}
         loading={initLoading}
         itemLayout='horizontal'
         loadMore={loadMore}
