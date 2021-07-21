@@ -38,7 +38,7 @@ function Profile() {
   };
 
   const openMailInNewTab = (url) => {
-    window.open('mailto:' + url, '_blank');
+    window.open(`mailto: ${url}`, '_blank');
   };
 
   return (
