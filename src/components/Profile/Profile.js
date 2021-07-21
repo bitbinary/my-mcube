@@ -20,9 +20,9 @@ function Profile() {
   const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleClick = () => {
-    openEditUsertModel('userId');
-  };
+  // const handleClick = () => {
+  //   openEditUsertModel('userId');
+  // };
 
   const openEditUsertModel = (UserId) => {
     setUserId(UserId);

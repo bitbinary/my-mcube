@@ -24,7 +24,7 @@ function Projects() {
     let temp_arr;
     temp_arr = [...itemsArray, 1];
     setItemsArray(temp_arr);
-    if (temp_arr.length == 15) {
+    if (temp_arr.length === 15) {
       alert('hereee');
       setHasMoreContents(false);
     }

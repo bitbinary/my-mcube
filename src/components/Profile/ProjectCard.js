@@ -1,10 +1,6 @@
 import React from 'react';
 import { Button, Card, Col } from 'antd';
-import {
-  EditOutlined,
-  ExpandOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons';
+import { ExpandOutlined, DeleteOutlined } from '@ant-design/icons';
 
 function ProjectCard({ openProjectModel }) {
   const handleClick = () => {
