@@ -85,7 +85,7 @@ function ProtectedRoutes() {
   return (
     <Switch>
       <Route path='/dashboard'>
-        <Users />
+        <Profile />
       </Route>
       <Route path='/users'>
         <Users />

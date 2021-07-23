@@ -1,102 +1,177 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import actions from 'redux/Forum/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
-import Feed from './utils/Feed';
-import { Space, Empty } from 'antd';
+import RecommMM from './utils/RecommM&M';
+import { Space, Empty, Row } from 'antd';
 import Buttons from 'components/utils/Buttons';
+import RecommProjects from './utils/RecommProjects';
+import ProjectModal from 'components/Profile/ProjectModal';
+import UserModal from 'components/utils/UserModal';
 export default function Recommendations() {
   const dispatch = useDispatch();
-  const { contentFeeds, feedLoading } = useSelector(
-    (state) => state.forumReducer,
-  );
-  let currentContentFeed = useRef(contentFeeds);
-  const [data, setData] = useState([]);
-  function getDummy() {
-    let numberofDummy = 5;
-    let dummyData = [];
-    for (var i = 0; i < numberofDummy; i++) {
-      dummyData.push({ title: `dummy${i}`, loading: true });
-    }
-    return dummyData;
-  }
+  const {
+    recommLoading,
+    recommselectedtype,
+    contentRecommMentees,
+    contentRecommMentors,
+    contentRecommProjects,
+  } = useSelector((state) => state.forumReducer);
+  const [idForModal, setIdForModal] = useState('');
+  const [isUserModalVisible, setIsUserModalVisible] = useState(false);
+  const [isProjectModalVisible, setIsProjectModalVisible] = useState(false);
+  var displayData = [];
+  // function getDummy() {
+  //   let numberofDummy = 5;
+  //   let dummyData = [];
+  //   for (var i = 0; i < numberofDummy; i++) {
+  //     dummyData.push({ title: `dummy${i}`, loading: true });
+  //   }
+  //   return dummyData;
+  // }
   useEffect(() => {
-    // eslint-disable-next-line
-    // eslint-disable-next-line
-    setData([...currentContentFeed.current, ...getDummy()]);
     dispatch({
-      type: actions.GETFEEDS,
-      params: { filters: [], type: [] },
+      type: actions.GETRECOMM,
+      params: { user_id: 2, recommType: recommselectedtype },
     });
     return () => {};
-  }, [dispatch]);
+  }, [recommselectedtype, dispatch]);
 
-  useEffect(() => {
-    setData(contentFeeds);
-    return () => {};
-  }, [contentFeeds]);
-  const addMoreFeeds = () => {
+  const addMoreRecomm = () => {
     dispatch({
-      type: actions.FEEDLOADING,
+      type: actions.RECOMMLOADING,
       isloading: true,
     });
-    setData([...contentFeeds, ...getDummy()]);
-    dispatch({
-      type: actions.ADDFEEDS,
-      params: { filters: [], type: [] },
-    });
-    return () => {};
+    switch (recommselectedtype) {
+      case 'project':
+        dispatch({
+          type: actions.ADDRECOMM,
+          params: { user_id: 2, recommType: recommselectedtype },
+        });
+        break;
+      case 'mentees':
+        dispatch({
+          type: actions.ADDRECOMM,
+          params: { user_id: 2, recommType: recommselectedtype },
+        });
+        break;
+      case 'mentor':
+        dispatch({
+          type: actions.ADDRECOMM,
+          params: { user_id: 2, recommType: recommselectedtype },
+        });
+        break;
+      default:
+        return null;
+    }
   };
-  if (data.length > 0) {
+
+  const handleMoreDetails = (type, id) => {
+    setIdForModal(id);
+    if (type === 'project_id') {
+      setIsProjectModalVisible(true);
+    } else {
+      setIsUserModalVisible(true);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsProjectModalVisible(false);
+    setIsUserModalVisible(false);
+  };
+  if (recommselectedtype === 'project') displayData = contentRecommProjects;
+  else if (recommselectedtype === 'mentees') displayData = contentRecommMentees;
+  else displayData = contentRecommMentors;
+
+  if (displayData.length > 0) {
     return (
       <>
+        <ProjectModal
+          isModalVisible={isProjectModalVisible}
+          projectId={idForModal}
+          handleCancel={handleCancel}
+        />
+        <UserModal
+          isModalVisible={isUserModalVisible}
+          projectId={idForModal}
+          handleCancel={handleCancel}
+        />
         <InfiniteScroll
           pageStart={0}
           initialLoad={false}
-          loadMore={() => addMoreFeeds()}
+          loadMore={() => addMoreRecomm()}
           hasMore={true || false}
           // element={ListWrapper}
           loader={
-            <div className='feed-loader-wrapper' key={0}>
+            <div className='Recomm-loader-wrapper' key={0}>
               <Space direction='vertical'>
                 <Buttons
                   type='primary'
-                  loading={feedLoading}
-                  handleClick={() => addMoreFeeds()}
-                  content={feedLoading ? 'Loading More' : 'Load More'}
+                  loading={recommLoading}
+                  handleClick={() => addMoreRecomm()}
+                  content={recommLoading ? 'Loading More' : 'Load More'}
                 ></Buttons>
               </Space>
             </div>
           }
           threshold={100}
         >
-          <Space size={10} className='full-wide' direction='vertical'>
-            {data.map((feed, index) => (
-              <Feed
-                key={feed.title + index}
-                index={index}
-                title={feed.title}
-                description={feed.description}
-                lastModified={feed.lastModifiedAt}
-                createdAt={feed.createdAt}
-                postOwner={feed.postOwner}
-                commentCount={feed.commentCount}
-                loading={feed?.loading}
-              />
-            ))}
-          </Space>
+          <Row gutter={[16, 16]}>
+            {displayData.map((recomm, index) =>
+              recommselectedtype !== 'project' ? (
+                <RecommMM
+                  key={recomm?.first_name + index}
+                  index={index}
+                  city={recomm?.city}
+                  country={recomm?.country}
+                  profilePicLink={recomm?.profile_link}
+                  firstName={recomm?.first_name}
+                  lastName={recomm?.last_name}
+                  email={recomm?.email}
+                  user_id={recomm?.user_id}
+                  skills={recomm?.skill_name}
+                  loading={recomm?.loading}
+                  userType={recomm?.user_type}
+                  handleClick={handleMoreDetails}
+                />
+              ) : (
+                <RecommProjects
+                  index={index}
+                  key={recomm?.first_name + index}
+                  projectTitle={recomm?.title}
+                  firstName={recomm?.first_name}
+                  lastName={recomm?.last_name}
+                  projectDescription={recomm?.description}
+                  email={recomm?.email}
+                  projectStatus={recomm?.status}
+                  user_id={recomm?.user_id}
+                  project_id={recomm?.project_id}
+                  loading={recomm?.loading}
+                  userType={recomm?.user_type}
+                  location={recomm?.location}
+                  startDate={recomm?.start_date}
+                  skills={recomm?.skill_name}
+                  handleClick={handleMoreDetails}
+                />
+              ),
+            )}
+          </Row>
         </InfiniteScroll>
       </>
     );
-  } else if (feedLoading) {
+  } else if (recommLoading) {
     return (
       <Empty
         image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
         imageStyle={{
           height: 60,
         }}
-        description={<span>Collecting Feeds...</span>}
-      ></Empty>
+        description={<span>Collecting Recomm...</span>}
+      >
+        {contentRecommMentors}
+        {contentRecommMentees}
+        {contentRecommProjects}
+      </Empty>
     );
   } else {
     return (
@@ -105,9 +180,9 @@ export default function Recommendations() {
         imageStyle={{
           height: 60,
         }}
-        description={<span>No Feeds...</span>}
+        description={<span>No Recomm...</span>}
       >
-        <Buttons handleClick={addMoreFeeds} content='Retry loading feeds' />
+        <Buttons handleClick={addMoreRecomm} content='Retry loading Recomm' />
       </Empty>
     );
   }

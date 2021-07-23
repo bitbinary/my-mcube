@@ -50,10 +50,7 @@ export default function Feed({
               avatar={<Avatar icon={<UserOutlined />} />}
               title={
                 <>
-                  <AppTexts
-                    className='mediumlarge'
-                    content='Re:Regarding Project'
-                  ></AppTexts>
+                  <AppTexts className='mediumlarge' content={title}></AppTexts>
                   <Tooltip
                     title={moment()
                       .subtract(1, 'days')
