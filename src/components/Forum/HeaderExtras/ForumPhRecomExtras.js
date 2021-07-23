@@ -6,17 +6,20 @@ import actions from 'redux/Forum/actions';
 import SingleSelect from 'components/utils/SingleSelect';
 import { Space, Row } from 'antd';
 
-const optionsType = ['Mentors', 'Mentees', 'Projects'];
+const optionsType = [
+  { value: 'mentor', label: 'Mentors' },
+  { value: 'mentees', label: 'Mentees' },
+  { value: 'project', label: 'Projects' },
+];
 export default function ForumPhRecomExtras() {
   const dispatch = useDispatch();
-  const { recommendationsselectedtypes, loader } = useSelector(
+  const { recommselectedtype, loader } = useSelector(
     (state) => state.forumReducer,
   );
   const onValueChangeTypes = (values) => {
-    // console.log(values);
     dispatch({
       type: actions.UPDATERECOMTYPES,
-      payload: { recommendationsselectedtypes: [values.value] },
+      payload: { recommendationsselectedtypes: values },
     });
   };
   const toggleLoading = () => {
@@ -37,7 +40,7 @@ export default function ForumPhRecomExtras() {
     >
       <Space className='forum-page-header-extra-spacer'>
         <SingleSelect
-          defaultValue={recommendationsselectedtypes}
+          defaultValue={recommselectedtype}
           selectOptions={optionsType}
           placeholder='Select Types'
           handleChange={(values) => onValueChangeTypes(values)}
