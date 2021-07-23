@@ -1,7 +1,7 @@
 import actions from 'redux/Authenticate/actions';
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   loader: false,
 };
 
