@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import actions from 'redux/Authenticate/actions';
 import { useSelector } from 'react-redux';
@@ -6,10 +6,12 @@ import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 
-export default function LoginForm() {
+export default function LoginForm({ userType }) {
   const history = useHistory();
   const { loader } = useSelector((state) => state.authenticateReducer);
   const dispatch = useDispatch();
+  const [userName, setUserName] = useState('');
+  const [userPassword, setUserPassword] = useState('');
   const toRegisterPage = () => {
     history.push('/register');
   };
@@ -17,7 +19,11 @@ export default function LoginForm() {
   let onFinish = () => {
     dispatch({
       type: actions.LOGIN,
-      payload: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
+      payload: {
+        username: userName,
+        password: userPassword,
+        usertype: userType,
+      },
     });
   };
   return (
@@ -43,6 +49,8 @@ export default function LoginForm() {
           prefix={<UserOutlined className='site-form-item-icon' />}
           placeholder='Username'
           autoComplete='username'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
         />
       </Form.Item>
       <Form.Item
@@ -60,6 +68,8 @@ export default function LoginForm() {
           placeholder='Password'
           size='large'
           autoComplete='current-password'
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
         />
       </Form.Item>
       {/* <Form.Item>

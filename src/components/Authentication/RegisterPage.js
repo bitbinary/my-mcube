@@ -6,11 +6,6 @@ function RegisterPage() {
   function callback(key) {}
   return (
     <>
-      {/* <PageHeader
-        className='site-page-header'
-        title='Registration'
-        subTitle='Welcome Onboard'
-      /> */}
       <div className='container-login'>
         <Card
           title='Registration'

@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import actions from 'redux/Authenticate/actions';
 import { useSelector } from 'react-redux';
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
-export default function RegisterForm() {
+export default function RegisterForm({ userType }) {
   const history = useHistory();
   const { loader } = useSelector((state) => state.authenticateReducer);
-
+  const [userName, setUserName] = useState('');
+  const [userFirstName, setUserFirstName] = useState('');
+  const [userLastName, setUserLastName] = useState('');
+  const [userPassword, setUserPassword] = useState('');
   const dispatch = useDispatch();
 
   let onFinish = () => {
     dispatch({
-      type: actions.LOGIN,
-      payload: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
+      type: actions.SIGNUP,
+      payload: {
+        username: userName,
+        first_name: userFirstName,
+        last_name: userLastName,
+        password: userPassword,
+        usertype: userType,
+      },
     });
   };
   const toLoginPage = () => {
@@ -30,19 +39,39 @@ export default function RegisterForm() {
       onFinish={onFinish}
     >
       <Form.Item
-        name='fullname'
+        name='firstname'
         rules={[
           {
             required: true,
-            message: 'Please input your Full Name!',
+            message: 'Please input your First Name!',
           },
         ]}
       >
         <Input
           size='large'
           prefix={<UserOutlined className='site-form-item-icon' />}
-          placeholder='Full Name'
-          autoComplete='Full Name'
+          placeholder='First Name'
+          autoComplete='First Name'
+          value={userFirstName}
+          onChange={(e) => setUserFirstName(e.target.value)}
+        />
+      </Form.Item>
+      <Form.Item
+        name='lastname'
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Last Name!',
+          },
+        ]}
+      >
+        <Input
+          size='large'
+          prefix={<UserOutlined className='site-form-item-icon' />}
+          placeholder='Last Name'
+          autoComplete='Last Name'
+          value={userLastName}
+          onChange={(e) => setUserLastName(e.target.value)}
         />
       </Form.Item>
       <Form.Item
@@ -59,6 +88,7 @@ export default function RegisterForm() {
           prefix={<UserOutlined className='site-form-item-icon' />}
           placeholder='Username'
           autoComplete='username'
+          onChange={(e) => setUserName(e.target.value)}
         />
       </Form.Item>
       <Form.Item
@@ -76,6 +106,7 @@ export default function RegisterForm() {
           placeholder='Password'
           size='large'
           autoComplete='current-password'
+          onChange={(e) => setUserPassword(e.target.value)}
         />
       </Form.Item>
       {/* <Form.Item>

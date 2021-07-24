@@ -1,11 +1,52 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import actions from 'redux/Authenticate/actions';
-import { getRequest } from 'Config/axiosClient';
+import { postRequest } from 'Config/axiosClient';
 
 function* login(action) {
   try {
-    const response = yield call(() => getRequest('login/1', action.payload));
-    yield put({ type: actions.LOGIN_SUCCESS, status: response.data.status });
+    const response = yield call(() => postRequest('login', action.payload));
+    if (response?.data?.success) {
+      yield put({
+        type: actions.LOGIN_SUCCESS,
+        data: response?.data,
+        userType: action.payload.usertype,
+      });
+    } else if (response?.data?.success === false) {
+      yield put({
+        type: actions.LOGIN_FAILURE,
+        message: response?.data?.message,
+      });
+    } else {
+      yield put({
+        type: actions.LOGIN_FAILURE,
+        message: 'Failed to complete login request',
+      });
+    }
+  } catch (e) {
+    yield put({ type: actions.LOGIN_FAILURE });
+  }
+}
+
+function* signup(action) {
+  try {
+    const response = yield call(() => postRequest('signup', action.payload));
+    if (response?.data?.success) {
+      yield put({
+        type: actions.LOGIN_SUCCESS,
+        data: response?.data,
+        userType: action.payload.usertype,
+      });
+    } else if (response?.data?.success === false) {
+      yield put({
+        type: actions.LOGIN_FAILURE,
+        message: response?.data?.message,
+      });
+    } else {
+      yield put({
+        type: actions.LOGIN_FAILURE,
+        message: 'Failed to complete login request',
+      });
+    }
   } catch (e) {
     yield put({ type: actions.LOGIN_FAILURE });
   }
@@ -13,4 +54,5 @@ function* login(action) {
 
 export default function* rootSaga() {
   yield all([takeLatest(actions.LOGIN, login)]);
+  yield all([takeLatest(actions.SIGNUP, signup)]);
 }
