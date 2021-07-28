@@ -114,9 +114,9 @@ export default function Recommendations() {
               </Space>
             </div>
           }
-          threshold={100}
+          threshold={150}
         >
-          <Row gutter={[16, 16]}>
+          <Row className='recommendation-container' gutter={[16, 16]}>
             {displayData.map((recomm, index) =>
               recommselectedtype !== 'project' ? (
                 <RecommMM

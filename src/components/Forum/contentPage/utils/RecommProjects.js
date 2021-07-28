@@ -34,7 +34,7 @@ export default function RecommProjects({
             </div>
           </>
         }
-        style={{ float: 'left' }}
+        // style={{}}
         actions={[
           <Button onClick={() => handleClick('project_id', project_id)}>
             <ExpandOutlined key='expand' />

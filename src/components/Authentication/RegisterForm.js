@@ -23,6 +23,7 @@ export default function RegisterForm({ userType }) {
         last_name: userLastName,
         password: userPassword,
         usertype: userType,
+        Fullname: `${userFirstName} ${userLastName}`,
       },
     });
   };

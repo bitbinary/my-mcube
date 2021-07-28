@@ -18,11 +18,12 @@ function UserModal({ isModalVisible, userID, handleCancel }) {
 
   return (
     <Modal
-      title='Chat Application'
+      title='User Profile'
       visible={isModalVisible}
       onCancel={handleCancel}
       onOk={showConfirm}
       width='100%'
+      style={{ maxWidth: 1600 }}
     >
       <Profile />
     </Modal>
