@@ -23,7 +23,7 @@ function Profile({ user_id }) {
   const { Paragraph } = Typography;
   const dispatch = useDispatch();
 
-  const [userId, setUserId] = useState('');
+  // const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { profileData, userId } = useSelector((state) => state.profileReducer);
@@ -53,7 +53,7 @@ function Profile({ user_id }) {
   // };
 
   const openEditUsertModel = (UserId) => {
-    setUserId(UserId);
+    // setUserId(UserId);
     setIsModalVisible(true);
   };
 
