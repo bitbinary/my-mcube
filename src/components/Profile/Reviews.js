@@ -1,127 +1,130 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, List, Avatar, Button, Skeleton } from 'antd';
-import reqwest from 'reqwest';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  Row,
+  Col,
+  List,
+  Avatar,
+  Button,
+  Skeleton,
+  Collapse,
+  Form,
+  Input,
+} from 'antd';
+import actions from 'redux/Profile/actions';
 import { UserOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import SectionDivider from '../utils/SectionDivider';
+import { getRandomColor } from '../tools/colorGenerator';
 
 function Reviews() {
-  const count = 3;
-  const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat&noinfo`;
+  const { Panel } = Collapse;
+  const { TextArea } = Input;
+  const dispatch = useDispatch();
 
-  const [initLoading, setInitLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [list, setList] = useState([]);
-
+  const { userReviewsList } = useSelector((state) => state.profileReducer);
   useEffect(() => {
-    getData((res) => {
-      setInitLoading(false);
-      // eslint-disable-next-line
-      let data1 = data.concat(res.results);
-      setData(data1);
-      setList(data1);
-    });
-    // eslint-disable-next-line
-  }, []);
-
-  /*useEffect(() => {
-    window.dispatchEvent(new Event('resize'));
-  }, [data]);*/
-
-  const getData = (callback) => {
-    reqwest({
-      url: fakeDataUrl,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: (res) => {
-        callback(res);
+    dispatch({
+      type: actions.GETUSERREVIEWS,
+      payload: {
+        user_id: 1,
       },
     });
-  };
-
-  const onLoadMore = () => {
-    setIsLoading(true);
-    setList(
-      data.concat(
-        [...new Array(count)].map(() => ({ loading: true, name: {} })),
-      ),
-    );
-
-    getData((res) => {
-      let data1 = data.concat(res.results);
-      setData(data1);
-      setList(data1);
-      setIsLoading(false);
-    });
-  };
-
-  const loadMore =
-    !initLoading && !isLoading ? (
-      <div
-        style={{
-          textAlign: 'center',
-          marginTop: 12,
-          height: 32,
-          lineHeight: '32px',
-        }}
-      >
-        <Button onClick={onLoadMore}>load more</Button>
-      </div>
-    ) : null;
+  }, []);
+  console.log(userReviewsList);
 
   let content =
     'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently. We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure).';
 
   return (
     <>
+      <Collapse>
+        <Panel header='Click to add a review' key='1'>
+          <Form
+            name='basic'
+            labelCol={{
+              span: 5,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            initialValues={{
+              remember: true,
+            }}
+          >
+            <Form.Item
+              label='Leave a review'
+              name='description'
+              rules={[
+                {
+                  required: true,
+                  message: 'Please add the review!',
+                },
+              ]}
+            >
+              <TextArea />
+            </Form.Item>
+
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Button type='primary' htmlType='submit'>
+                Add
+              </Button>
+            </Form.Item>
+          </Form>
+        </Panel>
+      </Collapse>
+      <SectionDivider />
       <List
         className='demo-loadmore-list'
-        style={{ 'minHeight': '350px' }}
-        loading={initLoading}
+        style={{ minHeight: '350px' }}
         itemLayout='horizontal'
-        loadMore={loadMore}
-        dataSource={list}
+        dataSource={userReviewsList}
         renderItem={(item) => (
-          <Skeleton avatar title={false} loading={item.loading} active>
+          <div>
             <Row>
               <Col span={22}>
                 <List.Item.Meta
                   avatar={
                     <Avatar
                       style={{
-                        backgroundColor: 'rgb(154 160 164)',
+                        backgroundColor: getRandomColor(item.first_name),
                       }}
                       size={50}
                       icon={<UserOutlined />}
                     />
                   }
-                  title={<a href='https://ant.design'>{item.name.last}</a>}
-                  description='Ant Design, a design language for background applications, is refined by Ant UED Team'
+                  title={item.first_name + ' ' + item.last_name}
+                  description={item.user_title}
                 />
                 <div style={{ marginTop: '2px', marginBottom: '30px' }}>
-                  {content}
+                  {item.review_text}
                 </div>
               </Col>
               <Col span={2}>
-                <Button
-                  type='primary'
-                  shape='circle'
-                  icon={<EditOutlined />}
-                  size={20}
-                  style={{ margin: '2px' }}
-                />
-                <Button
+                {
+                  <Button
+                    type='primary'
+                    shape='circle'
+                    icon={<EditOutlined />}
+                    size={20}
+                    style={{ margin: '2px' }}
+                  />
+                }
+                {/* <Button
                   type='primary'
                   shape='circle'
                   icon={<DeleteOutlined />}
                   size={20}
                   style={{ margin: '2px' }}
-                />
+                /> */}
               </Col>
             </Row>
             <SectionDivider />
-          </Skeleton>
+          </div>
         )}
       />
     </>

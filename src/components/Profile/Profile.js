@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from 'redux/Profile/actions';
 import { Row, Col, Tag, Button, Typography, Avatar } from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTabs from './AppTabs.js';
@@ -13,12 +15,36 @@ import {
   PhoneFilled,
 } from '@ant-design/icons';
 import EditProfileModal from './EditProfileModal.js';
+import { getRandomColor } from '../tools/colorGenerator';
 
 function Profile() {
   const { Paragraph } = Typography;
+  const dispatch = useDispatch();
 
   const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const { profileData } = useSelector((state) => state.profileReducer);
+
+  useEffect(() => {
+    dispatch({
+      type: actions.GETUSERDETAILS,
+      payload: {
+        user_id: 1,
+      },
+    });
+  }, []);
+
+  var interestsList = profileData?.interest?.topic
+    .substring(1, profileData?.interest?.topic.length - 1)
+    .split(',')
+    .map(function (interest) {
+      return (
+        <Tag color={getRandomColor(interest)}>
+          {interest.substring(1, interest.length - 1)}
+        </Tag>
+      );
+    });
 
   // const handleClick = () => {
   //   openEditUsertModel('userId');
@@ -48,13 +74,14 @@ function Profile() {
         userId={userId}
         handleCancel={handleCancel}
       />
-      <div>
+      <div className='view-container'>
         <Row className='profile-wrapper-header'>
           <Col lg={3} md={8} sm={24} xs={24}>
             <div className='profile-wrapper-header-div'>
               <Avatar
                 style={{
-                  backgroundColor: 'rgb(154 160 164)',
+                  // backgroundColor: 'rgb(154 160 164)',
+                  backgroundColor: getRandomColor('Navya'),
                   marginTop: '5%',
                   marginLeft: '5%',
                 }}
@@ -75,7 +102,11 @@ function Profile() {
             <div>
               <AppTitles
                 className='large'
-                content='Navya Vashisht'
+                content={
+                  profileData?.profile?.first_name +
+                  ' ' +
+                  profileData?.profile?.last_name
+                }
                 style={{
                   fontWeight: 'bold',
                   color: 'black',
@@ -83,15 +114,10 @@ function Profile() {
               />
               <AppTitles
                 className='small'
-                content='Master of Information Technology - UNSW'
+                content={profileData?.profile?.title}
                 style={{ color: 'rgb(0 0 0)' }}
               />
-              <div style={{ marginLeft: '1%' }}>
-                <Tag color='magenta'>Data Science</Tag>
-                <Tag color='cyan'>Java</Tag>
-                <Tag color='lime'>AI</Tag>
-                <Tag color='orange'>Python</Tag>
-              </div>
+              <div style={{ marginLeft: '1%' }}>{interestsList}</div>
             </div>
           </Col>
           <Col lg={6} md={12} sm={24} xs={24}>
@@ -105,7 +131,11 @@ function Profile() {
             </span>
             <AppTitles
               size='small'
-              content='Location: UNSW, Kensington, Sydney, NSW'
+              content={`Location: 
+                ${profileData?.profile?.city} ,
+                ${profileData?.profile?.state},
+                ${profileData?.profile?.country},
+                ${profileData?.profile?.zipcode}`}
             />
             <Button
               type='dashed'
@@ -120,7 +150,7 @@ function Profile() {
               icon={<MailOutlined />}
               size={20}
               style={{ margin: '4px' }}
-              onClick={() => openMailInNewTab('navya@gmail.com')}
+              onClick={() => openMailInNewTab(profileData?.profile?.email)}
             />
             <Button
               type='dashed'
@@ -128,11 +158,7 @@ function Profile() {
               icon={<LinkedinOutlined />}
               size={20}
               style={{ margin: '4px' }}
-              onClick={() =>
-                openLinkedinInNewTab(
-                  'https://www.linkedin.com/in/arpitmathur1/',
-                )
-              }
+              onClick={() => openLinkedinInNewTab(profileData?.profile?.links)}
             />
             <Button
               type='dashed'
@@ -142,7 +168,7 @@ function Profile() {
             >
               <Paragraph
                 copyable={{
-                  text: '+610000000000',
+                  text: profileData?.profile?.mobile_no,
                   icon: [
                     <PhoneOutlined key='copy-icon' />,
                     <PhoneFilled key='copied-icon' />,
