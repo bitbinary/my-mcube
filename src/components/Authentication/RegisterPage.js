@@ -13,10 +13,10 @@ function RegisterPage() {
         >
           <Tabs defaultActiveKey='mentee' onChange={callback}>
             <TabPane tab='Mentee' key='mentee'>
-              <RegisterForm userType='mentee' />
+              <RegisterForm userType='Mentee' />
             </TabPane>
             <TabPane tab='Mentor' key='mentor'>
-              <RegisterForm userType='mentor' />
+              <RegisterForm userType='Mentor' />
             </TabPane>
           </Tabs>
         </Card>

@@ -1,9 +1,9 @@
 import React from 'react';
 import CommentsContainer from './CommentsContainer';
-export default function CommentsWrapper() {
+export default function CommentsWrapper({ postId, defaultComments }) {
   return (
     <div>
-      <CommentsContainer />
+      <CommentsContainer postId={postId} defaultComments={defaultComments} />
     </div>
   );
 }

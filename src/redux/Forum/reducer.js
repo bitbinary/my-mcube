@@ -22,6 +22,9 @@ const initialState = {
   contentRecommMentors: [],
   contentRecommProjects: [],
   recommLoading: true,
+  searchData: [],
+  searchLoading: false,
+  searchString: '',
 };
 
 function Reducer(state = initialState, action) {
@@ -30,7 +33,7 @@ function Reducer(state = initialState, action) {
     case actions.GETFEEDS_SUCCESS:
       return {
         ...state,
-        contentFeeds: [...action.data],
+        contentFeeds: [...action.data.data],
         feedLoading: false,
       };
     case actions.GETFEEDS_FAILURE:
@@ -38,7 +41,7 @@ function Reducer(state = initialState, action) {
     case actions.ADDFEEDS_SUCCESS:
       return {
         ...state,
-        contentFeeds: [...state.contentFeeds, ...action.data],
+        contentFeeds: [...state.contentFeeds, ...action.data.data],
         feedLoading: false,
       };
     case actions.ADDFEEDS_FAILURE:
@@ -120,16 +123,15 @@ function Reducer(state = initialState, action) {
       return { ...state, loader: action.payload.loader };
     case actions.TOGGLESTATE:
       return { ...state, [action.payload.label]: action.payload.value };
-    case actions.UPDATESEARCHSKILLS:
-      return {
-        ...state,
-        searchselectedskills: action.payload.searchSkillsSelected,
-      };
-    case actions.UPDATESEARCHTYPES:
-      return {
-        ...state,
-        searchselectedtypes: action.payload.searchselectedtypes,
-      };
+
+    case actions.UPDATESEARCHSTRING:
+      return { ...state, searchString: action.searchString };
+    case actions.SEARCH_SUCCESS:
+      return { ...state, searchData: [...action.data], searchLoading: false };
+
+    case actions.SEARCH_FAILURE:
+      return { ...state, searchLoading: false };
+
     case actions.UPDATERECOMTYPES:
       return {
         ...state,

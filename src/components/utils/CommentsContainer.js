@@ -4,6 +4,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
 import AppTexts from './AppTexts';
 import Buttons from './Buttons';
+import { UserOutlined } from '@ant-design/icons';
+import { getRandomColor } from 'components/tools/colorGenerator';
+
 const { TextArea } = Input;
 const data = [
   {
@@ -49,6 +52,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
   <>
     <Form.Item className='comment-input-wrapper'>
       <TextArea
+        placeholder='Enter your comments here'
         className='add-comment-input'
         rows={4}
         onChange={onChange}
@@ -66,7 +70,7 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
     </Form.Item>
   </>
 );
-export default function CommentsContainer({ ItemId }) {
+export default function CommentsContainer({ postId, defaultComments = [] }) {
   const [submitting, setSubmitting] = useState(false);
   const [newComment, setNewComment] = useState('');
   // const [data, setData] = useState([])
@@ -84,51 +88,52 @@ export default function CommentsContainer({ ItemId }) {
   };
   const handleInfiniteOnLoad = (e) => {};
   return (
-    <>
-      <Space direction='vertical' className='comment-list-spacer'>
-        <div className='comments-infinite-container'>
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={handleInfiniteOnLoad}
-            hasMore={!loading && hasMore}
-            useWindow={false}
+    <Space direction='vertical' className='comment-list-spacer'>
+      <div className='comments-infinite-container'>
+        <InfiniteScroll
+          initialLoad={false}
+          pageStart={0}
+          loadMore={handleInfiniteOnLoad}
+          hasMore={!loading && hasMore}
+          useWindow={false}
+        >
+          <List
+            itemLayout='vertical'
+            dataSource={[...defaultComments]}
+            renderItem={(item) => (
+              <List.Item key={item.comment_id}>
+                <List.Item.Meta
+                  avatar={
+                    <Avatar
+                      icon={<UserOutlined />}
+                      style={{ backgroundColor: getRandomColor() }}
+                    />
+                  }
+                  title={<AppTexts content={'FirstName LastName'} />}
+                  description={<AppTexts content={item.content} />}
+                />
+                <AppTexts
+                  // containerStyle={{ 'padding-left': '50px' }}
+                  style={{ paddingLeft: '50px' }}
+                  content={item.message}
+                />
+              </List.Item>
+            )}
           >
-            <List
-              itemLayout='vertical'
-              dataSource={[...data]}
-              renderItem={(item) => (
-                <List.Item key={item.id}>
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png' />
-                    }
-                    title={
-                      <AppTexts href='https://ant.design'>
-                        {item.title}
-                      </AppTexts>
-                    }
-                    description={<AppTexts content={item.content} />}
-                  />
-                  <div>Extra Content</div>
-                </List.Item>
-              )}
-            >
-              {loading && hasMore && (
-                <div className='demo-loading-container'>
-                  <Spin />
-                </div>
-              )}
-            </List>
-          </InfiniteScroll>
-        </div>
-        <Editor
-          onChange={handleChange}
-          onSubmit={handleSubmit}
-          submitting={submitting}
-          value={newComment}
-        />
-      </Space>
-    </>
+            {loading && hasMore && (
+              <div className='demo-loading-container'>
+                <Spin />
+              </div>
+            )}
+          </List>
+        </InfiniteScroll>
+      </div>
+      <Editor
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+        submitting={submitting}
+        value={newComment}
+      />
+    </Space>
   );
 }

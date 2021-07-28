@@ -22,8 +22,9 @@ export default function RecommProjects({
   handleClick,
 }) {
   return (
-    <Col lg={12} md={12} sm={24} xs={24}>
+    <Col lg={8} md={12} sm={24} xs={24}>
       <Card
+        className='list-card'
         title={
           <>
             <div style={{ textAlign: 'left' }}>
@@ -34,7 +35,7 @@ export default function RecommProjects({
             </div>
           </>
         }
-        style={{ float: 'left' }}
+        // style={{}}
         actions={[
           <Button onClick={() => handleClick('project_id', project_id)}>
             <ExpandOutlined key='expand' />
@@ -49,6 +50,9 @@ export default function RecommProjects({
             <Tag color='#2db7f5'>{skill}</Tag>
           ))}
         </Space>
+        <Tag className='card-user-type' color='#ffb12e'>
+          Project
+        </Tag>
       </Card>
     </Col>
   );

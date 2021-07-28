@@ -73,15 +73,19 @@ export default function Feeds() {
           <Space size={10} className='full-wide' direction='vertical'>
             {data.map((feed, index) => (
               <Feed
-                key={feed.title + index}
+                key={feed.post_id}
                 index={index}
-                title={feed.title}
-                description={feed.description}
-                lastModified={feed.lastModifiedAt}
-                createdAt={feed.createdAt}
+                projectId={feed.project_id}
+                title={feed.title || 'Default Post Title'}
+                description={feed.content}
+                lastModified={feed.last_modified}
+                createdAt={feed.timestamp}
                 postOwner={feed.postOwner}
-                commentCount={feed.commentCount}
+                commentCount={feed.comments?.length || 0}
+                comments={feed.comments}
                 loading={feed?.loading}
+                postId={feed.post_id}
+                userId={feed.user_id}
               />
             ))}
           </Space>

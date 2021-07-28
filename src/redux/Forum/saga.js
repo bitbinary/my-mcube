@@ -1,23 +1,21 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import actions from 'redux/Forum/actions';
-import { getRequest } from 'Config/axiosClient';
+import { getRequest, postRequest } from 'Config/axiosClient';
 
 function* getFeeds(action) {
   try {
-    const response = yield call(() =>
-      getRequest(`recommendation/mentees/${action.params.user_id || 2}`),
-    );
+    const response = yield call(() => getRequest(`posts/${10}/${10}`));
     if (response.status >= 200 || response.status <= 204)
       yield put({ type: actions.GETFEEDS_SUCCESS, data: response.data });
     else throw response.statusText;
   } catch (e) {
-    yield put({ type: actions.GETFEEDS_FAILURE, e });
+    yield put({ type: actions.GETFEEDS_FAILURE });
   }
 }
 
 function* addFeeds(action) {
   try {
-    const response = yield call(() => getRequest('posts?limit=10'));
+    const response = yield call(() => getRequest(`posts/${10}/${10}`));
     if (response.status >= 200 || response.status <= 204)
       yield put({ type: actions.ADDFEEDS_SUCCESS, data: response.data });
     else throw response.statusText;
@@ -68,11 +66,34 @@ function* addRecomm(action) {
   }
 }
 
+function* searchPosts(action) {
+  console.log('going to call ', action.params.searchString);
+  try {
+    const response = yield call(() =>
+      postRequest(`search/${action.params.searchString}`),
+    );
+    console.log(response);
+    if (response.status >= 200 || response.status <= 204)
+      yield put({
+        type: actions.SEARCH_SUCCESS,
+        data: response.data.recommendations,
+        success: response.data.success,
+      });
+    else throw response.statusText;
+  } catch (e) {
+    yield put({
+      type: actions.SEARCH_FAILURE,
+      success: false,
+    });
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeLatest(actions.GETFEEDS, getFeeds),
     takeLatest(actions.ADDFEEDS, addFeeds),
     takeLatest(actions.GETRECOMM, getRecomm),
     takeLatest(actions.ADDRECOMM, addRecomm),
+    takeLatest(actions.SEARCHFEEDS, searchPosts),
   ]);
 }

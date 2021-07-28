@@ -4,6 +4,7 @@ import { postRequest } from 'Config/axiosClient';
 
 function* login(action) {
   try {
+    console.log(action.payload);
     const response = yield call(() => postRequest('login', action.payload));
     if (response?.data?.success) {
       yield put({

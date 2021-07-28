@@ -104,19 +104,19 @@ export default function Recommendations() {
           // element={ListWrapper}
           loader={
             <div className='Recomm-loader-wrapper' key={0}>
-              <Space direction='vertical'>
+              {/* <Space direction='vertical'>
                 <Buttons
                   type='primary'
                   loading={recommLoading}
                   handleClick={() => addMoreRecomm()}
                   content={recommLoading ? 'Loading More' : 'Load More'}
                 ></Buttons>
-              </Space>
+              </Space> */}
             </div>
           }
-          threshold={100}
+          threshold={150}
         >
-          <Row gutter={[16, 16]}>
+          <Row className='recommendation-container' gutter={[16, 16]}>
             {displayData.map((recomm, index) =>
               recommselectedtype !== 'project' ? (
                 <RecommMM

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
 import { Row, Col, Tag, Form, Input, InputNumber } from 'antd';
 import Buttons from 'components/utils/Buttons';
-import { SendOutlined } from '@ant-design/icons';
+import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
 export default function ForumPageHeaderSelections({ page }) {
   const {
     searchselectedskills,
@@ -123,63 +123,66 @@ function ForumPageHeaderAddPost({ ...rest }) {
   const { addPostDraftState } = useSelector((state) => state.forumReducer);
   const dispatch = useDispatch();
 
-  return (
+  return addPostDraftState ? (
     <Row justify='start' align='start'>
       <Col lg={20} md={20} sm={20} xs={24} justify='start' align='top'>
-        {addPostDraftState && (
-          <div>
-            <Form
-              {...layout}
-              name='new-post'
-              onFinish={submitForm}
-              validateMessages={validateMessages}
-            >
-              <Form.Item
-                name={['post', 'title']}
-                label='Title'
-                rules={[
-                  {
-                    required: true,
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={['post', 'description']}
-                label='Description'
-                rules={[{ required: true }]}
-              >
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name={['post', 'relatedProjectId']}
-                label='Related Project'
-                rules={[
-                  {
-                    type: 'number',
-                    min: 0,
-                    max: 99,
-                  },
-                ]}
-              >
-                <InputNumber />
-              </Form.Item>
+        <Form
+          {...layout}
+          name='new-post'
+          onFinish={submitForm}
+          validateMessages={validateMessages}
+        >
+          <Form.Item
+            name={['post', 'title']}
+            label='Title'
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name={['post', 'description']}
+            label='Description'
+            rules={[{ required: true }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name={['post', 'relatedProjectId']}
+            label='Related Project'
+            rules={[
+              {
+                type: 'number',
+                min: 0,
+                max: 99,
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
 
-              <Form.Item className='new-post-submit'>
-                <Buttons
-                  type='primary'
-                  shape='round'
-                  htmlType='submit'
-                  icon={<SendOutlined />}
-                  content='Add Post'
-                  handleClick={toggleNewPost}
-                />
-              </Form.Item>
-            </Form>
-          </div>
-        )}
+          <Form.Item className='new-post-submit'>
+            <Buttons
+              type='primary'
+              shape='round'
+              icon={<CloseCircleOutlined />}
+              content='Cancel'
+              handleClick={toggleNewPost}
+            />
+            <Buttons
+              type='primary'
+              shape='round'
+              htmlType='submit'
+              icon={<SendOutlined />}
+              content='Add Post'
+              handleClick={toggleNewPost}
+            />
+          </Form.Item>
+        </Form>
       </Col>
     </Row>
-  );
+  ) : null;
 }

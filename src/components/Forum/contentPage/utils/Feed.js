@@ -24,6 +24,8 @@ export default function Feed({
   createdAt,
   postOwner,
   commentCount,
+  comments,
+  postId,
   ...rest
 }) {
   const [commentsVisible, setCommentsVisible] = useState(false);
@@ -57,7 +59,9 @@ export default function Feed({
                       .format('YYYY-MM-DD HH:mm:ss')}
                   >
                     <AppTexts
-                      content={moment(createdAt).subtract(1, 'days').fromNow()}
+                      content={moment(lastModified)
+                        .subtract(1, 'days')
+                        .fromNow()}
                     />
                   </Tooltip>
                 </>
@@ -66,7 +70,12 @@ export default function Feed({
             />
           </Skeleton>
         </List.Item>
-        {commentsVisible && <CommentsWrapper id={title} />}
+        {commentsVisible && (
+          <CommentsWrapper
+            postId={postId}
+            defaultComments={comments ? comments : []}
+          />
+        )}
       </List>
     </ViewWrapper>
   );
