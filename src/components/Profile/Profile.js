@@ -16,6 +16,8 @@ import {
 } from '@ant-design/icons';
 import EditProfileModal from './EditProfileModal.js';
 import { getRandomColor } from '../tools/colorGenerator';
+import ViewWrapper from './utils/ViewWrapper.js';
+import AppTexts from 'components/utils/AppTexts.js';
 
 function Profile() {
   const { Paragraph } = Typography;
@@ -68,72 +70,79 @@ function Profile() {
   };
 
   return (
-    <>
+    <ViewWrapper grid={true}>
       <EditProfileModal
         isModalVisible={isModalVisible}
         userId={userId}
         handleCancel={handleCancel}
       />
-      <div className='view-container'>
-        <Row className='profile-wrapper-header'>
-          <Col lg={3} md={8} sm={24} xs={24}>
-            <div className='profile-wrapper-header-div'>
-              <Avatar
-                style={{
-                  // backgroundColor: 'rgb(154 160 164)',
-                  backgroundColor: getRandomColor('Navya'),
-                  marginTop: '5%',
-                  marginLeft: '5%',
-                }}
-                size={{
-                  xs: 100,
-                  sm: 100,
-                  md: 100,
-                  lg: 100,
-                  xl: 120,
-                  xxl: 140,
-                }}
-                icon={<UserOutlined />}
-              />
-            </div>
-          </Col>
+      <Row className='profile-wrapper-header'>
+        <div className='profile-wrapper-header-div'>
+          <Avatar
+            style={{
+              // backgroundColor: 'rgb(154 160 164)',
+              backgroundColor: getRandomColor('Navya'),
+              margin: 'auto',
+            }}
+            size={{
+              xs: 50,
+              sm: 50,
+              md: 80,
+              lg: 80,
+              xl: 100,
+              xxl: 100,
+            }}
+            icon={<UserOutlined />}
+          />
+        </div>
 
-          <Col lg={15} md={15} sm={24} xs={24}>
-            <div>
-              <AppTitles
-                className='large'
-                content={`${profileData?.profile?.first_name}
+        <Col lg={15} md={15} sm={24} xs={24}>
+          <div>
+            <AppTitles
+              className='large'
+              content={`${profileData?.profile?.first_name}
                   ${profileData?.profile?.last_name}`}
-                style={{
-                  fontWeight: 'bold',
-                  color: 'black',
-                }}
-              />
-              <AppTitles
-                className='small'
-                content={profileData?.profile?.title}
-                style={{ color: 'rgb(0 0 0)' }}
-              />
-              <div style={{ marginLeft: '1%' }}>{interestsList}</div>
+              style={{
+                fontWeight: 'bold',
+              }}
+            />
+            <AppTexts
+              className='medium italics'
+              content={`Title: ${profileData?.profile?.title}`}
+            />
+            <div className='italics' style={{ marginLeft: '1%' }}>
+              Skills: {interestsList}
             </div>
-          </Col>
-          <Col lg={6} md={12} sm={24} xs={24}>
-            <span>
-              <AppTitles
-                content={
-                  <HomeTwoTone style={{ fontSize: '25px' }} size='30px' />
-                }
-                style={{ fontWeight: 'bold' }}
-              />
-            </span>
+          </div>
+        </Col>
+        <Col
+          lg={6}
+          md={12}
+          sm={24}
+          xs={24}
+          style={{
+            justifyContent: 'flex-end',
+            display: 'flex',
+            flexFlow: 'column',
+            alignItems: 'flex-end',
+          }}
+        >
+          <Row justify='start' align='start'>
+            <AppTitles
+              content={<HomeTwoTone style={{ fontSize: '25px' }} size='30px' />}
+              style={{ fontWeight: 'bold' }}
+            />
             <AppTitles
               size='small'
-              content={`Location: 
+              content={`
                 ${profileData?.profile?.city} ,
                 ${profileData?.profile?.state},
                 ${profileData?.profile?.country},
                 ${profileData?.profile?.zipcode}`}
             />
+          </Row>
+
+          <div>
             <Button
               type='dashed'
               shape='round'
@@ -174,18 +183,20 @@ function Profile() {
                 }}
               ></Paragraph>
             </Button>
-            <Button
-              type='primary'
-              icon={<EditOutlined />}
-              onClick={() => openEditUsertModel()}
-            >
-              Edit Profile
-            </Button>
-          </Col>
-        </Row>
-      </div>
+          </div>
+          <Button
+            type='primary'
+            shape='round'
+            icon={<EditOutlined />}
+            onClick={() => openEditUsertModel()}
+            style={{ position: 'absolute', top: '0px', right: '0px' }}
+          >
+            Edit
+          </Button>
+        </Col>
+      </Row>
       <AppTabs />
-    </>
+    </ViewWrapper>
   );
 }
 

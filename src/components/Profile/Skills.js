@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Select, Tag, Button } from 'antd';
+import { Row, Col, Select, Tag, Button, PageHeader } from 'antd';
 import SectionDivider from '../utils/SectionDivider';
 import { Input, Tooltip, notification } from 'antd';
 import { InfoCircleOutlined, TagsOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Profile/actions';
 import { getRandomColor } from '../tools/colorGenerator';
+import AppTitles from 'components/utils/AppTitles';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -99,41 +100,47 @@ function Skills() {
 
   return (
     <>
-      <Row gutter={16}>
-        <Col span={18}>
-          {userSkillList?.length > 0 && (
-            <Select
-              mode='multiple'
-              style={{ width: '80%' }}
-              placeholder='select skills'
-              defaultValue={userSkillList}
-              onChange={handleChange}
-            >
-              {skillListComponent}
-            </Select>
-          )}
-          <Button type='primary' onClick={updateUserSkillList}>
-            Add Skills
-          </Button>
-        </Col>
-        <Col span={6}>
-          <Search
-            placeholder='Add new tag'
-            enterButton='Add Tag'
-            value={addSkill}
-            onChange={(e) => setAddSkill(e.target.value)}
-            onSearch={() => addNewSkillFunc()}
-            prefix={<TagsOutlined className='site-form-item-icon' />}
-            suffix={
-              <Tooltip title='Only Add new tag if already not present!'>
-                <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-              </Tooltip>
-            }
-          />
-        </Col>
-      </Row>
+      <PageHeader
+        className='forum-page-header skill-options'
+        // extra={<ForumPageHeaderExtras page='Feeds' />}
+      >
+        <Row gutter={16} className=''>
+          <Col span={18}>
+            {userSkillList?.length > 0 && (
+              <Select
+                mode='multiple'
+                style={{ width: '80%' }}
+                placeholder='select skills'
+                defaultValue={userSkillList}
+                onChange={handleChange}
+              >
+                {skillListComponent}
+              </Select>
+            )}
+            <Button type='primary' onClick={updateUserSkillList}>
+              Add Skills
+            </Button>
+          </Col>
+          <Col span={6}>
+            <Search
+              placeholder='Add new tag'
+              enterButton='Add Tag'
+              value={addSkill}
+              onChange={(e) => setAddSkill(e.target.value)}
+              onSearch={() => addNewSkillFunc()}
+              prefix={<TagsOutlined className='site-form-item-icon' />}
+              suffix={
+                <Tooltip title='Only Add new tag if already not present!'>
+                  <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+            />
+          </Col>
+        </Row>
+      </PageHeader>
+
       <SectionDivider />
-      <div>{tagsList}</div>
+      <div className='list-card'>{tagsList}</div>
     </>
   );
 }

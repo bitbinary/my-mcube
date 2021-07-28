@@ -14,7 +14,7 @@ function AppTabs() {
   };
 
   return (
-    <Tabs defaultActiveKey='1' size='large' centered>
+    <Tabs className='profile-tabs' defaultActiveKey='1' size='large' centered>
       <TabPane tab='Projects' key='1' style={tabStyle}>
         <Projects />
       </TabPane>

@@ -38,7 +38,11 @@ function Reviews() {
   return (
     <>
       <Collapse>
-        <Panel header='Click to add a review' key='1'>
+        <Panel
+          style={{ textAlign: 'left' }}
+          header='Click to add a review'
+          key='1'
+        >
           <Form
             name='basic'
             labelCol={{
@@ -84,8 +88,8 @@ function Reviews() {
         itemLayout='horizontal'
         dataSource={userReviewsList}
         renderItem={(item) => (
-          <div>
-            <Row>
+          <div className='list-card'>
+            <Row className='feedback-itam'>
               <Col span={22}>
                 <List.Item.Meta
                   avatar={
@@ -100,7 +104,13 @@ function Reviews() {
                   title={`${item.first_name} ${item.last_name}`}
                   description={item.user_title}
                 />
-                <div style={{ marginTop: '2px', marginBottom: '30px' }}>
+                <div
+                  style={{
+                    paddingLeft: '65px',
+                    marginTop: '2px',
+                    marginBottom: '10px',
+                  }}
+                >
                   {item.review_text}
                 </div>
               </Col>
@@ -123,7 +133,6 @@ function Reviews() {
                 /> */}
               </Col>
             </Row>
-            <SectionDivider />
           </div>
         )}
       />

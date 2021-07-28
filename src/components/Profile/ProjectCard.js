@@ -10,7 +10,7 @@ function ProjectCard({ openProjectModel }) {
     <Col lg={8} md={12} sm={24} xs={24}>
       <Card
         title='Chat Application'
-        bordered={true}
+        className='list-card'
         style={{ borderWidth: 'medium' }}
         actions={[
           <Button>
