@@ -3,6 +3,7 @@ import { Layout, Menu, Tooltip, Avatar } from 'antd';
 import UserDetails from './UserDetails';
 import UserMessager from './utils/UserMessager';
 import { truncateName } from 'components/tools/getTruncatedName';
+import { getRandomColor } from 'components/tools/colorGenerator';
 
 const { Content, Sider } = Layout;
 const contacts = [
@@ -37,8 +38,6 @@ export default function MessagesPage() {
           collapsed={collapsed}
           onCollapse={onCollapse}
           style={{
-            overflow: 'auto',
-            height: '100vh',
             position: 'absolute',
             left: 0,
             zIndex: 999,
@@ -57,7 +56,7 @@ export default function MessagesPage() {
                 className='messager-sidebar-menu-item'
                 icon={
                   <Avatar
-                    style={{ backgroundColor: '#87d068' }}
+                    style={{ backgroundColor: getRandomColor(contact.name) }}
                     className='message-menu-item-avatar'
                     // icon={<UserOutlined />}
                   >

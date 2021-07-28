@@ -106,7 +106,9 @@ export default function CommentsContainer({ postId, defaultComments = [] }) {
                   avatar={
                     <Avatar
                       icon={<UserOutlined />}
-                      style={{ backgroundColor: getRandomColor() }}
+                      style={{
+                        backgroundColor: getRandomColor(item.message),
+                      }}
                     />
                   }
                   title={<AppTexts content={'FirstName LastName'} />}

@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import Profile from 'components/Profile/Profile';
 
 function UserModal({ isModalVisible, userID, handleCancel }) {
+  let id = userID?.split('_')[1];
   const { confirm } = Modal;
 
   function showConfirm() {
@@ -23,9 +24,9 @@ function UserModal({ isModalVisible, userID, handleCancel }) {
       onCancel={handleCancel}
       onOk={showConfirm}
       width='100%'
-      style={{ maxWidth: 1600 }}
+      style={{ maxWidth: 1600, height: '80%' }}
     >
-      <Profile user_id='U1' />
+      <Profile user_id={id} />
     </Modal>
   );
 }

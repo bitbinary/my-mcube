@@ -11,15 +11,20 @@ import AppTitles from 'components/utils/AppTitles';
 const { Option } = Select;
 const { Search } = Input;
 
-function Skills() {
+function Skills({ user_id }) {
   const [tags, setTags] = useState([]);
   const [tagsList, setTagsList] = useState(null);
   const [skillListComponent, setSkillListComponent] = useState(null);
   const [addSkill, setAddSkill] = useState('');
   const dispatch = useDispatch();
 
-  const { skillList, skillErrorMessage, skillDisplayError, userSkillList } =
-    useSelector((state) => state.profileReducer);
+  const {
+    skillList,
+    skillErrorMessage,
+    skillDisplayError,
+    userSkillList,
+    userId,
+  } = useSelector((state) => state.profileReducer);
 
   useEffect(async () => {
     dispatch({
@@ -28,10 +33,21 @@ function Skills() {
     dispatch({
       type: actions.GETUSERSKILLS,
       payload: {
-        user_id: 1,
+        user_id: user_id ? user_id : userId,
       },
     });
   }, []);
+  useEffect(async () => {
+    dispatch({
+      type: actions.GETSKILLS,
+    });
+    dispatch({
+      type: actions.GETUSERSKILLS,
+      payload: {
+        user_id: user_id ? user_id : userId,
+      },
+    });
+  }, [user_id]);
 
   useEffect(() => {
     let SkillListComponent1 = null;

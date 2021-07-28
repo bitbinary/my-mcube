@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Avatar } from 'antd';
-// import { EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
+import { getRandomColor } from 'components/tools/colorGenerator';
 
 const { Meta } = Card;
 export default function UserDetails() {
@@ -12,8 +13,10 @@ export default function UserDetails() {
         <div>
           <Avatar
             large
-            className='user-details-avatar'
-            src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+            icon={<UserOutlined />}
+            style={{
+              backgroundColor: getRandomColor(),
+            }}
           />
         </div>
       }
