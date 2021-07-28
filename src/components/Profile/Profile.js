@@ -102,11 +102,8 @@ function Profile() {
             <div>
               <AppTitles
                 className='large'
-                content={
-                  profileData?.profile?.first_name +
-                  ' ' +
-                  profileData?.profile?.last_name
-                }
+                content={`${profileData?.profile?.first_name}
+                  ${profileData?.profile?.last_name}`}
                 style={{
                   fontWeight: 'bold',
                   color: 'black',

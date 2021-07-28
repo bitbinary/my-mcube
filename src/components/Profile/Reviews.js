@@ -97,7 +97,7 @@ function Reviews() {
                       icon={<UserOutlined />}
                     />
                   }
-                  title={item.first_name + ' ' + item.last_name}
+                  title={`${item.first_name} ${item.last_name}`}
                   description={item.user_title}
                 />
                 <div style={{ marginTop: '2px', marginBottom: '30px' }}>
