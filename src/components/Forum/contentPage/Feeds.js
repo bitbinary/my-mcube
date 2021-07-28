@@ -76,7 +76,7 @@ export default function Feeds() {
                 key={feed.post_id}
                 index={index}
                 projectId={feed.project_id}
-                title={feed.title}
+                title={feed.title || 'Default Post Title'}
                 description={feed.content}
                 lastModified={feed.last_modified}
                 createdAt={feed.timestamp}

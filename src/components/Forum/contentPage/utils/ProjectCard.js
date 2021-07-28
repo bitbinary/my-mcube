@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Card, Avatar } from 'antd';
+import { Skeleton, Card, Avatar, Tag } from 'antd';
 import { ExpandOutlined, UserOutlined } from '@ant-design/icons';
 import { getRandomColor } from 'components/tools/colorGenerator';
 import Buttons from 'components/utils/Buttons';
@@ -20,6 +20,7 @@ export default function ProjectCard({
     <div className='project-card-wrapper'>
       <Card
         style={{ width: 300, marginTop: 16 }}
+        className='list-card'
         actions={[
           null,
           <Buttons
@@ -45,6 +46,9 @@ export default function ProjectCard({
             style={{ textAlign: 'left' }}
           />
         </Skeleton>
+        <Tag className='card-user-type' color='#ffb12e'>
+          Project
+        </Tag>
       </Card>
     </div>
   );

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
 import { Row, Col, Tag, Form, Input, InputNumber } from 'antd';
 import Buttons from 'components/utils/Buttons';
-import { SendOutlined } from '@ant-design/icons';
+import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
 export default function ForumPageHeaderSelections({ page }) {
   const {
     searchselectedskills,
@@ -165,6 +165,13 @@ function ForumPageHeaderAddPost({ ...rest }) {
           </Form.Item>
 
           <Form.Item className='new-post-submit'>
+            <Buttons
+              type='primary'
+              shape='round'
+              icon={<CloseCircleOutlined />}
+              content='Cancel'
+              handleClick={toggleNewPost}
+            />
             <Buttons
               type='primary'
               shape='round'

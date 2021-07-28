@@ -244,10 +244,11 @@ body {
 .forum-tabs {
   margin-top: 15px;
   border-radius: 8px;
-  box-shadow: 0px 0px 27px -9px #b2b5b7;
+  box-shadow: 0px 0px 15px -9px #b2b5b7;
   padding: 10px;
   padding-top: 40px;
   background-color: #fff;
+  min-height: 90%;
   .ant-tabs-nav::before {
     border: none;
   }
@@ -342,6 +343,9 @@ body {
 }
 .new-post-submit {
   float: right;
+  .ant-form-item-control-input-content {
+    display: flex;
+  }
 }
 .feed-loader-wrapper {
   display: flex;
@@ -349,7 +353,6 @@ body {
 }
 .feed-list-wrapper {
   box-shadow: 0px 0px 6px 1px #f1f1f1;
-
   text-align: left;
   background: #ffffff;
   padding: 10px;
@@ -496,6 +499,18 @@ body {
 //   padding: 20px;
 //   margin-bottom: 40px;
 // }
+.list-card {
+  box-shadow: 0px 0px 6px 1px #f1f1f1;
+  background: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  position: relative;
+  .card-user-type {
+    position: absolute;
+    top: 8px;
+    right: 2px;
+  }
+}
 //App titles
 .app-titles {
   margin: 0.5rem;
