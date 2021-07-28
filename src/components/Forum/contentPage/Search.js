@@ -13,6 +13,7 @@ export default function Search() {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [idForModal, setIdForModal] = useState('');
+  const [userIdModal, setUserIdModal] = useState(null);
   const [isUserModalVisible, setIsUserModalVisible] = useState(false);
   const [isProjectModalVisible, setIsProjectModalVisible] = useState(false);
   const { searchData, searchString, searchLoading } = useSelector(
@@ -64,6 +65,7 @@ export default function Search() {
     if (type === 'project_id') {
       setIsProjectModalVisible(true);
     } else {
+      setUserIdModal(id);
       setIsUserModalVisible(true);
     }
   };
@@ -83,6 +85,7 @@ export default function Search() {
           isModalVisible={isUserModalVisible}
           projectId={idForModal}
           handleCancel={handleCancel}
+          userID={userIdModal}
         />
         <InfiniteScroll
           pageStart={0}

@@ -405,13 +405,24 @@ body {
 .messages-page-wrapper {
   display: flex;
   height: 100%;
+  padding: 20px 0px;
+  // background-color: $primary-color;
   justify-content: flex-start;
   align-items: stretch;
+  .ant-layout.ant-layout-has-sider {
+    background-color: $primary-color;
+  }
+  .ant-menu-dark {
+    background-color: $primary-color;
+  }
   .ant-tabs {
     flex: 1;
   }
   .ant-tabs-content {
     height: 100%;
+  }
+  .ant-layout-sider {
+    background-color: $primary-color;
   }
 }
 .messages-tab-pane {

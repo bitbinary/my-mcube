@@ -43,7 +43,9 @@ export default function UserCard({
             avatar={
               <Avatar
                 icon={<UserOutlined />}
-                style={{ backgroundColor: getRandomColor() }}
+                style={{
+                  backgroundColor: getRandomColor(`${first_name} ${last_name}`),
+                }}
               />
             }
             title={`${first_name} ${last_name}`}
