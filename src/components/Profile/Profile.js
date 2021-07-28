@@ -19,20 +19,20 @@ import { getRandomColor } from '../tools/colorGenerator';
 import ViewWrapper from './utils/ViewWrapper.js';
 import AppTexts from 'components/utils/AppTexts.js';
 
-function Profile() {
+function Profile({ user_id }) {
   const { Paragraph } = Typography;
   const dispatch = useDispatch();
 
   const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { profileData } = useSelector((state) => state.profileReducer);
+  const { profileData, userId } = useSelector((state) => state.profileReducer);
 
   useEffect(() => {
     dispatch({
       type: actions.GETUSERDETAILS,
       payload: {
-        user_id: 1,
+        user_id: user_id ? user_id : userId,
       },
     });
   }, []);

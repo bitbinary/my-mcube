@@ -2,6 +2,7 @@ import actions from 'redux/Profile/actions';
 
 const initialState = {
   profileData: {},
+  userId: null,
   skillList: [],
   skillErrorMessage: '',
   skillDisplayError: false,
