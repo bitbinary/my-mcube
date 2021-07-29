@@ -39,17 +39,10 @@ export default function Search() {
       params: { searchString: searchString },
     });
   };
-  // useEffect(() => {
-  //   // eslint-disable-next-line
-  //   // eslint-disable-next-line
-  //   setData([...currentContentFeed.current, ...getDummy()]);
-  //   doSearch();
-  //   return () => {};
-  // }, [dispatch]);
 
   useEffect(() => {
     let results = searchData;
-    // results = results.filter((result) => result.score > 0);
+    results = results.filter((result) => result.score > 0);
     console.log(results);
     setData(results);
     return () => {};

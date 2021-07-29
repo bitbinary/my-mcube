@@ -9,7 +9,7 @@ function Home() {
   return (
     <ContentWrapper>
       <HomeBanner
-        bannerTitle='Explore Learn Share.'
+        bannerTitle='Connect Learn Share.'
         // bannerDescription={
         //   <>
         //     Explore the opportunities that lie ahead{<br />}Find out the people

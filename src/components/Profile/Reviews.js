@@ -22,11 +22,12 @@ function Reviews() {
   const dispatch = useDispatch();
 
   const { userReviewsList } = useSelector((state) => state.profileReducer);
+  const { userId } = useSelector((state) => state.authenticateReducer);
   useEffect(() => {
     dispatch({
       type: actions.GETUSERREVIEWS,
       payload: {
-        user_id: 7,
+        user_id: userId,
       },
     });
   }, []);

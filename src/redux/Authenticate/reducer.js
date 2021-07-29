@@ -1,10 +1,11 @@
 import actions from 'redux/Authenticate/actions';
 
 const initialState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   loader: false,
   authToken: null,
   userType: null,
+  userId: null,
 };
 
 function Reducer(state = initialState, action) {
@@ -26,6 +27,7 @@ function Reducer(state = initialState, action) {
         authToken: action.data.token,
         userType: action.userType,
         loader: false,
+        userId: action.data.user_id.split('_')[1],
       };
     case actions.LOGIN_FAILURE:
       return {

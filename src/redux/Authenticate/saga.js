@@ -31,6 +31,7 @@ function* login(action) {
 function* signup(action) {
   try {
     const response = yield call(() => postRequest('signup', action.payload));
+    console.log(response);
     if (response?.data?.success) {
       yield put({
         type: actions.LOGIN_SUCCESS,

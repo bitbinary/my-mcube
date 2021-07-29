@@ -54,15 +54,15 @@ function EditProfileModal({ isModalVisible, userId, handleCancel }) {
             profile: {
               // mail
 
-              firstName: editFirstName,
-              lastName: editLastName,
-              contactNumber: editContactNo,
-              locationCity: editCity,
-              locationState: editState,
-              locationCountry: editCountry,
-              locationZipCode: editZipCode,
-              title: editTitle,
-              linkedin: editLinkedInURL,
+              firstName: String(editFirstName),
+              lastName: String(editLastName),
+              contactNumber: String(editContactNo),
+              locationCity: String(editCity),
+              locationState: String(editState),
+              locationCountry: String(editCountry),
+              locationZipCode: String(editZipCode),
+              title: String(editTitle),
+              linkedin: String(editLinkedInURL),
             },
           },
         });

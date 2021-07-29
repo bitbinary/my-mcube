@@ -28,11 +28,7 @@ function* addFeeds(action) {
 function* getRecomm(action) {
   try {
     const response = yield call(() =>
-      getRequest(
-        `recommendation/${action.params.recommType}/${
-          action.params.user_id || 2
-        }`,
-      ),
+      getRequest(`recommendation/${action.params.recommType}/7`),
     );
     if (response.status >= 200 || response.status <= 204)
       yield put({
@@ -48,11 +44,7 @@ function* getRecomm(action) {
 function* addRecomm(action) {
   try {
     const response = yield call(() =>
-      getRequest(
-        `recommendation/${action.params.recommType}/${
-          action.params.user_id || 2
-        }`,
-      ),
+      getRequest(`recommendation/${action.params.recommType}/7`),
     );
     if (response.status >= 200 || response.status <= 204)
       yield put({

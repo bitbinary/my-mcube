@@ -16,14 +16,10 @@ function Skills({ user_id }) {
   const [skillListComponent, setSkillListComponent] = useState(null);
   const [addSkill, setAddSkill] = useState('');
   const dispatch = useDispatch();
+  const { userId } = useSelector((state) => state.authenticateReducer);
 
-  const {
-    skillList,
-    skillErrorMessage,
-    skillDisplayError,
-    userSkillList,
-    userId,
-  } = useSelector((state) => state.profileReducer);
+  const { skillList, skillErrorMessage, skillDisplayError, userSkillList } =
+    useSelector((state) => state.profileReducer);
 
   useEffect(() => {
     dispatch({
