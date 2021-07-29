@@ -30,7 +30,7 @@ export default function RecommMM({
               <Space align='start' wrap>
                 <Avatar
                   icon={<UserOutlined />}
-                  style={{ backgroundColor: getRandomColor() }}
+                  style={{ backgroundColor: getRandomColor(firstName) }}
                 ></Avatar>
                 <>
                   {firstName || 'Amel'}

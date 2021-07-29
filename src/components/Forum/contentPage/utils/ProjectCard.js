@@ -38,7 +38,7 @@ export default function ProjectCard({
             avatar={
               <Avatar
                 icon={<UserOutlined />}
-                style={{ backgroundColor: getRandomColor() }}
+                style={{ backgroundColor: getRandomColor(project_title) }}
               />
             }
             title={project_title}
