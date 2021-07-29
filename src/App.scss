@@ -597,6 +597,8 @@ body {
 }
 .view-container {
   max-width: 1600px;
+  display: flex;
+  flex-flow: column;
 }
 
 .full-wide {
@@ -644,7 +646,8 @@ body {
   padding: 10px;
   padding-top: 40px;
   background-color: #fff;
-  min-height: 80%;
+  flex: 1;
+  margin-bottom: 5%;
   .ant-tabs-nav::before {
     border: none;
   }
@@ -665,6 +668,15 @@ body {
     }
   }
 
+  //Projects
+  .text-wrapper {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+  }
+
+  //SKILLS
   .skill-options {
     background-color: whitesmoke;
     margin-bottom: 10px;

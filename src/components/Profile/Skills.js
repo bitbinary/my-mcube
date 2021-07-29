@@ -6,7 +6,6 @@ import { InfoCircleOutlined, TagsOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Profile/actions';
 import { getRandomColor } from '../tools/colorGenerator';
-import AppTitles from 'components/utils/AppTitles';
 
 const { Option } = Select;
 const { Search } = Input;
@@ -26,14 +25,15 @@ function Skills({ user_id }) {
     userId,
   } = useSelector((state) => state.profileReducer);
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch({
       type: actions.GETSKILLS,
     });
     dispatch({
       type: actions.GETUSERSKILLS,
       payload: {
-        user_id: user_id ? user_id : userId,
+        user_id: 7,
+        //user_id: user_id ? user_id : userId,
       },
     });
   }, []);
@@ -122,7 +122,7 @@ function Skills({ user_id }) {
       >
         <Row gutter={16} className=''>
           <Col span={18}>
-            {userSkillList?.length > 0 && (
+            {skillList?.length > 0 && (
               <Select
                 mode='multiple'
                 style={{ width: '80%' }}
