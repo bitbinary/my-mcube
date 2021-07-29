@@ -1,11 +1,12 @@
 import actions from 'redux/Profile/actions';
 
 const initialState = {
-  profileData: {},
+  profileData: null,
   userId: null,
   skillList: [],
   skillErrorMessage: '',
   skillDisplayError: false,
+  userProjectList: [],
   userSkillList: [],
 };
 
@@ -13,8 +14,12 @@ function Reducer(state = initialState, action) {
   switch (action.type) {
     //PROFILE
     case actions.GETUSERDETAILS_SUCCESS:
-      console.log(action.data.data);
       return { ...state, profileData: action.data.data };
+    case actions.EDITUSERDETAILS_SUCCESS:
+      return { ...state };
+    //PROJECTS
+    case actions.GETUSERPROJECTS_SUCCESS:
+      return { ...state, userProjectList: action.data.data };
     //SKILLS
     case actions.GETSKILLS_SUCCESS:
       return {

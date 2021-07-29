@@ -2,31 +2,28 @@ import React from 'react';
 import { Button, Card, Col } from 'antd';
 import { ExpandOutlined, DeleteOutlined } from '@ant-design/icons';
 
-function ProjectCard({ openProjectModel }) {
-  const handleClick = () => {
-    openProjectModel('projectID');
+function ProjectCard({ project_data, openProjectModel }) {
+  const handleClick = (projectID) => {
+    openProjectModel(projectID);
   };
   return (
     <Col lg={8} md={12} sm={24} xs={24}>
       <Card
-        title='Chat Application'
+        title={project_data.title}
         className='list-card'
-        style={{ borderWidth: 'medium' }}
+        style={{ borderWidth: 'medium', height: '100%' }}
         actions={[
-          <Button>
+          <Button type='danger'>
             <DeleteOutlined key='delete' />
-            Delete Project
+            Delete
           </Button>,
-          <Button onClick={() => handleClick()}>
+          <Button onClick={() => handleClick(project_data.project_id)}>
             <ExpandOutlined key='expand' />
-            View Project
+            View
           </Button>,
         ]}
       >
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book.
+        <div className='text-wrapper'>{project_data.description}</div>
       </Card>
     </Col>
   );

@@ -26,11 +26,10 @@ function Reviews() {
     dispatch({
       type: actions.GETUSERREVIEWS,
       payload: {
-        user_id: 1,
+        user_id: 7,
       },
     });
   }, []);
-  console.log(userReviewsList);
 
   let content =
     'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently. We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure).';
@@ -38,11 +37,7 @@ function Reviews() {
   return (
     <>
       <Collapse>
-        <Panel
-          style={{ textAlign: 'left' }}
-          header='Click to add a review'
-          key='1'
-        >
+        <Panel style={{ textAlign: 'left' }} header='Click to add a review'>
           <Form
             name='basic'
             labelCol={{

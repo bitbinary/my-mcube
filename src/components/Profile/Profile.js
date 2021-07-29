@@ -18,16 +18,18 @@ import EditProfileModal from './EditProfileModal.js';
 import { getRandomColor } from '../tools/colorGenerator';
 import ViewWrapper from './utils/ViewWrapper.js';
 import AppTexts from 'components/utils/AppTexts.js';
+import { useHistory } from 'react-router-dom';
 
 function Profile({ user_id }) {
   const { Paragraph } = Typography;
   const dispatch = useDispatch();
+  let history = useHistory();
 
   // const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { profileData, userId } = useSelector((state) => state.profileReducer);
-
+  user_id = user_id ? user_id : 7;
   useEffect(() => {
     dispatch({
       type: actions.GETUSERDETAILS,
@@ -52,7 +54,7 @@ function Profile({ user_id }) {
   //   openEditUsertModel('userId');
   // };
 
-  const openEditUsertModel = (UserId) => {
+  const openEditUsertModel = () => {
     // setUserId(UserId);
     setIsModalVisible(true);
   };
@@ -60,6 +62,10 @@ function Profile({ user_id }) {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  function openChatModule() {
+    history.push('/messages');
+  }
 
   const openLinkedinInNewTab = (url) => {
     window.open(url, '_blank');
@@ -69,11 +75,11 @@ function Profile({ user_id }) {
     window.open(`mailto: ${url}`, '_blank');
   };
 
-  return (
+  return profileData ? (
     <ViewWrapper grid={true}>
       <EditProfileModal
         isModalVisible={isModalVisible}
-        userId={userId}
+        userId={userId ? userId : 1}
         handleCancel={handleCancel}
       />
       <Row className='profile-wrapper-header'>
@@ -101,7 +107,7 @@ function Profile({ user_id }) {
             <AppTitles
               className='large'
               content={`${profileData?.profile?.first_name}
-                  ${profileData?.profile?.last_name}`}
+                ${profileData?.profile?.last_name}`}
               style={{
                 fontWeight: 'bold',
               }}
@@ -135,10 +141,10 @@ function Profile({ user_id }) {
             <AppTitles
               size='small'
               content={`
-                ${profileData?.profile?.city} ,
-                ${profileData?.profile?.state},
-                ${profileData?.profile?.country},
-                ${profileData?.profile?.zipcode}`}
+              ${profileData?.profile?.city} ,
+              ${profileData?.profile?.state},
+              ${profileData?.profile?.country},
+              ${profileData?.profile?.zipcode}`}
             />
           </Row>
 
@@ -149,6 +155,7 @@ function Profile({ user_id }) {
               icon={<WechatOutlined />}
               size={20}
               style={{ margin: '4px' }}
+              onClick={openChatModule}
             />
             <Button
               type='dashed'
@@ -197,7 +204,7 @@ function Profile({ user_id }) {
       </Row>
       <AppTabs />
     </ViewWrapper>
-  );
+  ) : null;
 }
 
 export default Profile;
