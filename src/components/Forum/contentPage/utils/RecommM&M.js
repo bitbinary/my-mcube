@@ -56,7 +56,7 @@ export default function RecommMM({
           <Divider />
           <Space wrap>
             <AppTitles content='Skills:' />
-            {skills.split(',').map((skill) => (
+            {Array(skills).map((skill) => (
               <Tag color='#2db7f5'>{skill}</Tag>
             ))}
           </Space>

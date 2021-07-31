@@ -1,15 +1,15 @@
 import ContentWrapper from 'components/ContentWrapper';
 import HomeBanner from 'components/HomePage/HomeBanner';
 import HomeFeature from 'components/HomePage/HomeFeature';
-import forum from 'images/forum.png';
-import search from 'images/search.png';
-import recommendation from 'images/recommendation.png';
-import chat from 'images/chat.png';
+import forum from 'images/feeds.jpg';
+import search from 'images/search.jpg';
+import recommendation from 'images/recommendation.jpg';
+import chat from 'images/message.jpg';
 function Home() {
   return (
     <ContentWrapper>
       <HomeBanner
-        bannerTitle='Explore Learn Share.'
+        bannerTitle='Connect Learn Share'
         // bannerDescription={
         //   <>
         //     Explore the opportunities that lie ahead{<br />}Find out the people
@@ -20,7 +20,8 @@ function Home() {
       ></HomeBanner>
 
       <HomeFeature
-        dividerText="Explore what's inside the box"
+        // eslint-disable-next-line
+        dividerTexts={["Let's explore what's", 'inside the box']}
         featureImage={forum}
         featureName='Forum'
         featureTitle='Reach out to the community.'

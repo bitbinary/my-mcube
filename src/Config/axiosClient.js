@@ -27,5 +27,5 @@ export function deleteRequest(URL) {
 }
 
 export function putRequest(URL, payload) {
-  return axiosClient.patch(`/${URL}`, payload).then((response) => response);
+  return axiosClient.put(`/${URL}`, payload).then((response) => response);
 }

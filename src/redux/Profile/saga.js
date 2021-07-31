@@ -1,15 +1,16 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import actions from 'redux/Profile/actions';
 import { postRequest, getRequest, putRequest } from 'Config/axiosClient';
+import { notification } from 'antd';
 
 function* getUserDetails(action) {
   try {
     const response = yield call(() =>
       getRequest(`user/${action.payload.user_id}`),
     );
-    if (response.status === 200)
+    if (response.status === 200) {
       yield put({ type: actions.GETUSERDETAILS_SUCCESS, data: response.data });
-    else throw response.statusText;
+    } else throw response.statusText;
   } catch (e) {
     yield put({ type: actions.GETUSERDETAILS_FAILURE, e });
   }
@@ -23,9 +24,14 @@ function* editUserDetails(action) {
         action.payload.profile,
       ),
     );
-    if (response.status === 200)
+    if (response.status === 200) {
+      notification['info']({
+        message: 'Updated user details',
+        description: response?.data?.message,
+        placement: 'bottomRight',
+      });
       yield put({ type: actions.EDITUSERDETAILS_SUCCESS, data: response.data });
-    else throw response.statusText;
+    } else throw response.statusText;
   } catch (e) {
     yield put({ type: actions.EDITUSERDETAILS_FAILURE, e });
   }

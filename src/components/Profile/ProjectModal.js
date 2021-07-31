@@ -41,20 +41,19 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
     return () => {};
   }, [isModalVisible]);
   return (
-    <div className='project-modal-wrapper'>
+    <div>
       {data ? (
         <Modal
           title={data?.title}
           visible={isModalVisible}
           onCancel={handleCancel}
           // onOk={null}
-          width='100%'
+          className='project-modal-wrapper'
           footer={[
             <Button key='submit' type='primary' loading={false} onClick={null}>
               Join
             </Button>,
           ]}
-          style={{ maxWidth: 1600 }}
         >
           <Row gutter={[16, 24]}>
             <Col>

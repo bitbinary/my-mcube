@@ -11,7 +11,7 @@ import bannerimg from 'banner.jpg';
 export default function HomeBanner({ bannerTitle, bannerDescription }) {
   const history = useHistory();
   const goToDashboard = () => {
-    history.push('/dashboard');
+    history.push('/login');
   };
   return (
     <Row className='home-page-section' justify='space-between' align='middle'>

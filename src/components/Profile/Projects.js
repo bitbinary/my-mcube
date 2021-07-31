@@ -15,12 +15,13 @@ function Projects() {
   const [hasMoreContents, setHasMoreContents] = useState(true);
 
   const { userProjectList } = useSelector((state) => state.profileReducer);
+  const { userId } = useSelector((state) => state.authenticateReducer);
 
   useEffect(() => {
     dispatch({
       type: actions.GETUSERPROJECTS,
       payload: {
-        user_id: 7,
+        user_id: userId,
       },
     });
   }, []);

@@ -19,7 +19,7 @@ import { getRandomColor } from '../tools/colorGenerator';
 import ViewWrapper from './utils/ViewWrapper.js';
 import AppTexts from 'components/utils/AppTexts.js';
 import { useHistory } from 'react-router-dom';
-
+import avatarImg from 'assets/avatar.jpg';
 function Profile({ user_id }) {
   const { Paragraph } = Typography;
   const dispatch = useDispatch();
@@ -28,8 +28,8 @@ function Profile({ user_id }) {
   // const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { profileData, userId } = useSelector((state) => state.profileReducer);
-  user_id = user_id ? user_id : 7;
+  const { profileData } = useSelector((state) => state.profileReducer);
+  const { userId } = useSelector((state) => state.authenticateReducer);
   useEffect(() => {
     dispatch({
       type: actions.GETUSERDETAILS,
@@ -79,12 +79,13 @@ function Profile({ user_id }) {
     <ViewWrapper grid={true}>
       <EditProfileModal
         isModalVisible={isModalVisible}
-        userId={userId ? userId : 1}
+        userId={userId}
         handleCancel={handleCancel}
       />
       <Row className='profile-wrapper-header'>
         <div className='profile-wrapper-header-div'>
           <Avatar
+            src={avatarImg}
             style={{
               // backgroundColor: 'rgb(154 160 164)',
               backgroundColor: getRandomColor('Navya'),
@@ -98,7 +99,7 @@ function Profile({ user_id }) {
               xl: 100,
               xxl: 100,
             }}
-            icon={<UserOutlined />}
+            // icon={<UserOutlined />}
           />
         </div>
 
@@ -117,7 +118,7 @@ function Profile({ user_id }) {
               content={`Title: ${profileData?.profile?.title}`}
             />
             <div className='italics' style={{ marginLeft: '1%' }}>
-              Skills: {interestsList}
+              Interests: {interestsList}
             </div>
           </div>
         </Col>

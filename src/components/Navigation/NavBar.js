@@ -61,7 +61,7 @@ export default function NavBar() {
               Navigation Two
             </Menu.Item> */}
         <Menu.Item
-          key='Profile'
+          key='profile'
           icon={<UserOutlined />}
           onClick={() => profile()}
         >

@@ -5,13 +5,32 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Feed from './utils/Feed';
 import { Space, Empty } from 'antd';
 import Buttons from 'components/utils/Buttons';
+import ProjectModal from 'components/Profile/ProjectModal';
+import sorter from 'components/tools/sorter';
+
 export default function Feeds() {
   const dispatch = useDispatch();
-  const { contentFeeds, feedLoading } = useSelector(
+  const { contentFeeds, feedLoading, feedSortBy } = useSelector(
     (state) => state.forumReducer,
   );
   let currentContentFeed = useRef(contentFeeds);
   const [data, setData] = useState([]);
+  const [idForModal, setIdForModal] = useState('');
+  const [isUserModalVisible, setIsUserModalVisible] = useState(false);
+  const [isProjectModalVisible, setIsProjectModalVisible] = useState(false);
+  const handleMoreDetails = (type, id) => {
+    setIdForModal(id);
+    if (type === 'project_id') {
+      setIsProjectModalVisible(true);
+    } else {
+      setIsUserModalVisible(true);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsProjectModalVisible(false);
+    setIsUserModalVisible(false);
+  };
   function getDummy() {
     let numberofDummy = 5;
     let dummyData = [];
@@ -32,24 +51,37 @@ export default function Feeds() {
   }, [dispatch]);
 
   useEffect(() => {
-    setData(contentFeeds);
+    let sortedContent = sorter([...contentFeeds], feedSortBy);
+
+    setData(sortedContent);
     return () => {};
   }, [contentFeeds]);
+  useEffect(() => {
+    let sortedContent = sorter([...contentFeeds], feedSortBy);
+
+    setData(sortedContent);
+    return () => {};
+  }, [feedSortBy]);
   const addMoreFeeds = () => {
-    dispatch({
-      type: actions.FEEDLOADING,
-      isloading: true,
-    });
-    setData([...contentFeeds, ...getDummy()]);
-    dispatch({
-      type: actions.ADDFEEDS,
-      params: { filters: [], type: [] },
-    });
+    // dispatch({
+    //   type: actions.FEEDLOADING,
+    //   isloading: true,
+    // });
+    setData([...data, ...getDummy()]);
+    // dispatch({
+    //   type: actions.ADDFEEDS,
+    //   params: { filters: [], type: [] },
+    // });
     return () => {};
   };
   if (data.length > 0) {
     return (
       <>
+        <ProjectModal
+          isModalVisible={isProjectModalVisible}
+          projectId={idForModal}
+          handleCancel={handleCancel}
+        />
         <InfiniteScroll
           pageStart={0}
           initialLoad={false}
@@ -75,7 +107,7 @@ export default function Feeds() {
               <Feed
                 key={feed.post_id}
                 index={index}
-                projectId={feed.project_id}
+                project_id={feed.project_id}
                 title={feed.title || 'Default Post Title'}
                 description={feed.content}
                 lastModified={feed.last_modified}
@@ -86,6 +118,7 @@ export default function Feeds() {
                 loading={feed?.loading}
                 postId={feed.post_id}
                 userId={feed.user_id}
+                handleClick={handleMoreDetails}
               />
             ))}
           </Space>

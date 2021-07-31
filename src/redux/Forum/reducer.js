@@ -7,6 +7,7 @@ const initialState = {
   searchselectedtypes: [],
   recommselectedtype: 'mentees',
   addPostDraftState: false,
+  addPostLoading: false,
   addPostDraft: {
     postTitle: '',
     postDescription: '',
@@ -14,6 +15,7 @@ const initialState = {
   },
   addPostLoader: false,
   feedLoading: true,
+  feedSortBy: 'timestamp',
   contentFeeds: [],
   searchLoader: false,
   contentSearch: [],
@@ -35,6 +37,8 @@ function Reducer(state = initialState, action) {
         ...state,
         contentFeeds: [...action.data.data],
         feedLoading: false,
+        addPostLoading: false,
+        addPostDraftState: false,
       };
     case actions.GETFEEDS_FAILURE:
       return { ...state, feedLoading: false };
@@ -46,6 +50,17 @@ function Reducer(state = initialState, action) {
       };
     case actions.ADDFEEDS_FAILURE:
       return { ...state };
+
+    case actions.ADDPOST_SUCCESS:
+      return {
+        ...state,
+        addPostLoading: false,
+        addPostDraftState: true,
+      };
+    case actions.ADDPOST_FAILURE:
+      console.log('add post failure');
+      return { ...state, addPostLoading: false };
+
     case actions.FEEDLOADING:
       return { ...state, feedLoading: action.isloading };
 
@@ -137,6 +152,8 @@ function Reducer(state = initialState, action) {
         ...state,
         recommselectedtype: action.payload.recommendationsselectedtypes,
       };
+    case actions.FORCEUPDATE:
+      return { ...state, [action.payload.item]: action.payload.value };
     default:
       return state;
   }

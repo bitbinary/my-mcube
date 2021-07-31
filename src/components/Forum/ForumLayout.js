@@ -7,12 +7,18 @@ import ForumPageHeaderExtras from './HeaderExtras/ForumPageHeaderExtras';
 import ForumPageHeaderSelections from './ForumPageHeaderSelections';
 import AppTitles from 'components/utils/AppTitles';
 import AppTexts from 'components/utils/AppTexts';
+import { useHistory } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
 export default function ForumLayout({ children }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const onChange = (value) => {
+    console.log(value);
+    history.push({
+      pathname: `/${value.toLowerCase()}`,
+    });
     dispatch({
       type: actions.FORUMPAGECHANGE,
       payload: { forumpage: value },

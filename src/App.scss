@@ -135,7 +135,11 @@ body {
 .ant-menu-sub {
   color: #262833;
 }
-
+.ant-modal-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .site-layout-content {
   // background-color: #ffffff;
   background: linear-gradient(180deg, #0e548d, #3ca6b5);
@@ -170,6 +174,10 @@ body {
 }
 .home-banner-container {
   position: relative;
+  .ant-btn-primary {
+    background-color: #0e548d;
+    border-color: #0e548d;
+  }
 }
 .home-banner-video-container {
   position: absolute;
@@ -225,13 +233,21 @@ body {
 
 .home-feature-image-wrapper {
   overflow: hidden;
+  padding: 10px;
   img {
-    max-height: 500px;
+    max-height: 700px;
     width: 100%;
+    border-radius: 8px;
+    box-shadow: 0px 8px 14px -9px #0e548d;
+    // transform: perspective(9cm) rotateX(-5deg) rotateY(20deg);
   }
 }
 .feature-divider {
-  color: #5d5d5d;
+  color: $secondary-color;
+}
+.divider-text {
+  display: inline;
+  text-align: center;
 }
 
 //FORUM styles
@@ -324,13 +340,15 @@ body {
   }
 }
 .search-result-container {
+  justify-content: space-around;
 }
 .user-card-wrapper {
   // flex: 1;
-  margin: auto;
+  display: flex;
 }
 .project-card-wrapper {
-  margin: auto;
+  /* min-height: 100%; */
+  display: flex;
   // flex: 1;
 }
 .multiselect {
@@ -501,15 +519,15 @@ body {
 
 //************** common utils styles****************//
 // PROJECT MODAL
-// .project-modal-wrapper {
-//   // background-color: #f8f9fa;
-//   position: absolute;
-//   max-width: 1600px;
-//   margin: auto;
-//   min-height: 500px;
-//   padding: 20px;
-//   margin-bottom: 40px;
-// }
+.project-modal-wrapper {
+  // background-color: #f8f9fa;
+  position: absolute;
+  width: 1000px;
+  margin: auto;
+  min-height: 500px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
 .list-card {
   box-shadow: 0px 0px 6px 1px #f1f1f1;
   background: #ffffff;
@@ -517,6 +535,11 @@ body {
   border-radius: 8px;
   position: relative;
   text-align: left;
+  display: flex;
+  flex-flow: column;
+  .ant-card-body {
+    flex: 1;
+  }
   .card-user-type {
     position: absolute;
     top: 8px;
