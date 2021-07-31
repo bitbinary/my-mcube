@@ -7,6 +7,7 @@ const initialState = {
   searchselectedtypes: [],
   recommselectedtype: 'mentees',
   addPostDraftState: false,
+  addPostLoading: false,
   addPostDraft: {
     postTitle: '',
     postDescription: '',
@@ -14,6 +15,7 @@ const initialState = {
   },
   addPostLoader: false,
   feedLoading: true,
+  feedSortBy: 'timestamp',
   contentFeeds: [],
   searchLoader: false,
   contentSearch: [],
@@ -22,6 +24,10 @@ const initialState = {
   contentRecommMentors: [],
   contentRecommProjects: [],
   recommLoading: true,
+  searchData: [],
+  searchLoading: false,
+  searchString: '',
+  feedSearchString: '',
 };
 
 function Reducer(state = initialState, action) {
@@ -30,19 +36,32 @@ function Reducer(state = initialState, action) {
     case actions.GETFEEDS_SUCCESS:
       return {
         ...state,
-        contentFeeds: [...action.data],
+        contentFeeds: [...action.data.data],
         feedLoading: false,
+        addPostLoading: false,
+        addPostDraftState: false,
       };
     case actions.GETFEEDS_FAILURE:
       return { ...state, feedLoading: false };
     case actions.ADDFEEDS_SUCCESS:
       return {
         ...state,
-        contentFeeds: [...state.contentFeeds, ...action.data],
+        contentFeeds: [...state.contentFeeds, ...action.data.data],
         feedLoading: false,
       };
     case actions.ADDFEEDS_FAILURE:
       return { ...state };
+
+    case actions.ADDPOST_SUCCESS:
+      return {
+        ...state,
+        addPostLoading: false,
+        addPostDraftState: true,
+      };
+    case actions.ADDPOST_FAILURE:
+      console.log('add post failure');
+      return { ...state, addPostLoading: false };
+
     case actions.FEEDLOADING:
       return { ...state, feedLoading: action.isloading };
 
@@ -120,21 +139,22 @@ function Reducer(state = initialState, action) {
       return { ...state, loader: action.payload.loader };
     case actions.TOGGLESTATE:
       return { ...state, [action.payload.label]: action.payload.value };
-    case actions.UPDATESEARCHSKILLS:
-      return {
-        ...state,
-        searchselectedskills: action.payload.searchSkillsSelected,
-      };
-    case actions.UPDATESEARCHTYPES:
-      return {
-        ...state,
-        searchselectedtypes: action.payload.searchselectedtypes,
-      };
+
+    case actions.UPDATESEARCHSTRING:
+      return { ...state, searchString: action.searchString };
+    case actions.SEARCH_SUCCESS:
+      return { ...state, searchData: [...action.data], searchLoading: false };
+
+    case actions.SEARCH_FAILURE:
+      return { ...state, searchLoading: false };
+
     case actions.UPDATERECOMTYPES:
       return {
         ...state,
         recommselectedtype: action.payload.recommendationsselectedtypes,
       };
+    case actions.FORCEUPDATE:
+      return { ...state, [action.payload.item]: action.payload.value };
     default:
       return state;
   }

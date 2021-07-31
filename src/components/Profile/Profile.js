@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from 'redux/Profile/actions';
 import { Row, Col, Tag, Button, Typography, Avatar } from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTabs from './AppTabs.js';
@@ -13,25 +15,57 @@ import {
   PhoneFilled,
 } from '@ant-design/icons';
 import EditProfileModal from './EditProfileModal.js';
-
-function Profile() {
+import { getRandomColor } from '../tools/colorGenerator';
+import ViewWrapper from './utils/ViewWrapper.js';
+import AppTexts from 'components/utils/AppTexts.js';
+import { useHistory } from 'react-router-dom';
+import avatarImg from 'assets/avatar.jpg';
+function Profile({ user_id }) {
   const { Paragraph } = Typography;
+  const dispatch = useDispatch();
+  let history = useHistory();
 
-  const [userId, setUserId] = useState('');
+  // const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const { profileData } = useSelector((state) => state.profileReducer);
+  const { userId } = useSelector((state) => state.authenticateReducer);
+  useEffect(() => {
+    dispatch({
+      type: actions.GETUSERDETAILS,
+      payload: {
+        user_id: user_id ? user_id : userId,
+      },
+    });
+  }, []);
+
+  var interestsList = profileData?.interest?.topic
+    .substring(1, profileData?.interest?.topic.length - 1)
+    .split(',')
+    .map(function (interest) {
+      return (
+        <Tag color={getRandomColor(interest)}>
+          {interest.substring(1, interest.length - 1)}
+        </Tag>
+      );
+    });
 
   // const handleClick = () => {
   //   openEditUsertModel('userId');
   // };
 
-  const openEditUsertModel = (UserId) => {
-    setUserId(UserId);
+  const openEditUsertModel = () => {
+    // setUserId(UserId);
     setIsModalVisible(true);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+  function openChatModule() {
+    history.push('/messages');
+  }
 
   const openLinkedinInNewTab = (url) => {
     window.open(url, '_blank');
@@ -41,78 +75,88 @@ function Profile() {
     window.open(`mailto: ${url}`, '_blank');
   };
 
-  return (
-    <>
+  return profileData ? (
+    <ViewWrapper grid={true}>
       <EditProfileModal
         isModalVisible={isModalVisible}
         userId={userId}
         handleCancel={handleCancel}
       />
-      <div>
-        <Row className='profile-wrapper-header'>
-          <Col lg={3} md={8} sm={24} xs={24}>
-            <div className='profile-wrapper-header-div'>
-              <Avatar
-                style={{
-                  backgroundColor: 'rgb(154 160 164)',
-                  marginTop: '5%',
-                  marginLeft: '5%',
-                }}
-                size={{
-                  xs: 100,
-                  sm: 100,
-                  md: 100,
-                  lg: 100,
-                  xl: 120,
-                  xxl: 140,
-                }}
-                icon={<UserOutlined />}
-              />
-            </div>
-          </Col>
+      <Row className='profile-wrapper-header'>
+        <div className='profile-wrapper-header-div'>
+          <Avatar
+            src={avatarImg}
+            style={{
+              // backgroundColor: 'rgb(154 160 164)',
+              backgroundColor: getRandomColor('Navya'),
+              margin: 'auto',
+            }}
+            size={{
+              xs: 50,
+              sm: 50,
+              md: 80,
+              lg: 80,
+              xl: 100,
+              xxl: 100,
+            }}
+            // icon={<UserOutlined />}
+          />
+        </div>
 
-          <Col lg={15} md={15} sm={24} xs={24}>
-            <div>
-              <AppTitles
-                className='large'
-                content='Navya Vashisht'
-                style={{
-                  fontWeight: 'bold',
-                  color: 'black',
-                }}
-              />
-              <AppTitles
-                className='small'
-                content='Master of Information Technology - UNSW'
-                style={{ color: 'rgb(0 0 0)' }}
-              />
-              <div style={{ marginLeft: '1%' }}>
-                <Tag color='magenta'>Data Science</Tag>
-                <Tag color='cyan'>Java</Tag>
-                <Tag color='lime'>AI</Tag>
-                <Tag color='orange'>Python</Tag>
-              </div>
+        <Col lg={15} md={15} sm={24} xs={24}>
+          <div>
+            <AppTitles
+              className='large'
+              content={`${profileData?.profile?.first_name}
+                ${profileData?.profile?.last_name}`}
+              style={{
+                fontWeight: 'bold',
+              }}
+            />
+            <AppTexts
+              className='medium italics'
+              content={`Title: ${profileData?.profile?.title}`}
+            />
+            <div className='italics' style={{ marginLeft: '1%' }}>
+              Interests: {interestsList}
             </div>
-          </Col>
-          <Col lg={6} md={12} sm={24} xs={24}>
-            <span>
-              <AppTitles
-                content={
-                  <HomeTwoTone style={{ fontSize: '25px' }} size='30px' />
-                }
-                style={{ fontWeight: 'bold' }}
-              />
-            </span>
+          </div>
+        </Col>
+        <Col
+          lg={6}
+          md={12}
+          sm={24}
+          xs={24}
+          style={{
+            justifyContent: 'flex-end',
+            display: 'flex',
+            flexFlow: 'column',
+            alignItems: 'flex-end',
+          }}
+        >
+          <Row justify='start' align='start'>
+            <AppTitles
+              content={<HomeTwoTone style={{ fontSize: '25px' }} size='30px' />}
+              style={{ fontWeight: 'bold' }}
+            />
             <AppTitles
               size='small'
-              content='Location: UNSW, Kensington, Sydney, NSW'
+              content={`
+              ${profileData?.profile?.city} ,
+              ${profileData?.profile?.state},
+              ${profileData?.profile?.country},
+              ${profileData?.profile?.zipcode}`}
             />
+          </Row>
+
+          <div>
             <Button
               type='dashed'
               shape='round'
               icon={<WechatOutlined />}
               size={20}
               style={{ margin: '4px' }}
+              onClick={openChatModule}
             />
             <Button
               type='dashed'
@@ -120,7 +164,7 @@ function Profile() {
               icon={<MailOutlined />}
               size={20}
               style={{ margin: '4px' }}
-              onClick={() => openMailInNewTab('navya@gmail.com')}
+              onClick={() => openMailInNewTab(profileData?.profile?.email)}
             />
             <Button
               type='dashed'
@@ -128,11 +172,7 @@ function Profile() {
               icon={<LinkedinOutlined />}
               size={20}
               style={{ margin: '4px' }}
-              onClick={() =>
-                openLinkedinInNewTab(
-                  'https://www.linkedin.com/in/arpitmathur1/',
-                )
-              }
+              onClick={() => openLinkedinInNewTab(profileData?.profile?.links)}
             />
             <Button
               type='dashed'
@@ -142,7 +182,7 @@ function Profile() {
             >
               <Paragraph
                 copyable={{
-                  text: '+610000000000',
+                  text: profileData?.profile?.mobile_no,
                   icon: [
                     <PhoneOutlined key='copy-icon' />,
                     <PhoneFilled key='copied-icon' />,
@@ -151,19 +191,21 @@ function Profile() {
                 }}
               ></Paragraph>
             </Button>
-            <Button
-              type='primary'
-              icon={<EditOutlined />}
-              onClick={() => openEditUsertModel()}
-            >
-              Edit Profile
-            </Button>
-          </Col>
-        </Row>
-      </div>
+          </div>
+          <Button
+            type='primary'
+            shape='round'
+            icon={<EditOutlined />}
+            onClick={() => openEditUsertModel()}
+            style={{ position: 'absolute', top: '0px', right: '0px' }}
+          >
+            Edit
+          </Button>
+        </Col>
+      </Row>
       <AppTabs />
-    </>
-  );
+    </ViewWrapper>
+  ) : null;
 }
 
 export default Profile;

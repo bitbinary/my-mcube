@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Buttons from 'components/utils/Buttons';
 import { SearchOutlined } from '@ant-design/icons';
-import { Row, Space } from 'antd';
+import { Row, Space, Input } from 'antd';
 import MultipleSelects from 'components/utils/MultipleSelects';
 import actions from 'redux/Forum/actions';
 import { useDispatch, useSelector } from 'react-redux';
+
+const { Search } = Input;
 const options = [
   'JavaScript',
   'Python',
@@ -57,28 +59,30 @@ const options = [
   'SAS',
   'Logo',
 ];
-const optionsType = ['Mentor', 'Mentee', 'Project'];
+
 export default function ForumPhSearchExtras() {
   const dispatch = useDispatch();
-  const { searchselectedskills, searchselectedtypes, loader } = useSelector(
+  const { searchLoading, searchString } = useSelector(
     (state) => state.forumReducer,
   );
-  const onValueChangeSkills = (values) => {
+  // const [loading, setLoading] = useState(false);
+
+  const doSearch = () => {
+    console.log('going to search');
     dispatch({
-      type: actions.UPDATESEARCHSKILLS,
-      payload: { searchSkillsSelected: values },
+      type: actions.TOGGLESTATE,
+      payload: { label: 'searchLoading', value: true },
+    });
+    console.log('going to search');
+    dispatch({
+      type: actions.SEARCHFEEDS,
+      params: { searchString: searchString },
     });
   };
-  const onValueChangeTypes = (values) => {
+  const updateSearchString = (value) => {
     dispatch({
-      type: actions.UPDATESEARCHTYPES,
-      payload: { searchselectedtypes: values },
-    });
-  };
-  const toggleLoading = () => {
-    dispatch({
-      type: actions.TOGGLELOADING,
-      payload: { loader: !loader },
+      type: actions.UPDATESEARCHSTRING,
+      searchString: value,
     });
   };
   return (
@@ -91,32 +95,15 @@ export default function ForumPhSearchExtras() {
       align='middle'
       className='forum-page-header-extra-wrapper'
     >
-      <Space className='forum-page-header-extra-spacer'>
-        <MultipleSelects
-          key='multiselectSkills'
-          defaultValue={searchselectedskills}
-          selectOptions={options}
-          placeholder='Search Skills'
-          handleChange={(values) => onValueChangeSkills(values)}
-          className='multiselect forum-search-skill-select'
-          // tagRender={() => <>{null}</>}
-        />
-        <MultipleSelects
-          key='multiselectTypes'
-          defaultValue={searchselectedtypes}
-          selectOptions={optionsType}
-          placeholder='Search Types'
-          handleChange={(values) => onValueChangeTypes(values)}
-          // tagRender={() => <>{null}</>}
-          className='multiselect forum-search-type-select'
-        />
-      </Space>
-      <Buttons
-        type='primary'
-        shape='round'
-        icon={<SearchOutlined />}
-        content='Search'
-        handleClick={() => toggleLoading()}
+      <Search
+        placeholder='Input search string'
+        loading={searchLoading}
+        enterButton
+        allowClear
+        value={searchString}
+        onChange={(e) => updateSearchString(e.target.value)}
+        onPressEnter={() => doSearch()}
+        onSearch={() => doSearch()}
       />
     </Row>
   );

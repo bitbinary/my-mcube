@@ -9,7 +9,8 @@ import {
   LogoutOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-import logo from 'logo.svg';
+import logoimg from 'assets/logo/small.png';
+import logotext from 'logo.svg';
 // import logocube from 'logocube.svg';
 import { useHistory } from 'react-router-dom';
 
@@ -49,7 +50,8 @@ export default function NavBar() {
         <Menu.Item className='App-logo' key='applogo'>
           <div>
             {/* <img src={logocube} className='logo' alt='logo' key='logo' /> */}
-            <img src={logo} className='logo' alt='logo' key='logo' />
+            <img src={logoimg} className='logo' alt='logo' key='logo' />
+            <img src={logotext} className='logo' alt='logo' key='logo' />
           </div>
         </Menu.Item>
         <Menu.Item key='messages' icon={<MailOutlined />} onClick={goToMesages}>
@@ -59,7 +61,7 @@ export default function NavBar() {
               Navigation Two
             </Menu.Item> */}
         <Menu.Item
-          key='Profile'
+          key='profile'
           icon={<UserOutlined />}
           onClick={() => profile()}
         >

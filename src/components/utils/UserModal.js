@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import Profile from 'components/Profile/Profile';
 
 function UserModal({ isModalVisible, userID, handleCancel }) {
+  let id = userID?.split('_')[1];
   const { confirm } = Modal;
 
   function showConfirm() {
@@ -18,13 +19,14 @@ function UserModal({ isModalVisible, userID, handleCancel }) {
 
   return (
     <Modal
-      title='Chat Application'
+      title='User Profile'
       visible={isModalVisible}
       onCancel={handleCancel}
       onOk={showConfirm}
       width='100%'
+      style={{ maxWidth: 1600, height: '80%' }}
     >
-      <Profile />
+      <Profile user_id={id} />
     </Modal>
   );
 }

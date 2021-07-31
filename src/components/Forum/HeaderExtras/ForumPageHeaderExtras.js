@@ -2,13 +2,18 @@ import React from 'react';
 import ForumPhSearchExtras from './ForumPhSearchExtras';
 import ForumPhFeedsExtras from './ForumPhFeedsExtras';
 import ForumPhRecomExtras from './ForumPhRecomExtras';
+import { useSelector } from 'react-redux';
 export default function ForumPageHeaderExtras({ page }) {
-  if (page === 'Feeds') {
+  const { searchData } = useSelector((state) => state.forumReducer);
+  console.log(searchData.length);
+  if (page === 'feeds') {
     return <ForumPhFeedsExtras key='extrasFeed' />;
-  } else if (page === 'Search') {
-    return <ForumPhSearchExtras key='extrasSearch' />;
+  } else if (page === 'search') {
+    return (
+      searchData.length !== 0 && <ForumPhSearchExtras key='extrasSearch' />
+    );
   }
-  if (page === 'Recommendations') {
+  if (page === 'recommendations') {
     return <ForumPhRecomExtras key='extraRecommendations' />;
   }
 }

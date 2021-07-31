@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { List, Avatar, Space, Skeleton, Tooltip } from 'antd';
+import { List, Avatar, Space, Skeleton, Tooltip, Button } from 'antd';
 import { MessageOutlined } from '@ant-design/icons';
 import { UserOutlined } from '@ant-design/icons';
 import AppTexts from 'components/utils/AppTexts';
 import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
 import CommentsWrapper from 'components/utils/CommentsWrapper';
 import moment from 'moment';
+import { ExpandOutlined } from '@ant-design/icons';
+import { getRandomColor } from 'components/tools/colorGenerator';
 
 const IconText = ({ icon, text, handleClick }) => (
   <Space onClick={handleClick}>
@@ -24,6 +26,10 @@ export default function Feed({
   createdAt,
   postOwner,
   commentCount,
+  comments,
+  postId,
+  handleClick,
+  project_id,
   ...rest
 }) {
   const [commentsVisible, setCommentsVisible] = useState(false);
@@ -42,31 +48,48 @@ export default function Feed({
               handleClick={toggleComments}
               key='list-vertical-message'
             />,
+            <Button onClick={() => handleClick('project_id', project_id)}>
+              <ExpandOutlined key='expand' />
+              View Project
+            </Button>,
           ]}
           className='feed-list-item'
         >
           <Skeleton loading={{ ...rest }?.loading} active avatar>
             <List.Item.Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
+              avatar={
+                <Avatar
+                  style={{ backgroundColor: getRandomColor(title) }}
+                  icon={<UserOutlined />}
+                />
+              }
               title={
                 <>
                   <AppTexts className='mediumlarge' content={title}></AppTexts>
                   <Tooltip
+                    placement='left'
                     title={moment()
                       .subtract(1, 'days')
                       .format('YYYY-MM-DD HH:mm:ss')}
                   >
                     <AppTexts
-                      content={moment(createdAt).subtract(1, 'days').fromNow()}
+                      content={moment(new Date(createdAt * 1000))
+                        .subtract(0, 'days')
+                        .fromNow()}
                     />
                   </Tooltip>
                 </>
               }
-              description={<AppTexts content={defaultText} />}
+              description={<AppTexts content={description} />}
             />
           </Skeleton>
         </List.Item>
-        {commentsVisible && <CommentsWrapper id={title} />}
+        {commentsVisible && (
+          <CommentsWrapper
+            postId={postId}
+            defaultComments={comments ? comments : []}
+          />
+        )}
       </List>
     </ViewWrapper>
   );

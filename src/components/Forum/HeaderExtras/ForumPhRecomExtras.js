@@ -47,13 +47,13 @@ export default function ForumPhRecomExtras() {
           // tagRender={() => <>{null}</>}
           className='multiselect forum-recom-type-select'
         />
-        <Buttons
+        {/* <Buttons
           type='primary'
           shape='round'
           icon={<SearchOutlined />}
           content='Get Recommendations'
           handleClick={() => toggleLoading()}
-        />
+        /> */}
       </Space>
     </Row>
   );

@@ -1,8 +1,23 @@
-export function getRandomColor() {
-  var letters = '56789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 11)];
+export function getRandomColor(name = 'Navya') {
+  // var letters = '56789ABCDEF';
+  // var color = '#';
+  // for (var i = 0; i < 6; i++) {
+  //   color += letters[Math.floor(Math.random() * 11)];
+  // }
+  return `#${intToRGB(hashCode(name).toString())}`;
+}
+
+function hashCode(str) {
+  // java String#hashCode
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
-  return color;
+  return hash;
+}
+
+function intToRGB(i) {
+  var c = (i & 0x00ffffff).toString(16).toUpperCase();
+
+  return '00000'.substring(0, 6 - c.length) + c;
 }

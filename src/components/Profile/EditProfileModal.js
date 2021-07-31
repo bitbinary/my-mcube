@@ -14,32 +14,64 @@ import {
   InfoCircleOutlined,
   TagsOutlined,
 } from '@ant-design/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import actions from 'redux/Profile/actions';
 
 function EditProfileModal({ isModalVisible, userId, handleCancel }) {
   const { Paragraph, Text } = Typography;
   const { confirm } = Modal;
   const { Search } = Input;
-  const [editFirstName, setFirstName] = useState('Navya');
-  const [editLastName, setLastName] = useState('Vashisht');
-  const [editEmail, setEmail] = useState('navya@gmail.com');
-  const [editContactNo, setContactNo] = useState('+610000000000');
-  const [editCity, setCity] = useState('Sydney');
-  const [editState, setState] = useState('NSW');
-  const [editCountry, setCountry] = useState('Australia');
-  const [editZipCode, setZipCode] = useState('2033');
-  const [editTitle, setTitle] = useState(
-    'Master of Information Technology - UNSW',
+
+  const { profileData } = useSelector((state) => state.profileReducer);
+  const [editFirstName, setFirstName] = useState(
+    profileData?.profile?.first_name,
   );
+  const [editLastName, setLastName] = useState(profileData?.profile?.last_name);
+  const [editEmail, setEmail] = useState(profileData?.profile?.email);
+  const [editContactNo, setContactNo] = useState(
+    profileData?.profile?.mobile_no,
+  );
+  const [editCity, setCity] = useState(profileData?.profile?.city);
+  const [editState, setState] = useState(profileData?.profile?.state);
+  const [editCountry, setCountry] = useState(profileData?.profile?.country);
+  const [editZipCode, setZipCode] = useState(profileData?.profile?.zipcode);
+  const [editTitle, setTitle] = useState(profileData?.profile?.title);
   const [editLinkedInURL, setLinkedInURL] = useState(
-    'https://www.linkedin.com/in/arpitmathur1/',
+    profileData?.profile?.links,
   );
+
+  const dispatch = useDispatch();
 
   function showConfirm() {
     confirm({
       title: 'Do you want to save the changes?',
       icon: <ExclamationCircleOutlined />,
       onOk() {
-        alert('OK');
+        dispatch({
+          type: actions.EDITUSERDETAILS,
+          payload: {
+            user_id: userId,
+            profile: {
+              // mail
+
+              firstName: String(editFirstName),
+              lastName: String(editLastName),
+              contactNumber: String(editContactNo),
+              locationCity: String(editCity),
+              locationState: String(editState),
+              locationCountry: String(editCountry),
+              locationZipCode: String(editZipCode),
+              title: String(editTitle),
+              linkedin: String(editLinkedInURL),
+            },
+          },
+        });
+        dispatch({
+          type: actions.GETUSERDETAILS,
+          payload: {
+            user_id: userId,
+          },
+        });
       },
     });
   }

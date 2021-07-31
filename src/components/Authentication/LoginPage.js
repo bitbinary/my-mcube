@@ -10,10 +10,10 @@ function LoginPage() {
         <Card title='Login' style={{ margin: 'auto', borderRadius: '8px' }}>
           <Tabs defaultActiveKey='mentee' onChange={callback}>
             <TabPane tab='Mentee' key='mentee'>
-              <LoginForm userType='Mentee' />
+              <LoginForm userType='mentee' />
             </TabPane>
             <TabPane tab='Mentor' key='mentor'>
-              <LoginForm userType='Mentor' />
+              <LoginForm userType='mentor' />
             </TabPane>
           </Tabs>
         </Card>

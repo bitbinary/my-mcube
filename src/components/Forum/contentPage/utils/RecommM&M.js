@@ -3,6 +3,7 @@ import { Avatar, Space, Skeleton, Tag, Col, Button, Card, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { ExpandOutlined } from '@ant-design/icons';
 import { getRandomColor } from 'components/tools/colorGenerator';
+import AppTitles from 'components/utils/AppTitles';
 
 const defaultText =
   'The Career Ready Mentoring Program connects UNSW students from their second year of study.';
@@ -21,7 +22,7 @@ export default function RecommMM({
   handleClick,
 }) {
   return (
-    <Col lg={12} md={12} sm={24} xs={24}>
+    <Col lg={8} md={12} sm={24} xs={24}>
       <Skeleton loading={loading} avatar active>
         <Card
           title={
@@ -29,7 +30,7 @@ export default function RecommMM({
               <Space align='start' wrap>
                 <Avatar
                   icon={<UserOutlined />}
-                  style={{ backgroundColor: getRandomColor() }}
+                  style={{ backgroundColor: getRandomColor(firstName) }}
                 ></Avatar>
                 <>
                   {firstName || 'Amel'}
@@ -38,6 +39,7 @@ export default function RecommMM({
               </Space>
             </div>
           }
+          className='list-card'
           style={{ float: 'left' }}
           actions={[
             <Button
@@ -53,10 +55,14 @@ export default function RecommMM({
           {defaultText}
           <Divider />
           <Space wrap>
-            {skills.split(',').map((skill) => (
+            <AppTitles content='Skills:' />
+            {Array(skills).map((skill) => (
               <Tag color='#2db7f5'>{skill}</Tag>
             ))}
           </Space>
+          <Tag className='card-user-type' color='#3ca6b5'>
+            User
+          </Tag>
         </Card>
       </Skeleton>
     </Col>
