@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
-export default function ForumLayout({ children }) {
+export default function ForumLayout({ children, activePage }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const onChange = (value) => {
@@ -24,7 +24,9 @@ export default function ForumLayout({ children }) {
       payload: { forumpage: value },
     });
   };
-
+  let headerTitle = 'Feeds';
+  if (activePage === 'search') headerTitle = 'Search';
+  if (activePage === 'recommendations') headerTitle = 'Recommendations';
   return (
     <ViewWrapper grid={true}>
       <Tabs onTabClick={onChange} className='forum-tabs' centered type='card'>
@@ -39,8 +41,10 @@ export default function ForumLayout({ children }) {
         >
           <PageHeader
             className='forum-page-header'
-            title={<AppTitles content='Feeds' />}
-            extra={<ForumPageHeaderExtras page='Feeds' />}
+            title={<AppTitles content={headerTitle} />}
+            extra={
+              <ForumPageHeaderExtras page={activePage ? activePage : 'feeds'} />
+            }
           >
             <ForumPageHeaderSelections page='Feeds' />
           </PageHeader>
@@ -57,8 +61,12 @@ export default function ForumLayout({ children }) {
         >
           <PageHeader
             className='forum-page-header'
-            title={<AppTitles content='Search' />}
-            extra={<ForumPageHeaderExtras page='Search' />}
+            title={<AppTitles content={headerTitle} />}
+            extra={
+              <ForumPageHeaderExtras
+                page={activePage ? activePage : 'search'}
+              />
+            }
           >
             {/* <ForumPageHeaderSelections page='Search' /> */}
           </PageHeader>
@@ -68,8 +76,12 @@ export default function ForumLayout({ children }) {
         <TabPane tab='Recommendations' key='Recommendations'>
           <PageHeader
             className='forum-page-header'
-            title={<AppTitles content='Recommendation' />}
-            extra={<ForumPageHeaderExtras page='Recommendations' />}
+            title={<AppTitles content={headerTitle} />}
+            extra={
+              <ForumPageHeaderExtras
+                page={activePage ? activePage : 'recommendations'}
+              />
+            }
           >
             {/* <ForumPageHeaderSelections page='Recommendations' /> */}
           </PageHeader>

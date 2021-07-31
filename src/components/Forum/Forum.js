@@ -3,7 +3,7 @@ import ForumPage from './ForumPage';
 import ForumLayout from './ForumLayout';
 export default function Forum({ activePage }) {
   return (
-    <ForumLayout>
+    <ForumLayout activePage={activePage}>
       <ForumPage activePage={activePage} />
     </ForumLayout>
   );

@@ -45,7 +45,7 @@ function Home() {
       <HomeFeature
         featureImage={chat}
         featureName='Search'
-        featureTitle="Let's talk about it"
+        featureTitle="Let's have a chat"
         featureDescription='Lorem ipsum dolor sit amet, consectetur adipiscing.'
         imageOrientation='left'
       ></HomeFeature>
