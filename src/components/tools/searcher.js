@@ -1,12 +1,11 @@
 //search for matching name or username
-searchValueChange = ((searchValue, list, searchIn) => {
+const searchValueChange = (searchValue, list, searchIn) => {
   let tempList = [];
   list.forEach((element) => {
     if (
-      element[searchIn].toLowerCase().indexOf(searchValue.toLowerCase()) !== -1 ||
-      element[searchIn].toLowerCase().indexOf(searchValue.toLowerCase()) !==
-        -1 ||
-      element.phone.indexOf(searchValue.value) !== -1
+      element[searchIn].toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+      // || element[searchIn].toLowerCase().indexOf(searchValue.toLowerCase()) !==
+      //   -1 || element.phone.indexOf(searchValue.value) !== -1
     ) {
       tempList.push(element);
     }
@@ -14,3 +13,5 @@ searchValueChange = ((searchValue, list, searchIn) => {
   //   filterdList = sortbyName(tempList);
   return tempList;
 };
+
+export default searchValueChange;

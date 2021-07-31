@@ -2,7 +2,6 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import actions from 'redux/Forum/actions';
 import { getRequest, postRequest } from 'Config/axiosClient';
 import { notification } from 'antd';
-
 function* getFeeds(action) {
   try {
     const response = yield call(() => getRequest(`posts/${10}/${10}`));
@@ -18,11 +17,6 @@ function* addFeeds(action) {
   try {
     const response = yield call(() => getRequest(`posts/${10}/${10}`));
     if (response.status >= 200 || response.status <= 204) {
-      notification['success']({
-        message: 'Added new post',
-        description: response?.data?.message,
-        placement: 'bottomRight',
-      });
       yield put({ type: actions.ADDFEEDS_SUCCESS, data: response.data });
     } else throw response.statusText;
   } catch (e) {
@@ -31,12 +25,27 @@ function* addFeeds(action) {
 }
 
 function* addpost(action) {
-  console.log('successfullcall ');
   try {
     const response = yield call(() => postRequest('posts', action.payload));
-    if (response.status >= 200 || response.status <= 204) {
-      yield put({ type: actions.ADDPOST_SUCCESS, data: response.data });
-    } else throw response.statusText;
+    console.log(response);
+    if (response?.data?.success) {
+      notification['success']({
+        message: 'Added new post',
+        description: response?.data?.message,
+        placement: 'bottomRight',
+      });
+      yield put({ type: actions.GETFEEDS, data: response.data });
+    } else {
+      notification['error']({
+        message: 'Failed to add new post',
+        description: response?.data?.message,
+        placement: 'bottomRight',
+      });
+      yield put({
+        type: actions.ADDPOST_FAILURE,
+        message: response?.data?.message,
+      });
+    }
   } catch (e) {
     yield put({ type: actions.ADDPOST_FAILURE, e });
   }

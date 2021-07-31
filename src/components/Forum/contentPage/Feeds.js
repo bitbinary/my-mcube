@@ -6,10 +6,11 @@ import Feed from './utils/Feed';
 import { Space, Empty } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import ProjectModal from 'components/Profile/ProjectModal';
+import sorter from 'components/tools/sorter';
 
 export default function Feeds() {
   const dispatch = useDispatch();
-  const { contentFeeds, feedLoading } = useSelector(
+  const { contentFeeds, feedLoading, feedSortBy } = useSelector(
     (state) => state.forumReducer,
   );
   let currentContentFeed = useRef(contentFeeds);
@@ -50,19 +51,27 @@ export default function Feeds() {
   }, [dispatch]);
 
   useEffect(() => {
-    setData(contentFeeds);
+    let sortedContent = sorter([...contentFeeds], feedSortBy);
+
+    setData(sortedContent);
     return () => {};
   }, [contentFeeds]);
+  useEffect(() => {
+    let sortedContent = sorter([...contentFeeds], feedSortBy);
+
+    setData(sortedContent);
+    return () => {};
+  }, [feedSortBy]);
   const addMoreFeeds = () => {
-    dispatch({
-      type: actions.FEEDLOADING,
-      isloading: true,
-    });
-    setData([...contentFeeds, ...getDummy()]);
-    dispatch({
-      type: actions.ADDFEEDS,
-      params: { filters: [], type: [] },
-    });
+    // dispatch({
+    //   type: actions.FEEDLOADING,
+    //   isloading: true,
+    // });
+    setData([...data, ...getDummy()]);
+    // dispatch({
+    //   type: actions.ADDFEEDS,
+    //   params: { filters: [], type: [] },
+    // });
     return () => {};
   };
   if (data.length > 0) {

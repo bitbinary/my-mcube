@@ -13,6 +13,7 @@ import {
   Space,
   Skeleton,
   Tooltip,
+  Divider,
 } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
@@ -180,14 +181,13 @@ function ForumPageHeaderAddPost({ ...rest }) {
     console.log(values);
     setcontent(values);
   };
-  const projectSelection = (values) => {
+  const projectSelection = (value, key) => {
     // eslint-disable-next-line
-    console.log(values);
-    setprojectId(values.key);
+    console.log(key);
+    setprojectId(key);
   };
   const defaultText =
     'The Career Ready Mentoring Program connects UNSW students from their second year of study onwards with established industry professionals, providing students with a significant opportunity to focus on career development during the transition from study to work.';
-  let addingPostLoading = false;
   return addPostDraftState ? (
     <ViewWrapper>
       <AppTitles
@@ -229,7 +229,8 @@ function ForumPageHeaderAddPost({ ...rest }) {
                       pojectTitle(e.target.value);
                     }}
                   />
-                  <Tooltip
+                  <Divider />
+                  {/* <Tooltip
                     title={moment()
                       .subtract(1, 'days')
                       .format('YYYY-MM-DD HH:mm:ss')}
@@ -237,7 +238,7 @@ function ForumPageHeaderAddPost({ ...rest }) {
                     <AppTexts
                       content={moment().subtract(1, 'seconds').fromNow()}
                     />
-                  </Tooltip>
+                  </Tooltip> */}
                 </>
               }
               description={
@@ -249,9 +250,11 @@ function ForumPageHeaderAddPost({ ...rest }) {
                       pojectDescription(e.target.value);
                     }}
                   />
-                  <Space />
+                  <Divider />
                   <SearchSelector
-                    handleChange={(values) => projectSelection(values)}
+                    handleChange={(values, key) =>
+                      projectSelection(values, key)
+                    }
                   />
                 </>
               }
@@ -262,64 +265,3 @@ function ForumPageHeaderAddPost({ ...rest }) {
     </ViewWrapper>
   ) : null;
 }
-
-// <Row justify='start' align='start'>
-//   <Col lg={20} md={20} sm={20} xs={24} justify='start' align='top'>
-//     <Form
-//       {...layout}
-//       name='new-post'
-//       onFinish={submitForm}
-//       validateMessages={validateMessages}
-//     >
-//       <Form.Item
-//         name={['post', 'title']}
-//         label='Title'
-//         rules={[
-//           {
-//             required: true,
-//           },
-//         ]}
-//       >
-//         <Input />
-//       </Form.Item>
-//       <Form.Item
-//         name={['post', 'description']}
-//         label='Description'
-//         rules={[{ required: true }]}
-//       >
-//         <Input />
-//       </Form.Item>
-//       <Form.Item
-//         name={['post', 'relatedProjectId']}
-//         label='Related Project'
-//         rules={[
-//           {
-//             type: 'number',
-//             min: 0,
-//             max: 99,
-//           },
-//         ]}
-//       >
-//         <InputNumber />
-//       </Form.Item>
-
-//       <Form.Item className='new-post-submit'>
-//         <Buttons
-//           type='primary'
-//           shape='round'
-//           icon={<CloseCircleOutlined />}
-//           content='Cancel'
-//           handleClick={toggleNewPost}
-//         />
-//         <Buttons
-//           type='primary'
-//           shape='round'
-//           htmlType='submit'
-//           icon={<SendOutlined />}
-//           content='Add Post'
-//           handleClick={toggleNewPost}
-//         />
-//       </Form.Item>
-//     </Form>
-//   </Col>
-// </Row>

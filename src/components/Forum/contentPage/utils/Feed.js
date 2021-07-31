@@ -7,6 +7,7 @@ import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
 import CommentsWrapper from 'components/utils/CommentsWrapper';
 import moment from 'moment';
 import { ExpandOutlined } from '@ant-design/icons';
+import { getRandomColor } from 'components/tools/colorGenerator';
 
 const IconText = ({ icon, text, handleClick }) => (
   <Space onClick={handleClick}>
@@ -56,7 +57,12 @@ export default function Feed({
         >
           <Skeleton loading={{ ...rest }?.loading} active avatar>
             <List.Item.Meta
-              avatar={<Avatar icon={<UserOutlined />} />}
+              avatar={
+                <Avatar
+                  style={{ backgroundColor: getRandomColor(title) }}
+                  icon={<UserOutlined />}
+                />
+              }
               title={
                 <>
                   <AppTexts className='mediumlarge' content={title}></AppTexts>
@@ -67,7 +73,9 @@ export default function Feed({
                       .format('YYYY-MM-DD HH:mm:ss')}
                   >
                     <AppTexts
-                      content={moment().subtract(1, 'days').fromNow()}
+                      content={moment(new Date(createdAt * 1000))
+                        .subtract(0, 'days')
+                        .fromNow()}
                     />
                   </Tooltip>
                 </>

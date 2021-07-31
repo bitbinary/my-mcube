@@ -15,6 +15,7 @@ const initialState = {
   },
   addPostLoader: false,
   feedLoading: true,
+  feedSortBy: 'timestamp',
   contentFeeds: [],
   searchLoader: false,
   contentSearch: [],
@@ -36,6 +37,8 @@ function Reducer(state = initialState, action) {
         ...state,
         contentFeeds: [...action.data.data],
         feedLoading: false,
+        addPostLoading: false,
+        addPostDraftState: true,
       };
     case actions.GETFEEDS_FAILURE:
       return { ...state, feedLoading: false };
@@ -49,7 +52,6 @@ function Reducer(state = initialState, action) {
       return { ...state };
 
     case actions.ADDPOST_SUCCESS:
-      console.log('Add post success');
       return {
         ...state,
         addPostLoading: false,
@@ -150,6 +152,8 @@ function Reducer(state = initialState, action) {
         ...state,
         recommselectedtype: action.payload.recommendationsselectedtypes,
       };
+    case actions.FORCEUPDATE:
+      return { ...state, [action.payload.item]: action.payload.value };
     default:
       return state;
   }
