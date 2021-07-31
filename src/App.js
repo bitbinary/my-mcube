@@ -3,6 +3,7 @@ import {
   Switch,
   Route,
   Redirect,
+  useLocation,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './App.scss';
@@ -81,14 +82,16 @@ function PublicRoute({ children, isAuthenticated, ...rest }) {
 }
 
 // Here we include the components which need to be accesses after successful login.
-function ProtectedRoutes({ location }) {
+function ProtectedRoutes() {
+  let location = useLocation();
+  console.log(location);
   return (
     <Switch>
       <Route path='/dashboard'>
         <Redirect
           to={{
             pathname: '/profile',
-            state: { from: location },
+            state: { from: location?.state?.from?.pathname },
           }}
         />
       </Route>
@@ -99,6 +102,9 @@ function ProtectedRoutes({ location }) {
         <Profile />
       </Route>
       <Route path='/forum'>
+        <Forum />
+      </Route>
+      <Route path='/feeds'>
         <Forum activePage='feeds' />
       </Route>
       <Route path='/search'>

@@ -12,7 +12,7 @@ function* login(action) {
       notification['success']({
         message: 'Welcome back',
         description: response?.data?.message,
-        placement: 'topRight',
+        placement: 'bottomRight',
       });
       yield put({
         type: actions.LOGIN_SUCCESS,
@@ -23,7 +23,7 @@ function* login(action) {
       notification['error']({
         message: 'Failed to login',
         description: response?.data?.message,
-        placement: 'topRight',
+        placement: 'bottomRight',
       });
       yield put({ type: actions.LOGIN_FAILURE });
     }
@@ -39,7 +39,7 @@ function* signup(action) {
       notification['success']({
         message: 'Welcome to Mcube.',
         description: response?.data?.message,
-        placement: 'topRight',
+        placement: 'bottomRight',
       });
       yield put({
         type: actions.LOGIN_SUCCESS,
@@ -52,7 +52,7 @@ function* signup(action) {
     notification['error']({
       message: 'Looks like the request was not successfull.',
       description: e?.message,
-      placement: 'topRight',
+      placement: 'bottomRight',
     });
     yield put({ type: actions.LOGIN_FAILURE });
   }

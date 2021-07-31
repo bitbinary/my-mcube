@@ -1,6 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import actions from 'redux/Forum/actions';
 import { getRequest, postRequest } from 'Config/axiosClient';
+import { notification } from 'antd';
 
 function* getFeeds(action) {
   try {
@@ -16,9 +17,14 @@ function* getFeeds(action) {
 function* addFeeds(action) {
   try {
     const response = yield call(() => getRequest(`posts/${10}/${10}`));
-    if (response.status >= 200 || response.status <= 204)
+    if (response.status >= 200 || response.status <= 204) {
+      notification['success']({
+        message: 'Added new post',
+        description: response?.data?.message,
+        placement: 'bottomRight',
+      });
       yield put({ type: actions.ADDFEEDS_SUCCESS, data: response.data });
-    else throw response.statusText;
+    } else throw response.statusText;
   } catch (e) {
     yield put({ type: actions.ADDFEEDS_FAILURE, e });
   }
@@ -42,13 +48,18 @@ function* getRecomm(action) {
     const response = yield call(() =>
       getRequest(`recommendation/${action.params.recommType}/7`),
     );
-    if (response.status >= 200 || response.status <= 204)
+    if (response.status >= 200 || response.status <= 204) {
+      notification['info']({
+        message: 'Updated Recommendations',
+        description: response?.data?.message,
+        placement: 'bottomRight',
+      });
       yield put({
         type: actions.GETRECOMM_SUCCESS,
         data: response.data.recommendations,
         recommType: action.params.recommType,
       });
-    else throw response.statusText;
+    } else throw response.statusText;
   } catch (e) {
     yield put({ type: actions.GETRECOMM_FAILURE, e });
   }
