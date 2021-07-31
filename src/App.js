@@ -81,11 +81,16 @@ function PublicRoute({ children, isAuthenticated, ...rest }) {
 }
 
 // Here we include the components which need to be accesses after successful login.
-function ProtectedRoutes() {
+function ProtectedRoutes({ location }) {
   return (
     <Switch>
       <Route path='/dashboard'>
-        <Profile />
+        <Redirect
+          to={{
+            pathname: '/profile',
+            state: { from: location },
+          }}
+        />
       </Route>
       <Route path='/users'>
         <Users />
@@ -94,7 +99,13 @@ function ProtectedRoutes() {
         <Profile />
       </Route>
       <Route path='/forum'>
-        <Forum />
+        <Forum activePage='forum' />
+      </Route>
+      <Route path='/search'>
+        <Forum activePage='search' />
+      </Route>
+      <Route path='/recommendations'>
+        <Forum activePage='recommendations' />
       </Route>
       <Route path='/messages'>
         <Messages />
