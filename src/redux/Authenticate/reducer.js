@@ -1,5 +1,4 @@
 import actions from 'redux/Authenticate/actions';
-
 const initialState = {
   isAuthenticated: false,
   loader: false,
@@ -19,6 +18,7 @@ function Reducer(state = initialState, action) {
         authToken: null,
         userType: null,
         loader: false,
+        userId: null,
       };
     case actions.LOGIN_SUCCESS:
       return {

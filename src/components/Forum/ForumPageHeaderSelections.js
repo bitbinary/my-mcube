@@ -1,9 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
-import { Row, Col, Tag, Form, Input, InputNumber } from 'antd';
+import {
+  Row,
+  Col,
+  Tag,
+  Form,
+  Input,
+  InputNumber,
+  List,
+  Avatar,
+  Space,
+  Skeleton,
+  Tooltip,
+} from 'antd';
 import Buttons from 'components/utils/Buttons';
 import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import SearchSelector from 'components/utils/SearchSelector';
+import { UserOutlined } from '@ant-design/icons';
+import AppTexts from 'components/utils/AppTexts';
+import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
+import moment from 'moment';
+import AppTitles from 'components/utils/AppTitles';
+const { TextArea } = Input;
 export default function ForumPageHeaderSelections({ page }) {
   const {
     searchselectedskills,
@@ -116,73 +135,191 @@ function ForumPageHeaderAddPost({ ...rest }) {
       payload: { label: 'addPostDraftState', value: !addPostDraftState },
     });
   };
-  const submitForm = (values) => {
+  const [content, setcontent] = useState('');
+  const [userId, setuserId] = useState('1');
+  const [title, settitle] = useState('');
+  const [projectId, setprojectId] = useState('');
+  const { addPostDraftState, addPostLoading } = useSelector(
+    (state) => state.forumReducer,
+  );
+  const dispatch = useDispatch();
+  //   {
+  //   "content": "mentoring of projects",
+  //   "user_id": 2,
+  //   "title": "project mentoring",
+  // "project_id":"pj_1"
+  // }
+  const submitPost = () => {
+    dispatch({
+      type: actions.TOGGLESTATE,
+      payload: { label: 'addPostLoading', value: true },
+    });
+    console.log({
+      content: content,
+      user_id: userId,
+      title: title,
+      project_id: projectId,
+    });
+    dispatch({
+      type: actions.ADDPOST,
+      payload: {
+        content: content,
+        user_id: userId,
+        title: title,
+        project_id: projectId,
+      },
+    });
+  };
+  const pojectTitle = (values) => {
     // eslint-disable-next-line
     console.log(values);
+    settitle(values);
   };
-  const { addPostDraftState } = useSelector((state) => state.forumReducer);
-  const dispatch = useDispatch();
-
+  const pojectDescription = (values) => {
+    // eslint-disable-next-line
+    console.log(values);
+    setcontent(values);
+  };
+  const projectSelection = (values) => {
+    // eslint-disable-next-line
+    console.log(values);
+    setprojectId(values.key);
+  };
+  const defaultText =
+    'The Career Ready Mentoring Program connects UNSW students from their second year of study onwards with established industry professionals, providing students with a significant opportunity to focus on career development during the transition from study to work.';
+  let addingPostLoading = false;
   return addPostDraftState ? (
-    <Row justify='start' align='start'>
-      <Col lg={20} md={20} sm={20} xs={24} justify='start' align='top'>
-        <Form
-          {...layout}
-          name='new-post'
-          onFinish={submitForm}
-          validateMessages={validateMessages}
-        >
-          <Form.Item
-            name={['post', 'title']}
-            label='Title'
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name={['post', 'description']}
-            label='Description'
-            rules={[{ required: true }]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name={['post', 'relatedProjectId']}
-            label='Related Project'
-            rules={[
-              {
-                type: 'number',
-                min: 0,
-                max: 99,
-              },
-            ]}
-          >
-            <InputNumber />
-          </Form.Item>
-
-          <Form.Item className='new-post-submit'>
+    <ViewWrapper>
+      <AppTitles
+        className='strong'
+        content='New Post'
+        containerStyles={{ textAlign: 'left' }}
+      />
+      <List className='feed-list-wrapper'>
+        <List.Item
+          key='new post'
+          className='feed-list-item'
+          actions={[
             <Buttons
               type='primary'
               shape='round'
               icon={<CloseCircleOutlined />}
               content='Cancel'
               handleClick={toggleNewPost}
-            />
+            />,
             <Buttons
               type='primary'
               shape='round'
+              loading={addPostLoading}
               htmlType='submit'
               icon={<SendOutlined />}
               content='Add Post'
-              handleClick={toggleNewPost}
+              handleClick={() => submitPost()}
+            />,
+          ]}
+        >
+          <Skeleton loading={false} active avatar>
+            <List.Item.Meta
+              avatar={<Avatar icon={<UserOutlined />} />}
+              title={
+                <>
+                  <Input
+                    placeholder='Your Post Title goes here'
+                    onChange={(e) => {
+                      pojectTitle(e.target.value);
+                    }}
+                  />
+                  <Tooltip
+                    title={moment()
+                      .subtract(1, 'days')
+                      .format('YYYY-MM-DD HH:mm:ss')}
+                  >
+                    <AppTexts
+                      content={moment().subtract(1, 'seconds').fromNow()}
+                    />
+                  </Tooltip>
+                </>
+              }
+              description={
+                <>
+                  <TextArea
+                    placeholder='Your post description goes here'
+                    rows={4}
+                    onChange={(e) => {
+                      pojectDescription(e.target.value);
+                    }}
+                  />
+                  <Space />
+                  <SearchSelector
+                    handleChange={(values) => projectSelection(values)}
+                  />
+                </>
+              }
             />
-          </Form.Item>
-        </Form>
-      </Col>
-    </Row>
+          </Skeleton>
+        </List.Item>
+      </List>
+    </ViewWrapper>
   ) : null;
 }
+
+// <Row justify='start' align='start'>
+//   <Col lg={20} md={20} sm={20} xs={24} justify='start' align='top'>
+//     <Form
+//       {...layout}
+//       name='new-post'
+//       onFinish={submitForm}
+//       validateMessages={validateMessages}
+//     >
+//       <Form.Item
+//         name={['post', 'title']}
+//         label='Title'
+//         rules={[
+//           {
+//             required: true,
+//           },
+//         ]}
+//       >
+//         <Input />
+//       </Form.Item>
+//       <Form.Item
+//         name={['post', 'description']}
+//         label='Description'
+//         rules={[{ required: true }]}
+//       >
+//         <Input />
+//       </Form.Item>
+//       <Form.Item
+//         name={['post', 'relatedProjectId']}
+//         label='Related Project'
+//         rules={[
+//           {
+//             type: 'number',
+//             min: 0,
+//             max: 99,
+//           },
+//         ]}
+//       >
+//         <InputNumber />
+//       </Form.Item>
+
+//       <Form.Item className='new-post-submit'>
+//         <Buttons
+//           type='primary'
+//           shape='round'
+//           icon={<CloseCircleOutlined />}
+//           content='Cancel'
+//           handleClick={toggleNewPost}
+//         />
+//         <Buttons
+//           type='primary'
+//           shape='round'
+//           htmlType='submit'
+//           icon={<SendOutlined />}
+//           content='Add Post'
+//           handleClick={toggleNewPost}
+//         />
+//       </Form.Item>
+//     </Form>
+//   </Col>
+// </Row>

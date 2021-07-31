@@ -7,6 +7,7 @@ const initialState = {
   searchselectedtypes: [],
   recommselectedtype: 'mentees',
   addPostDraftState: false,
+  addPostLoading: false,
   addPostDraft: {
     postTitle: '',
     postDescription: '',
@@ -46,6 +47,18 @@ function Reducer(state = initialState, action) {
       };
     case actions.ADDFEEDS_FAILURE:
       return { ...state };
+
+    case actions.ADDPOST_SUCCESS:
+      console.log('Add post success');
+      return {
+        ...state,
+        addPostLoading: false,
+        addPostDraftState: true,
+      };
+    case actions.ADDPOST_FAILURE:
+      console.log('add post failure');
+      return { ...state, addPostLoading: false };
+
     case actions.FEEDLOADING:
       return { ...state, feedLoading: action.isloading };
 

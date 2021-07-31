@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { List, Avatar, Space, Skeleton, Tooltip } from 'antd';
+import { List, Avatar, Space, Skeleton, Tooltip, Button } from 'antd';
 import { MessageOutlined } from '@ant-design/icons';
 import { UserOutlined } from '@ant-design/icons';
 import AppTexts from 'components/utils/AppTexts';
 import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
 import CommentsWrapper from 'components/utils/CommentsWrapper';
 import moment from 'moment';
+import { ExpandOutlined } from '@ant-design/icons';
 
 const IconText = ({ icon, text, handleClick }) => (
   <Space onClick={handleClick}>
@@ -26,6 +27,8 @@ export default function Feed({
   commentCount,
   comments,
   postId,
+  handleClick,
+  project_id,
   ...rest
 }) {
   const [commentsVisible, setCommentsVisible] = useState(false);
@@ -44,6 +47,10 @@ export default function Feed({
               handleClick={toggleComments}
               key='list-vertical-message'
             />,
+            <Button onClick={() => handleClick('project_id', project_id)}>
+              <ExpandOutlined key='expand' />
+              View Project
+            </Button>,
           ]}
           className='feed-list-item'
         >
@@ -54,19 +61,18 @@ export default function Feed({
                 <>
                   <AppTexts className='mediumlarge' content={title}></AppTexts>
                   <Tooltip
+                    placement='left'
                     title={moment()
                       .subtract(1, 'days')
                       .format('YYYY-MM-DD HH:mm:ss')}
                   >
                     <AppTexts
-                      content={moment(lastModified)
-                        .subtract(1, 'days')
-                        .fromNow()}
+                      content={moment().subtract(1, 'days').fromNow()}
                     />
                   </Tooltip>
                 </>
               }
-              description={<AppTexts content={defaultText} />}
+              description={<AppTexts content={description} />}
             />
           </Skeleton>
         </List.Item>

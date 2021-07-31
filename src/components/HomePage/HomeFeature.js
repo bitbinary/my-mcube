@@ -7,7 +7,8 @@ import useWindowSize from 'components/tools/useWindowSize';
 // import Buttons from 'components/utils/Buttons';
 import SectionDivider from 'components/utils/SectionDivider';
 export default function HomeFeature({
-  dividerText = '',
+  // eslint-disable-next-line
+  dividerTexts = [],
   featureImage,
   featureName,
   imageOrientation = 'right',
@@ -21,21 +22,34 @@ export default function HomeFeature({
   }
   return (
     <Row className='home-page-section' justify='space-between' align='middle'>
-      {dividerText ? (
+      {dividerTexts ? (
         <SectionDivider
           content={
-            <AppTexts
-              className='xlarge feature-divider'
-              content={dividerText}
-            />
+            <>
+              {dividerTexts.map((dividerText) => (
+                <Col
+                  lg={24}
+                  md={24}
+                  sm={24}
+                  xs={24}
+                  align='center'
+                  justify='center'
+                >
+                  <AppTexts
+                    className='xlarge feature-divider'
+                    containerStyles={'divider-text'}
+                    content={dividerText}
+                  />
+                </Col>
+              ))}
+            </>
           }
           orientation='center'
         />
       ) : null}
-
       <Col
-        lg={12}
-        md={12}
+        lg={8}
+        md={8}
         sm={24}
         xs={24}
         justify='space-between'
@@ -54,8 +68,8 @@ export default function HomeFeature({
       </Col>
 
       <Col
-        lg={12}
-        md={12}
+        lg={16}
+        md={16}
         sm={24}
         xs={24}
         justify='space-between'
@@ -75,24 +89,10 @@ export default function HomeFeature({
               alt={`Features images of ${featureName}`}
               key={featureName}
             />
-            {/* <AppTitles className='large' content='Landing Page Hero Heading' /> */}
-            {/* <div className='home-page-text-wrapper'>
-              <AppTexts
-                className='medium'
-                content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-              />
-              <Buttons type='ghost' size='' content='Get Started' />
-            </div> */}
           </Col>
         </Row>
       </Col>
     </Row>
-    // <Container>
-    //   <h6>{t(title)}</h6>
-    //   <TextWrapper>
-    //     <Content>{t(content)}</Content>
-    //   </TextWrapper>
-    // </Container>
   );
 }
 HomeFeature.propTypes = {

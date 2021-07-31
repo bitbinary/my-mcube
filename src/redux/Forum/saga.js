@@ -24,6 +24,18 @@ function* addFeeds(action) {
   }
 }
 
+function* addpost(action) {
+  console.log('successfullcall ');
+  try {
+    const response = yield call(() => postRequest('posts', action.payload));
+    if (response.status >= 200 || response.status <= 204) {
+      yield put({ type: actions.ADDPOST_SUCCESS, data: response.data });
+    } else throw response.statusText;
+  } catch (e) {
+    yield put({ type: actions.ADDPOST_FAILURE, e });
+  }
+}
+
 //Recommendations
 function* getRecomm(action) {
   try {
@@ -87,5 +99,6 @@ export default function* rootSaga() {
     takeLatest(actions.GETRECOMM, getRecomm),
     takeLatest(actions.ADDRECOMM, addRecomm),
     takeLatest(actions.SEARCHFEEDS, searchPosts),
+    takeLatest(actions.ADDPOST, addpost),
   ]);
 }
