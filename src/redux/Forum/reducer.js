@@ -38,7 +38,7 @@ function Reducer(state = initialState, action) {
         contentFeeds: [...action.data.data],
         feedLoading: false,
         addPostLoading: false,
-        addPostDraftState: true,
+        addPostDraftState: false,
       };
     case actions.GETFEEDS_FAILURE:
       return { ...state, feedLoading: false };
