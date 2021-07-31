@@ -8,7 +8,7 @@ export default function ForumPage({ activePage }) {
 
   return (
     <div className='forum-page-wrapper'>
-      {activePage === 'forum' && <Feeds />}
+      {activePage === 'feeds' && <Feeds />}
       {activePage === 'search' && <Search />}
       {activePage === 'recommendations' && <Recommendations />}
     </div>

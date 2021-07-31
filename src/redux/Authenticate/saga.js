@@ -10,7 +10,7 @@ function* login(action) {
     const response = yield call(() => postRequest('login', action.payload));
     if (response?.data?.success) {
       notification['success']({
-        message: 'Glad to see you.',
+        message: 'Welcome back',
         description: response?.data?.message,
         placement: 'topRight',
       });
@@ -35,8 +35,12 @@ function* login(action) {
 function* signup(action) {
   try {
     const response = yield call(() => postRequest('signup', action.payload));
-    console.log(response);
     if (response?.data?.success) {
+      notification['success']({
+        message: 'Welcome to Mcube.',
+        description: response?.data?.message,
+        placement: 'topRight',
+      });
       yield put({
         type: actions.LOGIN_SUCCESS,
         data: response?.data,
@@ -45,6 +49,11 @@ function* signup(action) {
     } else {
     }
   } catch (e) {
+    notification['error']({
+      message: 'Looks like the request was not successfull.',
+      description: e?.message,
+      placement: 'topRight',
+    });
     yield put({ type: actions.LOGIN_FAILURE });
   }
 }

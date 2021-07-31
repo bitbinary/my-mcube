@@ -19,8 +19,8 @@ export default function RegisterForm({ userType }) {
       type: actions.SIGNUP,
       payload: {
         username: userName,
-        firstname: userFirstName,
-        lastname: userLastName,
+        first_name: userFirstName,
+        last_name: userLastName,
         password: userPassword,
         usertype: userType,
       },

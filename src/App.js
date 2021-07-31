@@ -99,7 +99,7 @@ function ProtectedRoutes({ location }) {
         <Profile />
       </Route>
       <Route path='/forum'>
-        <Forum activePage='forum' />
+        <Forum activePage='feeds' />
       </Route>
       <Route path='/search'>
         <Forum activePage='search' />
