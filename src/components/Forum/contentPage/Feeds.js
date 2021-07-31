@@ -3,6 +3,7 @@ import actions from 'redux/Forum/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 import Feed from './utils/Feed';
+import searcher from 'components/tools/searcher';
 import { Space, Empty } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import ProjectModal from 'components/Profile/ProjectModal';
@@ -10,9 +11,8 @@ import sorter from 'components/tools/sorter';
 
 export default function Feeds() {
   const dispatch = useDispatch();
-  const { contentFeeds, feedLoading, feedSortBy } = useSelector(
-    (state) => state.forumReducer,
-  );
+  const { contentFeeds, feedLoading, feedSortBy, feedSearchString } =
+    useSelector((state) => state.forumReducer);
   let currentContentFeed = useRef(contentFeeds);
   const [data, setData] = useState([]);
   const [idForModal, setIdForModal] = useState('');
@@ -57,22 +57,26 @@ export default function Feeds() {
     return () => {};
   }, [contentFeeds]);
   useEffect(() => {
-    let sortedContent = sorter([...contentFeeds], feedSortBy);
-
+    let filteredContent = searcher(
+      feedSearchString,
+      [...contentFeeds],
+      ['title'],
+    );
+    let sortedContent = sorter([...filteredContent], feedSortBy);
     setData(sortedContent);
     return () => {};
-  }, [feedSortBy]);
+  }, [feedSortBy, feedSearchString]);
+
   const addMoreFeeds = () => {
     // dispatch({
     //   type: actions.FEEDLOADING,
     //   isloading: true,
     // });
-    setData([...data, ...getDummy()]);
+    // setData([...data, ...getDummy()]);
     // dispatch({
     //   type: actions.ADDFEEDS,
     //   params: { filters: [], type: [] },
     // });
-    return () => {};
   };
   if (data.length > 0) {
     return (

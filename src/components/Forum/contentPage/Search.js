@@ -160,9 +160,9 @@ export default function Search() {
         }}
         description={
           searchData.length === 0 ? (
-            <span>
+            <div style={{ maxWidth: '300px', margin: 'auto' }}>
               <ForumPhSearchExtras />
-            </span>
+            </div>
           ) : (
             <span>No Search Results...</span>
           )

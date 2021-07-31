@@ -95,7 +95,6 @@ export default function ForumPhSearchExtras() {
       align='middle'
       className='forum-page-header-extra-wrapper'
     >
-      <Space className='forum-page-header-extra-spacer'></Space>
       <Search
         placeholder='Input search string'
         loading={searchLoading}

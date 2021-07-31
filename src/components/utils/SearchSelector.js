@@ -21,7 +21,7 @@ export default function SearchSelector({ handleChange }) {
     return () => {};
   }, []);
   const handleSearch = (value) => {
-    let searchResult = searcher(value, data, 'label');
+    let searchResult = searcher(value, data, ['label']);
     console.log(searchResult);
     setFilteredData(searchResult);
   };

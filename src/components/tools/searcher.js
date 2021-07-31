@@ -2,11 +2,11 @@
 const searchValueChange = (searchValue, list, searchIn) => {
   let tempList = [];
   list.forEach((element) => {
-    if (
-      element[searchIn].toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
-      // || element[searchIn].toLowerCase().indexOf(searchValue.toLowerCase()) !==
-      //   -1 || element.phone.indexOf(searchValue.value) !== -1
-    ) {
+    let truthvalue = searchIn.some(
+      (index) =>
+        element[index].toLowerCase().indexOf(searchValue.toLowerCase()) !== -1,
+    );
+    if (truthvalue) {
       tempList.push(element);
     }
   });
