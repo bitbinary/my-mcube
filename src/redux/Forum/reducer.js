@@ -27,6 +27,7 @@ const initialState = {
   searchData: [],
   searchLoading: false,
   searchString: '',
+  feedSearchString: '',
 };
 
 function Reducer(state = initialState, action) {

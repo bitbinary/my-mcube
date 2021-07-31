@@ -204,7 +204,7 @@ function ForumPageHeaderAddPost({ ...rest }) {
               type='primary'
               shape='round'
               icon={<CloseCircleOutlined />}
-              content='Cancel'
+              content='Close'
               handleClick={toggleNewPost}
             />,
             <Buttons
