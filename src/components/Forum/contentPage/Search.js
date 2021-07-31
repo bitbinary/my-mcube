@@ -9,6 +9,7 @@ import UserCard from './utils/UserCard';
 import ProjectCard from './utils/ProjectCard';
 import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
+import ForumPhSearchExtras from '../HeaderExtras/ForumPhSearchExtras';
 export default function Search() {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -158,8 +159,10 @@ export default function Search() {
           height: 60,
         }}
         description={
-          searchString === '' ? (
-            <span>Please enter a search key...</span>
+          searchData.length === 0 ? (
+            <span>
+              <ForumPhSearchExtras />
+            </span>
           ) : (
             <span>No Search Results...</span>
           )
