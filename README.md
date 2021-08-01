@@ -1,5 +1,15 @@
 # DEMO
 View the demo at <https://saas-21t2-group3.github.io/mcube>
+
+# Getting Started with Create React App
+
+## Pre Req: 
+Install NodeJS, Install NPM, Install Yarn.
+
+steps: 
+ 1. go to the cloned repository: run ```yarn install``` 
+ 2. go to the cloned repository: run ```yarn start``` 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
