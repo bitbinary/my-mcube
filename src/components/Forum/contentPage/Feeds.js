@@ -83,9 +83,9 @@ export default function Feeds() {
     return (
       <>
         <ProjectModal
-          isModalVisible={isProjectModalVisible}
+          isProjectModalVisible={isProjectModalVisible}
           projectId={idForModal}
-          handleCancel={handleCancel}
+          handleProjectModalCancel={handleCancel}
         />
         <InfiniteScroll
           pageStart={0}
