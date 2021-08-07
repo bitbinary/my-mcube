@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Card, Avatar, Tag } from 'antd';
+import { Skeleton, Card, Avatar, Tag, Col } from 'antd';
 import { ExpandOutlined, UserOutlined } from '@ant-design/icons';
 import { getRandomColor } from 'components/tools/colorGenerator';
 import Buttons from 'components/utils/Buttons';
@@ -17,40 +17,42 @@ export default function ProjectCard({
   handleClick,
 }) {
   return (
-    <div className='project-card-wrapper'>
-      <Card
-        style={{ width: 300, marginTop: 16 }}
-        className='list-card'
-        actions={[
-          null,
-          <Buttons
-            handleClick={() => handleClick('project_id', project_id)}
-            content={
-              <>
-                <ExpandOutlined key='expand' /> View Project
-              </>
-            }
-          />,
-        ]}
-      >
-        <Skeleton loading={loading} avatar active>
-          <Meta
-            avatar={
-              <Avatar
-                icon={<UserOutlined />}
-                style={{ backgroundColor: getRandomColor(project_title) }}
-              />
-            }
-            title={project_title}
-            description={project_description}
-            style={{ textAlign: 'left' }}
-          />
-        </Skeleton>
-        <Tag className='card-user-type' color='#ffb12e'>
-          Project
-        </Tag>
-      </Card>
-    </div>
+    <Col lg={8} md={12} sm={24} xs={24}>
+      <Skeleton loading={loading} avatar active>
+        <Card
+          style={{ width: 300, marginTop: 16 }}
+          className='list-card'
+          actions={[
+            null,
+            <Buttons
+              handleClick={() => handleClick('project_id', project_id)}
+              content={
+                <>
+                  <ExpandOutlined key='expand' /> View Project
+                </>
+              }
+            />,
+          ]}
+        >
+          <Skeleton loading={loading} avatar active>
+            <Meta
+              avatar={
+                <Avatar
+                  icon={<UserOutlined />}
+                  style={{ backgroundColor: getRandomColor(project_title) }}
+                />
+              }
+              title={project_title}
+              description={project_description}
+              style={{ textAlign: 'left' }}
+            />
+          </Skeleton>
+          <Tag className='card-user-type' color='#ffb12e'>
+            Project
+          </Tag>
+        </Card>
+      </Skeleton>
+    </Col>
   );
 }
 // data.project_description

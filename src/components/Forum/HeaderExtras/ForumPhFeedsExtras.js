@@ -42,9 +42,9 @@ export default function ForumPhFeedsExtras() {
   return (
     <Row align='middle'>
       <Col
-        lg={12}
-        md={12}
-        sm={12}
+        lg={24}
+        md={24}
+        sm={24}
         xs={24}
         span={12}
         justify='space-between'
@@ -60,7 +60,7 @@ export default function ForumPhFeedsExtras() {
           // onSearch={() => doSearch()}
         />
       </Col>
-      <Col
+      {/* <Col
         lg={12}
         md={12}
         sm={12}
@@ -79,7 +79,7 @@ export default function ForumPhFeedsExtras() {
             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
           }
         ></Select>
-      </Col>
+      </Col> */}
       {!addPostDraftState && (
         <Col
           lg={24}
