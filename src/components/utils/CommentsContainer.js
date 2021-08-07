@@ -136,12 +136,14 @@ export default function CommentsContainer({ postId, defaultComments = [] }) {
                     <>
                       <AppTexts
                         containerStyles='comment-name-container'
-                        className='mediumlarge'
-                        content={'FirstName LastName'}
+                        className='medium'
+                        content={`${item.first_name || 'first name'} ${
+                          item.last_name || 'last name'
+                        }`}
                       ></AppTexts>
                       <AppTexts
                         containerStyles='comment-timestamp-container'
-                        className='comment-timestamp small'
+                        className='comment-timestamp xsmall'
                         content={moment(new Date(item.timestamp * 1000))
                           .subtract(0, 'days')
                           .fromNow()}
@@ -152,7 +154,7 @@ export default function CommentsContainer({ postId, defaultComments = [] }) {
                 />
                 <AppTexts
                   // containerStyle={{ 'padding-left': '50px' }}
-                  style={{ paddingLeft: '50px' }}
+                  style={{ paddingLeft: '58px' }}
                   content={item.message}
                 />
               </List.Item>

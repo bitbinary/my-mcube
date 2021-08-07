@@ -160,11 +160,15 @@ body {
   width: 300px !important;
 }
 .ant-typography {
-  color: #4a4b4e;
+  color: #404144;
 }
 .ant-layout-header .ant-menu {
   border-bottom: none;
 }
+.ant-card-meta-description {
+  color: #404144;
+}
+
 //Home page
 .home-page-section {
   background-color: #f8f9fa;
@@ -683,6 +687,9 @@ body {
 
 .italics {
   font-style: italic;
+}
+.nomargin {
+  margin: 0px !important;
 }
 
 //PROFILES
