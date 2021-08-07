@@ -116,15 +116,18 @@ function* searchPosts(action) {
 
 // COMMENTS
 function* addComment(action) {
+  const { userId, postId, comment } = action.payload;
   try {
-    const response = yield call(() => postRequest('posts', action.payload));
+    const response = yield call(() =>
+      postRequest(`posts/comments/${userId}/${postId}/${comment}`),
+    );
     if (response?.data?.success) {
       notification['success']({
-        message: 'Added new post',
+        message: 'Added new comment',
         description: response?.data?.message,
         placement: 'bottomRight',
       });
-      yield put({ type: actions.GETFEEDS, data: response.data });
+      yield put({ type: actions.GETFEEDS });
     } else {
       notification['error']({
         message: 'Failed to add new post',
@@ -132,7 +135,7 @@ function* addComment(action) {
         placement: 'bottomRight',
       });
       yield put({
-        type: actions.ADDPOST_FAILURE,
+        type: actions.ADDCOMMENT_FAILURE,
         message: response?.data?.message,
       });
     }
@@ -142,7 +145,7 @@ function* addComment(action) {
       description: 'There is an internal error',
       placement: 'bottomRight',
     });
-    yield put({ type: actions.ADDPOST_FAILURE, e });
+    yield put({ type: actions.ADDCOMMENT_FAILURE, e });
   }
 }
 
