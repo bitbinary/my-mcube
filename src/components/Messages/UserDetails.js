@@ -4,7 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { getRandomColor } from 'components/tools/colorGenerator';
 
 const { Meta } = Card;
-export default function UserDetails() {
+export default function UserDetails({ userName }) {
   return (
     <Card
       style={{ width: '100%' }}
@@ -25,7 +25,7 @@ export default function UserDetails() {
       //   <EllipsisOutlined key='ellipsis' />,
       // ]}
     >
-      <Meta title='Amel Johny' description='Online' />
+      <Meta title={userName} />
     </Card>
   );
 }

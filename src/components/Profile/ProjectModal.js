@@ -32,9 +32,7 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
     setData(null);
     const id = projectId.split('_')[1];
     if (isModalVisible) {
-      console.log('useEffect');
       getRequest(`project/${id}`).then((res) => {
-        console.log(res);
         setData(res.data.data[0]);
       });
     }

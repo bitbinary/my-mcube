@@ -29,12 +29,10 @@ export default function Search() {
     return dummyData;
   }
   const doSearch = () => {
-    console.log('going to search');
     dispatch({
       type: actions.TOGGLESTATE,
       payload: { label: 'searchLoading', value: true },
     });
-    console.log('going to search');
     dispatch({
       type: actions.SEARCHFEEDS,
       params: { searchString: searchString },
@@ -44,7 +42,6 @@ export default function Search() {
   useEffect(() => {
     let results = searchData;
     results = results.filter((result) => result.score > 0);
-    console.log(results);
     setData(results);
     return () => {};
   }, [searchData]);

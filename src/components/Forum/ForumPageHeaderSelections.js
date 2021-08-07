@@ -155,35 +155,27 @@ function ForumPageHeaderAddPost({ ...rest }) {
       type: actions.TOGGLESTATE,
       payload: { label: 'addPostLoading', value: true },
     });
-    console.log({
-      content: content,
-      user_id: userId,
-      title: title,
-      project_id: projectId,
-    });
+
     dispatch({
       type: actions.ADDPOST,
       payload: {
         content: content,
         user_id: userId,
         title: title,
-        project_id: projectId,
+        project_id: Number(projectId.split('_')[1]),
       },
     });
   };
   const pojectTitle = (values) => {
     // eslint-disable-next-line
-    console.log(values);
     settitle(values);
   };
   const pojectDescription = (values) => {
     // eslint-disable-next-line
-    console.log(values);
     setcontent(values);
   };
   const projectSelection = (value, key) => {
     // eslint-disable-next-line
-    console.log(key);
     setprojectId(key);
   };
   const defaultText =

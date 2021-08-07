@@ -14,7 +14,6 @@ export default function SearchSelector({ handleChange }) {
         key: element.project_id,
         value: element.project_name,
       }));
-      console.log(data);
       setdata(data);
       setFilteredData(data);
     });
@@ -22,7 +21,6 @@ export default function SearchSelector({ handleChange }) {
   }, []);
   const handleSearch = (value) => {
     let searchResult = searcher(value, data, ['label']);
-    console.log(searchResult);
     setFilteredData(searchResult);
   };
 

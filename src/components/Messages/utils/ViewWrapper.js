@@ -4,8 +4,8 @@ export default function ViewWrapper({ children, grid = false }) {
   return (
     <>
       <Row
-        lg={grid ? 12 : 24}
-        md={grid ? 12 : 24}
+        lg={24}
+        md={24}
         sm={24}
         xs={24}
         justify='center'
