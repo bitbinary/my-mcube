@@ -33,7 +33,7 @@ function Skills({ user_id }) {
       },
     });
   }, []);
-  useEffect(async () => {
+  useEffect(() => {
     dispatch({
       type: actions.GETSKILLS,
     });
@@ -43,7 +43,7 @@ function Skills({ user_id }) {
         user_id: user_id ? user_id : userId,
       },
     });
-  }, [user_id]);
+  }, []);
 
   useEffect(() => {
     let SkillListComponent1 = null;

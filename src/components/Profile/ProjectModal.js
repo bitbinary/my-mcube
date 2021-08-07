@@ -14,7 +14,11 @@ import {
 import { getRequest } from 'Config/axiosClient';
 import { getRandomColor } from 'components/tools/colorGenerator';
 
-function ProjectModal({ isModalVisible, projectId, handleCancel }) {
+function ProjectModal({
+  isProjectModalVisible,
+  projectId,
+  handleProjectModalCancel,
+}) {
   const { Paragraph, Text } = Typography;
   const { confirm } = Modal;
   const [data, setData] = useState(null);
@@ -31,22 +35,20 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
   useEffect(() => {
     setData(null);
     const id = projectId.split('_')[1];
-    if (isModalVisible) {
-      console.log('useEffect');
+    if (isProjectModalVisible) {
       getRequest(`project/${id}`).then((res) => {
-        console.log(res);
         setData(res.data.data[0]);
       });
     }
     return () => {};
-  }, [isModalVisible]);
+  }, [isProjectModalVisible]);
   return (
     <div>
       {data ? (
         <Modal
           title={data?.title}
-          visible={isModalVisible}
-          onCancel={handleCancel}
+          visible={isProjectModalVisible}
+          onCancel={handleProjectModalCancel}
           // onOk={null}
           className='project-modal-wrapper'
           footer={[
