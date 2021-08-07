@@ -132,7 +132,22 @@ export default function CommentsContainer({ postId, defaultComments = [] }) {
                       }}
                     />
                   }
-                  title={<AppTexts content={'FirstName LastName'} />}
+                  title={
+                    <>
+                      <AppTexts
+                        containerStyles='comment-name-container'
+                        className='mediumlarge'
+                        content={'FirstName LastName'}
+                      ></AppTexts>
+                      <AppTexts
+                        containerStyles='comment-timestamp-container'
+                        className='comment-timestamp small'
+                        content={moment(new Date(item.timestamp * 1000))
+                          .subtract(0, 'days')
+                          .fromNow()}
+                      />
+                    </>
+                  }
                   description={<AppTexts content={item.content} />}
                 />
                 <AppTexts
