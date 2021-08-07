@@ -10,6 +10,8 @@ import ProjectCard from './utils/ProjectCard';
 import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
 import ForumPhSearchExtras from '../HeaderExtras/ForumPhSearchExtras';
+import capitalize from 'components/tools/capitalize';
+
 export default function Search() {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
@@ -52,6 +54,7 @@ export default function Search() {
   };
 
   const handleMoreDetails = (type, id) => {
+    console.log(type, id);
     setIdForModal(id);
     if (type === 'project_id') {
       setIsProjectModalVisible(true);
@@ -106,8 +109,8 @@ export default function Search() {
                   index={index}
                   city={searchResult.city}
                   country={searchResult.country}
-                  first_name={searchResult.first_name}
-                  last_name={searchResult.last_name}
+                  first_name={capitalize(searchResult.first_name)}
+                  last_name={capitalize(searchResult.last_name)}
                   links={searchResult.links}
                   pic={searchResult.pic}
                   score={searchResult.score}

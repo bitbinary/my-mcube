@@ -33,11 +33,14 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
     const id = projectId.split('_')[1];
     if (isModalVisible) {
       getRequest(`project/${id}`).then((res) => {
-        setData(res.data.data[0]);
+        setData(res.data.data);
       });
     }
     return () => {};
   }, [isModalVisible]);
+  const tags = data?.skills?.map((skill) => (
+    <Tag color={getRandomColor(skill)}>{skill}</Tag>
+  ));
   return (
     <div>
       {data ? (
@@ -59,18 +62,13 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
               <Paragraph>{data?.description}</Paragraph>
             </Col>
           </Row>
-          {/* <Divider />
-        <Row>
-          <Col span={24}>
-            <Text strong>Skills:</Text>
-          </Col>
-          <Col style={{ marginTop: '1%' }}>
-            <Tag color='magenta'>Data Science</Tag>
-            <Tag color='cyan'>Java</Tag>
-            <Tag color='lime'>AI</Tag>
-            <Tag color='orange'>Data Science</Tag>
-          </Col>
-        </Row> */}
+          <Divider />
+          <Row>
+            <Col span={24}>
+              <Text strong>Skills:</Text>
+            </Col>
+            <Col style={{ marginTop: '1%' }}>{tags}</Col>
+          </Row>
           <Divider />
           <Row>
             <Col span={12}>

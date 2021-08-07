@@ -8,6 +8,8 @@ import Buttons from 'components/utils/Buttons';
 import RecommProjects from './utils/RecommProjects';
 import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
+import capitalize from 'components/tools/capitalize';
+
 export default function Recommendations() {
   const dispatch = useDispatch();
   const {
@@ -125,8 +127,8 @@ export default function Recommendations() {
                   city={recomm?.city}
                   country={recomm?.country}
                   profilePicLink={recomm?.profile_link}
-                  firstName={recomm?.first_name}
-                  lastName={recomm?.last_name}
+                  firstName={capitalize(recomm?.first_name)}
+                  lastName={capitalize(recomm?.last_name)}
                   email={recomm?.email}
                   user_id={recomm?.user_id}
                   skills={recomm?.skill_name}
@@ -139,8 +141,8 @@ export default function Recommendations() {
                   index={index}
                   key={recomm?.first_name + index}
                   projectTitle={recomm?.title}
-                  firstName={recomm?.first_name}
-                  lastName={recomm?.last_name}
+                  firstName={capitalize(recomm?.first_name)}
+                  lastName={capitalize(recomm?.last_name)}
                   projectDescription={recomm?.description}
                   email={recomm?.email}
                   projectStatus={recomm?.status}
