@@ -5,7 +5,6 @@ import { Row, Col, Tag, Button, Typography, Avatar } from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTabs from './AppTabs.js';
 import {
-  UserOutlined,
   WechatOutlined,
   MailOutlined,
   LinkedinOutlined,
@@ -77,11 +76,13 @@ function Profile({ user_id }) {
 
   return profileData ? (
     <ViewWrapper grid={true}>
-      <EditProfileModal
-        isModalVisible={isModalVisible}
-        userId={userId}
-        handleCancel={handleCancel}
-      />
+      {user_id === undefined && (
+        <EditProfileModal
+          isModalVisible={isModalVisible}
+          userId={userId}
+          handleCancel={handleCancel}
+        />
+      )}
       <Row className='profile-wrapper-header'>
         <div className='profile-wrapper-header-div'>
           <Avatar

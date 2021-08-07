@@ -6,6 +6,7 @@ import ProjectModal from './ProjectModal';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Profile/actions';
 import AddProjectModal from './AddProjectModal';
+import { PlusOutlined } from '@ant-design/icons';
 
 function Projects() {
   const dispatch = useDispatch();
@@ -71,7 +72,12 @@ function Projects() {
         title='Projects'
         subTitle='User Projects'
         extra={[
-          <Button key='1' type='primary' onClick={() => openAddProjectModel()}>
+          <Button
+            type='primary'
+            shape='round'
+            icon={<PlusOutlined />}
+            onClick={() => openAddProjectModel()}
+          >
             Add project
           </Button>,
         ]}
