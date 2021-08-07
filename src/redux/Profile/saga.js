@@ -50,25 +50,6 @@ function* getUserProjects(action) {
   }
 }
 
-function* addUserProject(action) {
-  try {
-    const response = yield call(() =>
-      postRequest(
-        `project/${action.payload.user_id}`,
-        action.payload.project_details,
-      ),
-    );
-    if (response.status === 200)
-      yield put({
-        type: actions.CREATEUSERPROJECT_SUCCESS,
-        data: response.data,
-      });
-    else throw response.statusText;
-  } catch (e) {
-    yield put({ type: actions.CREATEUSERPROJECT_FAILURE, e });
-  }
-}
-
 function* getSkills(action) {
   try {
     const response = yield call(() => getRequest('skill'));
@@ -126,7 +107,6 @@ export default function* rootSaga() {
     takeLatest(actions.GETUSERDETAILS, getUserDetails),
     takeLatest(actions.EDITUSERDETAILS, editUserDetails),
     takeLatest(actions.GETUSERPROJECTS, getUserProjects),
-    takeLatest(actions.CREATEUSERPROJECT, addUserProject),
     takeLatest(actions.GETSKILLS, getSkills),
     takeLatest(actions.ADDSKILL, addSkill),
     takeLatest(actions.GETUSERSKILLS, getUserSkills),

@@ -6,23 +6,14 @@ import {
   List,
   Avatar,
   Button,
-  Rate,
+  Skeleton,
   Collapse,
   Form,
   Input,
-  PageHeader,
 } from 'antd';
 import actions from 'redux/Profile/actions';
-import {
-  UserOutlined,
-  EditOutlined,
-  PlusOutlined,
-  CloseCircleOutlined,
-  SendOutlined,
-} from '@ant-design/icons';
+import { UserOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import SectionDivider from '../utils/SectionDivider';
-import Buttons from '../utils/Buttons';
-import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
 import { getRandomColor } from '../tools/colorGenerator';
 
 function Reviews() {
@@ -32,7 +23,6 @@ function Reviews() {
 
   const { userReviewsList } = useSelector((state) => state.profileReducer);
   const { userId } = useSelector((state) => state.authenticateReducer);
-  const [newReviewToggle, setNewReviewToggle] = useState(false);
   useEffect(() => {
     dispatch({
       type: actions.GETUSERREVIEWS,
@@ -42,57 +32,52 @@ function Reviews() {
     });
   }, []);
 
-  const toggleNewReview = () => {
-    setNewReviewToggle(!newReviewToggle);
-  };
+  let content =
+    'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently. We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure).';
 
   return (
     <>
-      <PageHeader
-        title='Reviews'
-        subTitle='User Reviews'
-        extra={[
-          <Button
-            type='primary'
-            shape='round'
-            icon={<PlusOutlined />}
-            content='New Review'
-            onClick={toggleNewReview}
+      <Collapse>
+        <Panel style={{ textAlign: 'left' }} header='Click to add a review'>
+          <Form
+            name='basic'
+            labelCol={{
+              span: 5,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            initialValues={{
+              remember: true,
+            }}
           >
-            Add Review
-          </Button>,
-        ]}
-      ></PageHeader>
-      {newReviewToggle && (
-        <ViewWrapper>
-          <List className='feed-list-wrapper'>
-            <List.Item>Add a Review</List.Item>
-            <List.Item>
-              <TextArea placeholder='Add review here!' rows={4} />
-            </List.Item>
-            <List.Item
-              key='new review'
-              className='feed-list-item'
-              actions={[
-                <Buttons
-                  type='primary'
-                  shape='round'
-                  icon={<CloseCircleOutlined />}
-                  content='Close'
-                  handleClick={toggleNewReview}
-                />,
-                <Buttons
-                  type='primary'
-                  shape='round'
-                  icon={<SendOutlined />}
-                  content='Add Review'
-                  //handleClick={() => submitReview()}
-                />,
+            <Form.Item
+              label='Leave a review'
+              name='description'
+              rules={[
+                {
+                  required: true,
+                  message: 'Please add the review!',
+                },
               ]}
-            ></List.Item>
-          </List>
-        </ViewWrapper>
-      )}
+            >
+              <TextArea />
+            </Form.Item>
+
+            <Form.Item
+              wrapperCol={{
+                offset: 8,
+                span: 16,
+              }}
+            >
+              <Button type='primary' htmlType='submit'>
+                Add
+              </Button>
+            </Form.Item>
+          </Form>
+        </Panel>
+      </Collapse>
+      <SectionDivider />
       <List
         className='demo-loadmore-list'
         style={{ minHeight: '350px' }}

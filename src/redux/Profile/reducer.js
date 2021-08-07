@@ -20,9 +20,6 @@ function Reducer(state = initialState, action) {
     //PROJECTS
     case actions.GETUSERPROJECTS_SUCCESS:
       return { ...state, userProjectList: action.data.data };
-    case actions.CREATEUSERPROJECT_SUCCESS:
-      console.log(action);
-      return { ...state };
     //SKILLS
     case actions.GETSKILLS_SUCCESS:
       return {
