@@ -28,6 +28,8 @@ export default function Feed({
   commentCount,
   comments,
   postId,
+  firstName,
+  lastName,
   handleClick,
   project_id,
   ...rest
@@ -58,13 +60,21 @@ export default function Feed({
           <Skeleton loading={{ ...rest }?.loading} active avatar>
             <List.Item.Meta
               avatar={
-                <Avatar
-                  style={{ backgroundColor: getRandomColor(title) }}
-                  icon={<UserOutlined />}
-                />
+                <>
+                  <Avatar
+                    style={{ backgroundColor: getRandomColor(title) }}
+                    icon={<UserOutlined />}
+                  />
+                </>
               }
               title={
                 <>
+                  <AppTexts
+                    containerStyles='nomargin'
+                    className='small'
+                    content={`${firstName || 'Amel '} ${lastName || 'Johny'}`}
+                  ></AppTexts>
+
                   <AppTexts className='mediumlarge' content={title}></AppTexts>
                   <Tooltip
                     placement='left'

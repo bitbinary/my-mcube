@@ -8,6 +8,7 @@ import { Space, Empty } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import ProjectModal from 'components/Profile/ProjectModal';
 import sorter from 'components/tools/sorter';
+import capitalize from 'components/tools/capitalize';
 
 export default function Feeds() {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ export default function Feeds() {
     let filteredContent = searcher(
       feedSearchString,
       [...contentFeeds],
-      ['title'],
+      ['post_title'],
     );
     let sortedContent = sorter([...filteredContent], feedSortBy);
     setData(sortedContent);
@@ -112,9 +113,11 @@ export default function Feeds() {
                 key={feed.post_id}
                 index={index}
                 project_id={feed.project_id}
-                title={feed.title || 'Default Post Title'}
-                description={feed.content}
-                lastModified={feed.last_modified}
+                firstName={capitalize(feed.user_first_name)}
+                lastName={capitalize(feed.user_last_name)}
+                title={feed.post_title || 'Default Post Title'}
+                description={feed.post_content}
+                lastModified={feed.post_last_modified}
                 createdAt={feed.timestamp}
                 postOwner={feed.postOwner}
                 commentCount={feed.comments?.length || 0}
