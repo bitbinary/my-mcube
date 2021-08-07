@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Row, PageHeader, Button } from 'antd';
+import { Row } from 'antd';
 import ProjectCard from './ProjectCard';
 import InfiniteScroll from 'react-infinite-scroller';
+import Buttons from 'components/utils/Buttons';
 import ProjectModal from './ProjectModal';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Profile/actions';
-import AddProjectModal from './AddProjectModal';
-import { PlusOutlined } from '@ant-design/icons';
 
 function Projects() {
   const dispatch = useDispatch();
   const [projectId, setProjectId] = useState('');
-  const [isProjectModalVisible, setIsProjectModalVisible] = useState(false);
-  const [isAddProjectModalVisible, setIsAddProjectModalVisible] =
-    useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [itemsArray, setItemsArray] = useState([1, 2, 3]);
   const [hasMoreContents, setHasMoreContents] = useState(true);
 
@@ -30,22 +27,12 @@ function Projects() {
   }, []);
 
   const openProjectModel = (projectId) => {
-    console.log(projectId);
     setProjectId(projectId);
-    setIsProjectModalVisible(true);
+    setIsModalVisible(true);
   };
 
-  const openAddProjectModel = () => {
-    // setUserId(UserId);
-    setIsAddProjectModalVisible(true);
-  };
-
-  const handleProjectModalCancel = () => {
-    setIsProjectModalVisible(false);
-  };
-
-  const handleAddProjectModalCancel = () => {
-    setIsAddProjectModalVisible(false);
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   const fetchMoreProjects = () => {
@@ -60,28 +47,10 @@ function Projects() {
   return (
     <>
       <ProjectModal
-        isProjectModalVisible={isProjectModalVisible}
+        isModalVisible={isModalVisible}
         projectId={projectId}
-        handleProjectModalCancel={handleProjectModalCancel}
+        handleCancel={handleCancel}
       />
-      <AddProjectModal
-        isAddProjectModalVisible={isAddProjectModalVisible}
-        handleAddProjectModalCancel={handleAddProjectModalCancel}
-      />
-      <PageHeader
-        title='Projects'
-        subTitle='User Projects'
-        extra={[
-          <Button
-            type='primary'
-            shape='round'
-            icon={<PlusOutlined />}
-            onClick={() => openAddProjectModel()}
-          >
-            Add project
-          </Button>,
-        ]}
-      ></PageHeader>
       <InfiniteScroll
         hasMore={hasMoreContents}
         initialLoad={false}

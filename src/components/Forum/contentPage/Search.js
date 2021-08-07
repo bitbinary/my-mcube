@@ -71,9 +71,9 @@ export default function Search() {
     return (
       <>
         <ProjectModal
-          isProjectModalVisible={isProjectModalVisible}
+          isModalVisible={isProjectModalVisible}
           projectId={idForModal}
-          handleProjectModalCancel={handleCancel}
+          handleCancel={handleCancel}
         />
         <UserModal
           isModalVisible={isUserModalVisible}
