@@ -6,7 +6,6 @@ import Recommendations from './contentPage/Recommendations';
 export default function ForumPage({ activePage }) {
   const { forumpage } = useSelector((state) => state.forumReducer);
   let page = activePage || forumpage?.toLowerCase();
-  console.log(page.toLowerCase());
   return (
     <div className='forum-page-wrapper'>
       {page === 'feeds' && <Feeds />}

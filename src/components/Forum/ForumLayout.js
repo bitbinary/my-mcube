@@ -15,7 +15,6 @@ export default function ForumLayout({ children, activePage }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const onChange = (value) => {
-    console.log(value);
     history.push({
       pathname: `/${value.toLowerCase()}`,
     });

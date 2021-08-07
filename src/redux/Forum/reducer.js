@@ -59,7 +59,6 @@ function Reducer(state = initialState, action) {
         addPostDraftState: true,
       };
     case actions.ADDPOST_FAILURE:
-      console.log('add post failure');
       return { ...state, addPostLoading: false };
 
     case actions.FEEDLOADING:

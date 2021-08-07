@@ -2,13 +2,14 @@ import React from 'react';
 import { Avatar, Space, Tag, Col, Button, Card, Divider } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { ExpandOutlined } from '@ant-design/icons';
+import { getRandomColor } from 'components/tools/colorGenerator';
 
 // const defaultText =
 //   'The Career Ready Mentoring Program connects UNSW students from their second year of study.';
 export default function RecommProjects({
   projectTitle,
-  // firstName,
-  // lastName,
+  firstName,
+  lastName,
   projectDescription,
   // email,
   // projectStatus,
@@ -29,7 +30,17 @@ export default function RecommProjects({
           <>
             <div style={{ textAlign: 'left' }}>
               <Space align='start' wrap>
-                <Avatar icon={<UserOutlined />} style={{ float: 'left' }} />
+                <Avatar
+                  icon={<UserOutlined />}
+                  style={{
+                    float: 'left',
+                    backgroundColor: getRandomColor(firstName),
+                  }}
+                />
+                <>
+                  {firstName || 'Amel'}
+                  {lastName || 'Johny'}
+                </>
                 <>{projectTitle || 'Project Title'}</>
               </Space>
             </div>

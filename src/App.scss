@@ -152,21 +152,28 @@ body {
   text-align: left;
   padding-top: 1.5rem;
 }
-
+.ant-btn-primary {
+  background: $primary-color;
+  border-color: $primary-color;
+}
 .ant-drawer-content-wrapper {
   width: 300px !important;
 }
 .ant-typography {
-  color: #4a4b4e;
+  color: #404144;
 }
 .ant-layout-header .ant-menu {
   border-bottom: none;
 }
+.ant-card-meta-description {
+  color: #404144;
+}
+
 //Home page
 .home-page-section {
   background-color: #f8f9fa;
   position: relative;
-  max-width: 1600px;
+  max-width: 1128px;
   margin: auto;
   min-height: 500px;
   padding: 20px;
@@ -254,7 +261,7 @@ body {
   height: 100%;
 }
 .forum-container {
-  max-width: 1600px;
+  max-width: 1128px;
 }
 .forum-tabs {
   margin-top: 15px;
@@ -339,7 +346,6 @@ body {
   }
 }
 .search-result-container {
-  justify-content: space-around;
 }
 .user-card-wrapper {
   // flex: 1;
@@ -397,6 +403,10 @@ body {
   border-radius: 8px;
   margin: 10px;
   box-shadow: 0px 0px 22px -4px #f1f1f1;
+  margin: 0 10px !important;
+  .ant-list-item-meta {
+    margin-bottom: 0px;
+  }
 }
 .comment-list-spacer {
   width: 100%;
@@ -411,6 +421,15 @@ body {
 .comment-input-wrapper {
   padding: 0 10px;
 }
+.comment-name-container {
+  margin: 0 10px !important;
+}
+.comment-timestamp-container {
+  margin: 0 10px !important;
+}
+.comment-timestamp {
+  // font-size: ;
+}
 .recommendation-container {
   .ant-card {
   }
@@ -422,10 +441,12 @@ body {
 .messages-page-wrapper {
   display: flex;
   height: 100%;
-  padding: 20px 0px;
-  // background-color: $primary-color;
   justify-content: flex-start;
   align-items: stretch;
+  .ant-layout {
+    border-radius: 8px;
+    box-shadow: -11px -10px 26px -15px #00000082;
+  }
   .ant-layout.ant-layout-has-sider {
     background-color: $primary-color;
   }
@@ -439,8 +460,13 @@ body {
     height: 100%;
   }
   .ant-layout-sider {
-    background-color: $primary-color;
+    background-color: transparent;
+
+    left: 20px !important;
   }
+  .ant-space-item {
+  }
+  padding: 20px;
 }
 .messages-tab-pane {
   height: 100%;
@@ -454,25 +480,37 @@ body {
     background-color: #0015290f;
   }
 }
+.message-preview-pane-container {
+  max-height: calc(100vh - 270px);
+  min-height: calc(100vh - 270px);
+  overflow-y: scroll;
+}
 .message-preview-pane {
   display: flex;
   flex: 1;
-  height: 100%;
-  width: 100%;
   flex-flow: column;
   justify-content: flex-end;
-  padding-bottom: 10px;
+  padding: 20px;
   .text-left {
     float: left;
+    max-width: 50%;
+
     .messager-preview-message-container {
       border-radius: 8px 0 8px 0;
+      box-shadow: 0px 0px 6px 1px #f1f1f1;
+      background-color: #ffb12e99;
+      .messager-preview-message {
+        color: black;
+      }
     }
   }
   .text-right {
     float: right;
-
+    max-width: 50%;
     .messager-preview-message-container {
       border-radius: 0 8px 0 8px;
+      .messager-preview-message {
+      }
     }
   }
 }
@@ -480,6 +518,7 @@ body {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  padding-left: 20px;
 }
 .message-send-button {
   height: 100%;
@@ -487,9 +526,15 @@ body {
 .messager-preview-message {
   color: white;
 }
+.message-timestamp-container {
+  margin: 0px !important;
+}
+.message-timestamp {
+}
 .messager-preview-message-container {
-  padding: 10px 10px;
-  background-color: #3982ee;
+  padding: 5px 8px;
+  background-color: #0e548ded;
+  margin-bottom: 0px !important;
 }
 .message-menu-item-avatar {
   .ant-avatar-string {
@@ -533,11 +578,14 @@ body {
   padding: 10px;
   border-radius: 8px;
   position: relative;
+  height: 100%;
   text-align: left;
   display: flex;
   flex-flow: column;
   .ant-card-body {
     flex: 1;
+    max-height: 400px;
+    overflow: hidden;
   }
   .card-user-type {
     position: absolute;
@@ -549,16 +597,16 @@ body {
 .app-titles {
   margin: 0.5rem;
   .xlarge {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
   }
   .large {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
   .medium {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
   .small {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   .strong {
     font-weight: 600;
@@ -569,24 +617,24 @@ body {
 }
 
 .app-texts {
-  margin: 0.5rem;
+  margin: 0.5rem 0px;
   .xlarge {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
   .large {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
   .mediumlarge {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
   .medium {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   .small {
-    font-size: 0.75rem;
+    font-size: 1rem;
   }
   .xsmall {
-    font-size: 0.5rem;
+    font-size: 0.75rem;
   }
 
   .strong {
@@ -598,7 +646,7 @@ body {
 }
 
 .app-button {
-  margin: 0.5rem;
+  margin: 0.5rem 0;
   .large {
     font-size: 1.5rem;
   }
@@ -618,7 +666,7 @@ body {
   width: 100%;
 }
 .view-container {
-  max-width: 1600px;
+  max-width: 1128px;
   display: flex;
   flex-flow: column;
 }
@@ -639,6 +687,9 @@ body {
 
 .italics {
   font-style: italic;
+}
+.nomargin {
+  margin: 0px !important;
 }
 
 //PROFILES

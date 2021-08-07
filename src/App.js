@@ -84,7 +84,6 @@ function PublicRoute({ children, isAuthenticated, ...rest }) {
 // Here we include the components which need to be accesses after successful login.
 function ProtectedRoutes() {
   let location = useLocation();
-  console.log(location);
   return (
     <Switch>
       <Route path='/dashboard'>
