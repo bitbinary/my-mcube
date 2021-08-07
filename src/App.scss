@@ -152,7 +152,10 @@ body {
   text-align: left;
   padding-top: 1.5rem;
 }
-
+.ant-btn-primary {
+  background: $primary-color;
+  border-color: $primary-color;
+}
 .ant-drawer-content-wrapper {
   width: 300px !important;
 }
@@ -166,7 +169,7 @@ body {
 .home-page-section {
   background-color: #f8f9fa;
   position: relative;
-  max-width: 1600px;
+  max-width: 1128px;
   margin: auto;
   min-height: 500px;
   padding: 20px;
@@ -254,7 +257,7 @@ body {
   height: 100%;
 }
 .forum-container {
-  max-width: 1600px;
+  max-width: 1128px;
 }
 .forum-tabs {
   margin-top: 15px;
@@ -422,10 +425,12 @@ body {
 .messages-page-wrapper {
   display: flex;
   height: 100%;
-  padding: 20px 0px;
-  // background-color: $primary-color;
   justify-content: flex-start;
   align-items: stretch;
+  .ant-layout {
+    border-radius: 8px;
+    box-shadow: -11px -10px 26px -15px #00000082;
+  }
   .ant-layout.ant-layout-has-sider {
     background-color: $primary-color;
   }
@@ -439,8 +444,13 @@ body {
     height: 100%;
   }
   .ant-layout-sider {
-    background-color: $primary-color;
+    background-color: transparent;
+
+    left: 20px !important;
   }
+  .ant-space-item {
+  }
+  padding: 20px;
 }
 .messages-tab-pane {
   height: 100%;
@@ -454,25 +464,37 @@ body {
     background-color: #0015290f;
   }
 }
+.message-preview-pane-container {
+  max-height: calc(100vh - 270px);
+  min-height: calc(100vh - 270px);
+  overflow-y: scroll;
+}
 .message-preview-pane {
   display: flex;
   flex: 1;
-  height: 100%;
-  width: 100%;
   flex-flow: column;
   justify-content: flex-end;
-  padding-bottom: 10px;
+  padding: 20px;
   .text-left {
     float: left;
+    max-width: 50%;
+
     .messager-preview-message-container {
       border-radius: 8px 0 8px 0;
+      box-shadow: 0px 0px 6px 1px #f1f1f1;
+      background-color: #ffb12e99;
+      .messager-preview-message {
+        color: black;
+      }
     }
   }
   .text-right {
     float: right;
-
+    max-width: 50%;
     .messager-preview-message-container {
       border-radius: 0 8px 0 8px;
+      .messager-preview-message {
+      }
     }
   }
 }
@@ -480,6 +502,7 @@ body {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  padding-left: 20px;
 }
 .message-send-button {
   height: 100%;
@@ -487,9 +510,15 @@ body {
 .messager-preview-message {
   color: white;
 }
+.message-timestamp-container {
+  margin: 0px !important;
+}
+.message-timestamp {
+}
 .messager-preview-message-container {
-  padding: 10px 10px;
-  background-color: #3982ee;
+  padding: 5px 8px;
+  background-color: #0e548ded;
+  margin-bottom: 0px !important;
 }
 .message-menu-item-avatar {
   .ant-avatar-string {
@@ -618,7 +647,7 @@ body {
   width: 100%;
 }
 .view-container {
-  max-width: 1600px;
+  max-width: 1128px;
   display: flex;
   flex-flow: column;
 }

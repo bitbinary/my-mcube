@@ -68,12 +68,10 @@ export default function ForumPhSearchExtras() {
   // const [loading, setLoading] = useState(false);
 
   const doSearch = () => {
-    console.log('going to search');
     dispatch({
       type: actions.TOGGLESTATE,
       payload: { label: 'searchLoading', value: true },
     });
-    console.log('going to search');
     dispatch({
       type: actions.SEARCHFEEDS,
       params: { searchString: searchString },

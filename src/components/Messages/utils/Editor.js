@@ -4,14 +4,19 @@ import Buttons from 'components/utils/Buttons';
 import { SendOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
-export default function Editor({ onChange, onSubmit, submitting, value }) {
+export default function Editor({
+  handleChange,
+  handleSubmit,
+  submitting,
+  newComment,
+}) {
   return (
     <Row wrap={false}>
       <Col flex='auto' justify='end'>
         <Form.Item className='message-input-wrapper'>
           <TextArea
-            value={value}
-            onChange={onChange}
+            value={newComment}
+            onChange={handleChange}
             placeholder='Enter your message here'
             autoSize={{ minRows: 2, maxRows: 2 }}
             className='message-input'
@@ -22,7 +27,7 @@ export default function Editor({ onChange, onSubmit, submitting, value }) {
         <Buttons
           htmlType='submit'
           loading={submitting}
-          handleClick={onSubmit}
+          handleClick={handleSubmit}
           type='primary'
           className='message-send-button'
           content={<SendOutlined />}

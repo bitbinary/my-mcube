@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Tooltip, Avatar } from 'antd';
 import UserDetails from './UserDetails';
 import UserMessager from './utils/UserMessager';
 import { truncateName } from 'components/tools/getTruncatedName';
 import { getRandomColor } from 'components/tools/colorGenerator';
-
+import { useDispatch, useSelector } from 'react-redux';
+import actions from 'redux/Messages/actions';
+import { useInterval } from 'components/tools/useInterval';
 const { Content, Sider } = Layout;
-const contacts = [
-  { name: 'Amel Johny', status: 'Active', userId: 'asdf' },
-  { name: 'Amel Johny1', status: 'Away', userId: 'asdf1' },
-  { name: 'Amel Johny2', status: 'Active', userId: 'asdf2' },
-  { name: 'Kamal RS', status: 'Away', userId: 'aaws' },
-  { name: 'RS kamal', status: 'Active', userId: 'asasdf' },
-  { name: 'Arpit', status: 'Active', userId: 'asdadf' },
-  { name: 'Arpit Mathur', status: 'Away', userId: 'asddf' },
-  { name: 'Amel', status: 'Active', userId: 'asdfff' },
-  { name: 'Johny', status: 'Away', userId: 'asdasdf' },
-];
 export default function MessagesPage() {
+  const { userId } = useSelector((state) => state.authenticateReducer);
+  const { contacts } = useSelector((state) => state.messageReducer);
+  const { profileData } = useSelector((state) => state.profileReducer);
+  const dispatch = useDispatch();
   const [collapsed, setCollapsed] = useState(false);
-  const [activeContact, setActiveContact] = useState(contacts[0]);
+  const [activeContact, setActiveContact] = useState(contacts?.[0]);
+  useEffect(() => {
+    dispatch({
+      type: actions.GETCONTACTS,
+      userId: userId,
+    });
+    return () => {};
+  }, []);
+  useInterval(() => {
+    // put your interval code here.
+    dispatch({
+      type: actions.GETCONTACTS,
+      userId: userId,
+    });
+    return () => {};
+  }, 1000 * 1);
 
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
@@ -28,7 +38,7 @@ export default function MessagesPage() {
     setCollapsed(!collapsed);
   };
   const onContactSelect = (id) => {
-    let selectedContact = contacts.filter((contact) => contact.userId === id);
+    let selectedContact = contacts.filter((contact) => contact?.user_id === id);
     setActiveContact(selectedContact[0]);
   };
   return (
@@ -43,41 +53,52 @@ export default function MessagesPage() {
             zIndex: 999,
           }}
         >
-          <UserDetails />
+          <UserDetails
+            userName={`${profileData?.profile?.first_name}
+                ${profileData?.profile?.last_name}`}
+          />
           <Menu
             theme='dark'
             mode='inline'
             onSelect={(event) => onContactSelect(event.key)}
-            defaultSelectedKeys={[contacts[0].userId]}
+            defaultSelectedKeys={[contacts?.[0]?.user_id]}
           >
-            {contacts.map((contact) => (
-              <Menu.Item
-                key={contact.userId}
-                className='messager-sidebar-menu-item'
-                icon={
-                  <Avatar
-                    style={{ backgroundColor: getRandomColor(contact.name) }}
-                    className='message-menu-item-avatar'
-                    // icon={<UserOutlined />}
+            {contacts
+              ? contacts.map((contact) => (
+                  <Menu.Item
+                    key={contact?.user_id}
+                    className='messager-sidebar-menu-item'
+                    icon={
+                      <Avatar
+                        style={{
+                          backgroundColor: getRandomColor(contact?.first_name),
+                        }}
+                        className='message-menu-item-avatar'
+                        // icon={<UserOutlined />}
+                      >
+                        {truncateName(
+                          `${contact.first_name} ${contact.last_name}`,
+                        )}
+                      </Avatar>
+                    }
                   >
-                    {truncateName(contact.name)}
-                  </Avatar>
-                }
-              >
-                <Tooltip title={contact.name} placement='right'>
-                  {contact.name}
-                </Tooltip>
-              </Menu.Item>
-            ))}
+                    <Tooltip title={contact.first_name} placement='right'>
+                      {`${contact.first_name} ${contact.last_name}`}
+                    </Tooltip>
+                  </Menu.Item>
+                ))
+              : null}
           </Menu>
         </Sider>
         <Layout style={!collapsed ? { marginLeft: 205 } : { marginLeft: 85 }}>
           <Content style={{}}>
-            <UserMessager
-              contact={activeContact}
-              collapsed={collapsed}
-              handleBack={onCollapseToggle}
-            />
+            {activeContact ? (
+              <UserMessager
+                contact={activeContact}
+                collapsed={collapsed}
+                handleBack={onCollapseToggle}
+              />
+            ) : null}
           </Content>
         </Layout>
       </Layout>

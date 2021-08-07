@@ -5,7 +5,6 @@ import ForumPhRecomExtras from './ForumPhRecomExtras';
 import { useSelector } from 'react-redux';
 export default function ForumPageHeaderExtras({ page }) {
   const { searchData } = useSelector((state) => state.forumReducer);
-  console.log(searchData.length);
   if (page === 'feeds') {
     return <ForumPhFeedsExtras key='extrasFeed' />;
   } else if (page === 'search') {

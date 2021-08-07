@@ -6,6 +6,10 @@ import AppTexts from './AppTexts';
 import Buttons from './Buttons';
 import { UserOutlined } from '@ant-design/icons';
 import { getRandomColor } from 'components/tools/colorGenerator';
+import { useDispatch, useSelector } from 'react-redux';
+import actions from 'redux/Forum/actions';
+import { getRequest } from 'Config/axiosClient';
+import { useInterval } from 'components/tools/useInterval';
 
 const { TextArea } = Input;
 const data = [
@@ -73,10 +77,27 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
 export default function CommentsContainer({ postId, defaultComments = [] }) {
   const [submitting, setSubmitting] = useState(false);
   const [newComment, setNewComment] = useState('');
+  const [comments, setComments] = useState([...defaultComments]);
   // const [data, setData] = useState([])
+  const dispatch = useDispatch();
+  const { userId } = useSelector((state) => state.authenticateReducer);
+  useInterval(async () => {
+    const response = await getRequest(`posts/comments/${postId.split('_')[1]}`);
+    setComments(response?.data?.data?.comments || []);
+
+    return () => {};
+  }, 1000 * 1);
   const [loading] = useState(false);
   const [hasMore] = useState(true);
   const handleSubmit = () => {
+    dispatch({
+      type: actions.ADDCOMMENT,
+      payload: {
+        userId: Number(userId),
+        postId: Number(postId.split('_')[1]),
+        comment: newComment,
+      },
+    });
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
@@ -99,7 +120,7 @@ export default function CommentsContainer({ postId, defaultComments = [] }) {
         >
           <List
             itemLayout='vertical'
-            dataSource={[...defaultComments]}
+            dataSource={[...comments]}
             renderItem={(item) => (
               <List.Item key={item.comment_id}>
                 <List.Item.Meta
