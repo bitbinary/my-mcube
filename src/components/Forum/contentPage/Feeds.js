@@ -94,14 +94,14 @@ export default function Feeds() {
           // element={ListWrapper}
           loader={
             <div className='feed-loader-wrapper' key={0}>
-              <Space direction='vertical'>
+              {/* <Space direction='vertical'>
                 <Buttons
                   type='primary'
                   loading={feedLoading}
                   handleClick={() => addMoreFeeds()}
                   content={feedLoading ? 'Loading More' : 'Load More'}
                 ></Buttons>
-              </Space>
+              </Space> */}
             </div>
           }
           threshold={100}

@@ -24,7 +24,10 @@ function UserModal({ isModalVisible, userID, handleCancel }) {
       onCancel={handleCancel}
       onOk={showConfirm}
       width='100%'
-      style={{ maxWidth: 1600, height: '80%' }}
+      style={{
+        maxWidth: 1000,
+        height: '80%',
+      }}
     >
       <Profile user_id={id} />
     </Modal>

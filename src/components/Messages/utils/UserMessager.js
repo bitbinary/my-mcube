@@ -33,7 +33,7 @@ export default function UserMessager({ contact, handleBack, collapsed }) {
       fromUser: userId,
     });
     return () => {};
-  }, [contact?.user_id]);
+  }, [contact]);
   useInterval(() => {
     // put your interval code here.
     dispatch({
@@ -42,7 +42,7 @@ export default function UserMessager({ contact, handleBack, collapsed }) {
       fromUser: userId,
     });
     return () => {};
-  }, 1000 * 5);
+  }, 1000 * 1);
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };

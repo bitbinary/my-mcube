@@ -160,7 +160,7 @@ function ForumPageHeaderAddPost({ ...rest }) {
       type: actions.ADDPOST,
       payload: {
         content: content,
-        user_id: userId,
+        user_id: Number(userId),
         title: title,
         project_id: Number(projectId.split('_')[1]),
       },

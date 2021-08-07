@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Empty, Select } from 'antd';
-import { postRequest } from 'Config/axiosClient';
+import { getRequest } from 'Config/axiosClient';
 import searcher from 'components/tools/searcher';
 
 export default function SearchSelector({ handleChange }) {
   const [data, setdata] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   useEffect(() => {
-    const response = postRequest('project/list');
+    const response = getRequest('project/list');
     response.then((response) => {
       let data = response.data.data.map((element) => ({
         label: element.project_name,
