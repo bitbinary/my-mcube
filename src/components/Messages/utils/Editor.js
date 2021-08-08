@@ -20,7 +20,6 @@ export default function Editor({
             placeholder='Enter your message here'
             autoSize={{ minRows: 2, maxRows: 2 }}
             className='message-input'
-            onPressEnter={handleSubmit}
           />
         </Form.Item>
       </Col>

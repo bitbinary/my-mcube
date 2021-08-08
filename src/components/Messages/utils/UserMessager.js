@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Editor from 'components/Messages/utils/Editor';
 import MessagePreview from './MessagePreview';
-import { Empty, notification, PageHeader } from 'antd';
+import { PageHeader } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Messages/actions';
 import { useInterval } from 'components/tools/useInterval';
-import logoimg from 'assets/logo/medium.png';
 
 import {
   ArrowLeftOutlined,
@@ -13,7 +12,6 @@ import {
   RedoOutlined,
 } from '@ant-design/icons';
 import Buttons from 'components/utils/Buttons';
-import AppTexts from 'components/utils/AppTexts';
 export default function UserMessager({ contact, handleBack, collapsed }) {
   const dispatch = useDispatch();
   const { userId } = useSelector((state) => state.authenticateReducer);
@@ -56,14 +54,6 @@ export default function UserMessager({ contact, handleBack, collapsed }) {
     });
   };
   const handleSubmit = () => {
-    if (newComment.length === 0) {
-      notification['info']({
-        message: 'Please enter message',
-        // description: response?.data?.message,
-        placement: 'bottomRight',
-      });
-      return;
-    }
     setSubmitting(true);
     dispatch({
       type: actions.POSTMESSAGE,
@@ -93,20 +83,8 @@ export default function UserMessager({ contact, handleBack, collapsed }) {
         onBack={handleBack}
         backIcon={collapsed ? <BarsOutlined /> : <ArrowLeftOutlined />}
       />
-      {messages[contact.user_id.split('_')[1]] && (
+      {contact?.user_id && (
         <MessagePreview messages={messages[contact.user_id.split('_')[1]]} />
-      )}
-      {!messages[contact.user_id.split('_')[1]] && (
-        <Empty
-          className='empty-chat'
-          image={logoimg}
-          imageStyle={{
-            height: 60,
-          }}
-          description={
-            <AppTexts className='strong' content='Waiting for messages...' />
-          }
-        ></Empty>
       )}
       <Editor
         handleChange={handleChange}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Menu, Tooltip, Avatar, Empty } from 'antd';
+import { Layout, Menu, Tooltip, Avatar } from 'antd';
 import UserDetails from './UserDetails';
 import UserMessager from './utils/UserMessager';
 import { truncateName } from 'components/tools/getTruncatedName';
@@ -7,9 +7,6 @@ import { getRandomColor } from 'components/tools/colorGenerator';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Messages/actions';
 import { useInterval } from 'components/tools/useInterval';
-import logoimg from 'assets/logo/medium.png';
-import AppTexts from 'components/utils/AppTexts';
-
 const { Content, Sider } = Layout;
 export default function MessagesPage() {
   const { userId } = useSelector((state) => state.authenticateReducer);
@@ -101,21 +98,7 @@ export default function MessagesPage() {
                 collapsed={collapsed}
                 handleBack={onCollapseToggle}
               />
-            ) : (
-              <Empty
-                className='empty-chat'
-                image={logoimg}
-                imageStyle={{
-                  height: 60,
-                }}
-                description={
-                  <AppTexts
-                    className='strong'
-                    // content='Please select a contact to start'
-                  />
-                }
-              ></Empty>
-            )}
+            ) : null}
           </Content>
         </Layout>
       </Layout>
