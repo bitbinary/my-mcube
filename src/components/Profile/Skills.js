@@ -16,10 +16,11 @@ function Skills({ user_id }) {
   const [skillListComponent, setSkillListComponent] = useState(null);
   const [addSkill, setAddSkill] = useState('');
   const dispatch = useDispatch();
-  const { userId } = useSelector((state) => state.authenticateReducer);
 
-  const { skillList, skillErrorMessage, skillDisplayError, userSkillList } =
-    useSelector((state) => state.profileReducer);
+  const { skillList, userSkillList } = useSelector(
+    (state) => state.profileReducer,
+  );
+  const { userId } = useSelector((state) => state.authenticateReducer);
 
   useEffect(() => {
     dispatch({
@@ -28,12 +29,11 @@ function Skills({ user_id }) {
     dispatch({
       type: actions.GETUSERSKILLS,
       payload: {
-        user_id: 7,
-        //user_id: user_id ? user_id : userId,
+        user_id: userId,
       },
     });
   }, []);
-  useEffect(async () => {
+  useEffect(() => {
     dispatch({
       type: actions.GETSKILLS,
     });
@@ -43,7 +43,7 @@ function Skills({ user_id }) {
         user_id: user_id ? user_id : userId,
       },
     });
-  }, [user_id]);
+  }, []);
 
   useEffect(() => {
     let SkillListComponent1 = null;
@@ -102,13 +102,6 @@ function Skills({ user_id }) {
       placement: 'bottomRight',
     });
   };
-
-  //ASK AMEL
-  /* if (skillDisplayError === true) {
-    openNotification('success', skillErrorMessage);
-  } else if (skillDisplayError ===  false){
-    openNotification('error', skillErrorMessage);
-  }*/
 
   return (
     <>

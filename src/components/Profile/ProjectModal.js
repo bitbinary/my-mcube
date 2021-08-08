@@ -14,7 +14,11 @@ import {
 import { getRequest } from 'Config/axiosClient';
 import { getRandomColor } from 'components/tools/colorGenerator';
 
-function ProjectModal({ isModalVisible, projectId, handleCancel }) {
+function ProjectModal({
+  isProjectModalVisible,
+  projectId,
+  handleProjectModalCancel,
+}) {
   const { Paragraph, Text } = Typography;
   const { confirm } = Modal;
   const [data, setData] = useState(null);
@@ -31,20 +35,26 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
   useEffect(() => {
     setData(null);
     const id = projectId.split('_')[1];
-    if (isModalVisible) {
+
+    if (isProjectModalVisible) {
       getRequest(`project/${id}`).then((res) => {
-        setData(res.data.data[0]);
+        setData(res.data.data);
       });
     }
     return () => {};
-  }, [isModalVisible]);
+  }, [isProjectModalVisible]);
+
+  const tags = data?.skills?.map((skill) => (
+    <Tag color={getRandomColor(skill)}>{skill}</Tag>
+  ));
+
   return (
     <div>
       {data ? (
         <Modal
           title={data?.title}
-          visible={isModalVisible}
-          onCancel={handleCancel}
+          visible={isProjectModalVisible}
+          onCancel={handleProjectModalCancel}
           // onOk={null}
           className='project-modal-wrapper'
           footer={[
@@ -59,18 +69,13 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
               <Paragraph>{data?.description}</Paragraph>
             </Col>
           </Row>
-          {/* <Divider />
-        <Row>
-          <Col span={24}>
-            <Text strong>Skills:</Text>
-          </Col>
-          <Col style={{ marginTop: '1%' }}>
-            <Tag color='magenta'>Data Science</Tag>
-            <Tag color='cyan'>Java</Tag>
-            <Tag color='lime'>AI</Tag>
-            <Tag color='orange'>Data Science</Tag>
-          </Col>
-        </Row> */}
+          <Divider />
+          <Row>
+            <Col span={24}>
+              <Text strong>Skills:</Text>
+            </Col>
+            <Col style={{ marginTop: '1%' }}>{tags}</Col>
+          </Row>
           <Divider />
           <Row>
             <Col span={12}>

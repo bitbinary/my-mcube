@@ -8,7 +8,7 @@ export default function MessagePreview({ messages }) {
   const { userId } = useSelector((state) => state.authenticateReducer);
   let messagesEnd = null;
   const scrollToBottom = () => {
-    messagesEnd.scrollIntoView({ behavior: 'smooth' });
+    // messagesEnd.scrollIntoView({ behavior: 'smooth' });
   };
   let user_id = `U_${userId}`;
   useEffect(() => {

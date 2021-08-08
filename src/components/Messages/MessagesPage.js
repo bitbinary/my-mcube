@@ -29,7 +29,7 @@ export default function MessagesPage() {
       userId: userId,
     });
     return () => {};
-  }, 1000 * 10);
+  }, 1000 * 1);
 
   const onCollapse = (collapsed) => {
     setCollapsed(collapsed);
@@ -63,41 +63,42 @@ export default function MessagesPage() {
             onSelect={(event) => onContactSelect(event.key)}
             defaultSelectedKeys={[contacts?.[0]?.user_id]}
           >
-            {contacts &&
-              contacts.map((contact) => (
-                <Menu.Item
-                  key={contact?.user_id}
-                  className='messager-sidebar-menu-item'
-                  icon={
-                    <Avatar
-                      style={{
-                        backgroundColor: getRandomColor(contact?.first_name),
-                      }}
-                      className='message-menu-item-avatar'
-                      // icon={<UserOutlined />}
-                    >
-                      {truncateName(
-                        `${contact.first_name} ${contact.last_name}`,
-                      )}
-                    </Avatar>
-                  }
-                >
-                  <Tooltip title={contact.first_name} placement='right'>
-                    {`${contact.first_name} ${contact.last_name}`}
-                  </Tooltip>
-                </Menu.Item>
-              ))}
+            {contacts
+              ? contacts.map((contact) => (
+                  <Menu.Item
+                    key={contact?.user_id}
+                    className='messager-sidebar-menu-item'
+                    icon={
+                      <Avatar
+                        style={{
+                          backgroundColor: getRandomColor(contact?.first_name),
+                        }}
+                        className='message-menu-item-avatar'
+                        // icon={<UserOutlined />}
+                      >
+                        {truncateName(
+                          `${contact.first_name} ${contact.last_name}`,
+                        )}
+                      </Avatar>
+                    }
+                  >
+                    <Tooltip title={contact.first_name} placement='right'>
+                      {`${contact.first_name} ${contact.last_name}`}
+                    </Tooltip>
+                  </Menu.Item>
+                ))
+              : null}
           </Menu>
         </Sider>
         <Layout style={!collapsed ? { marginLeft: 205 } : { marginLeft: 85 }}>
           <Content style={{}}>
-            {activeContact && (
+            {activeContact ? (
               <UserMessager
                 contact={activeContact}
                 collapsed={collapsed}
                 handleBack={onCollapseToggle}
               />
-            )}
+            ) : null}
           </Content>
         </Layout>
       </Layout>
