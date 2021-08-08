@@ -11,7 +11,6 @@ import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
 import ForumPhSearchExtras from '../HeaderExtras/ForumPhSearchExtras';
 import capitalize from 'components/tools/capitalize';
-import logoimg from 'assets/logo/medium.png';
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -145,8 +144,7 @@ export default function Search() {
   } else if (searchLoading) {
     return (
       <Empty
-        className='empty-search'
-        image={logoimg}
+        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
         imageStyle={{
           height: 60,
         }}
@@ -156,22 +154,17 @@ export default function Search() {
   } else {
     return (
       <Empty
-        className='empty-search'
-        image={logoimg}
+        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+        imageStyle={{
+          height: 60,
+        }}
         description={
           searchData.length === 0 ? (
-            <div
-              style={{ minWidth: '300px', margin: 'auto', marginTop: '50px' }}
-            >
+            <div style={{ maxWidth: '300px', margin: 'auto' }}>
               <ForumPhSearchExtras />
             </div>
           ) : (
-            <div
-              style={{ minWidth: '300px', margin: 'auto', marginTop: '50px' }}
-            >
-              {' '}
-              <span> No matching results found...</span>
-            </div>
+            <span>No Search Results...</span>
           )
         }
       >

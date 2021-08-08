@@ -59,9 +59,7 @@ function* addpost(action) {
 function* getRecomm(action) {
   try {
     const response = yield call(() =>
-      getRequest(
-        `recommendation/${action.params.recommType}/${action.params.user_id}`,
-      ),
+      getRequest(`recommendation/${action.params.recommType}/7`),
     );
     if (response.status >= 200 || response.status <= 204) {
       notification['info']({
@@ -82,9 +80,7 @@ function* getRecomm(action) {
 function* addRecomm(action) {
   try {
     const response = yield call(() =>
-      getRequest(
-        `recommendation/${action.params.recommType}/${action.params.user_id}`,
-      ),
+      getRequest(`recommendation/${action.params.recommType}/7`),
     );
     if (response.status >= 200 || response.status <= 204)
       yield put({

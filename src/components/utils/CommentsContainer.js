@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Tooltip,
-  Input,
-  Form,
-  List,
-  Spin,
-  Avatar,
-  Space,
-  notification,
-} from 'antd';
+import { Tooltip, Input, Form, List, Spin, Avatar, Space } from 'antd';
 import InfiniteScroll from 'react-infinite-scroller';
 import moment from 'moment';
 import AppTexts from './AppTexts';
@@ -70,7 +61,6 @@ const Editor = ({ onChange, onSubmit, submitting, value }) => (
         rows={4}
         onChange={onChange}
         value={value}
-        onPressEnter={onSubmit}
       />
     </Form.Item>
     <Form.Item className='comment-submit-wrapper'>
@@ -100,14 +90,6 @@ export default function CommentsContainer({ postId, defaultComments = [] }) {
   const [loading] = useState(false);
   const [hasMore] = useState(true);
   const handleSubmit = () => {
-    if (newComment.length === 0) {
-      notification['info']({
-        message: 'Please enter comment',
-        // description: response?.data?.message,
-        placement: 'bottomRight',
-      });
-      return;
-    }
     dispatch({
       type: actions.ADDCOMMENT,
       payload: {
