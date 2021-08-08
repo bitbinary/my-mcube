@@ -22,6 +22,7 @@ function ProjectModal({
   projectId,
   handleProjectModalCancel,
 }) {
+
   const { Paragraph, Text } = Typography;
   const [data, setData] = useState(null);
   const [followLoading, setFollowLoading] = useState(false);
@@ -54,8 +55,7 @@ function ProjectModal({
   useEffect(() => {
     setData(null);
     const id = projectId.split('_')[1];
-
-    if (isProjectModalVisible) {
+    if (isModalVisible) {
       getRequest(`project/${id}`).then((res) => {
         setData(res.data.data);
       });
@@ -71,7 +71,6 @@ function ProjectModal({
   const tags = data?.skills?.map((skill) => (
     <Tag color={getRandomColor(skill)}>{skill}</Tag>
   ));
-
   return (
     <div>
       {data ? (

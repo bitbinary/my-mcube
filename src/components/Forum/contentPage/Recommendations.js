@@ -91,9 +91,9 @@ export default function Recommendations() {
     return (
       <>
         <ProjectModal
-          isProjectModalVisible={isProjectModalVisible}
+          isModalVisible={isProjectModalVisible}
           projectId={idForModal}
-          handleProjectModalCancel={handleCancel}
+          handleCancel={handleCancel}
         />
         <UserModal
           isModalVisible={isUserModalVisible}
