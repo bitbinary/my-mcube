@@ -7,7 +7,7 @@ export default function SearchSelector({ handleChange }) {
   const [data, setdata] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   useEffect(() => {
-    const response = getRequest('project/list');
+    const response = getRequest('project/name_list');
     response.then((response) => {
       let data = response.data.data.map((element) => ({
         label: element.project_name,
