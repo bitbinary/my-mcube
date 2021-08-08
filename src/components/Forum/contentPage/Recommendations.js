@@ -9,6 +9,7 @@ import RecommProjects from './utils/RecommProjects';
 import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
 import capitalize from 'components/tools/capitalize';
+import logoimg from 'assets/logo/medium.png';
 
 export default function Recommendations() {
   const dispatch = useDispatch();
@@ -165,11 +166,12 @@ export default function Recommendations() {
   } else if (recommLoading) {
     return (
       <Empty
-        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+        className='empty-search'
+        image={logoimg}
         imageStyle={{
           height: 60,
         }}
-        description={<span>Collecting Recomm...</span>}
+        description={<span>Collecting Recommendations...</span>}
       >
         {contentRecommMentors}
         {contentRecommMentees}
@@ -179,11 +181,12 @@ export default function Recommendations() {
   } else {
     return (
       <Empty
-        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+        className='empty-search'
+        image={logoimg}
         imageStyle={{
           height: 60,
         }}
-        description={<span>No Recomm...</span>}
+        description={<span>Waiting for Recommendations...</span>}
       >
         <Buttons handleClick={addMoreRecomm} content='Retry loading Recomm' />
       </Empty>

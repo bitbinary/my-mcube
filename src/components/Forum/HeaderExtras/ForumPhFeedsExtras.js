@@ -60,26 +60,6 @@ export default function ForumPhFeedsExtras() {
           // onSearch={() => doSearch()}
         />
       </Col>
-      {/* <Col
-        lg={12}
-        md={12}
-        sm={12}
-        xs={24}
-        span={12}
-        justify='space-between'
-        align='end'
-      >
-        <Select
-          style={{ width: 200 }}
-          optionFilterProp='children'
-          defaultValue={feedSortBy}
-          onChange={onChange}
-          options={selectOptions}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        ></Select>
-      </Col> */}
       {!addPostDraftState && (
         <Col
           lg={24}
@@ -89,6 +69,7 @@ export default function ForumPhFeedsExtras() {
           span={12}
           justify='center'
           align='end'
+          className='new-post-button'
         >
           <Buttons
             type='primary'
