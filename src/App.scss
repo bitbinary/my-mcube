@@ -364,6 +364,11 @@ body {
     min-width: 150px;
   }
 }
+.new-post-button {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
 .new-post-submit {
   float: right;
   .ant-form-item-control-input-content {
@@ -557,10 +562,20 @@ body {
 .messager-sidebar-menu-item {
   margin: auto;
 }
-// .message-input {
-//   width: 100%;
-// }
-
+.empty-chat {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+.empty-search {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
 //************** common utils styles****************//
 // PROJECT MODAL
 .project-modal-wrapper {
