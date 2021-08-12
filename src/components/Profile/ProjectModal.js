@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { UserOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import {
   Row,
   Col,
@@ -9,50 +9,97 @@ import {
   Tag,
   Avatar,
   Button,
-  Tooltip,
 } from 'antd';
-import { getRequest } from 'Config/axiosClient';
+import { getRequest, postRequest, deleteRequest } from 'Config/axiosClient';
 import { getRandomColor } from 'components/tools/colorGenerator';
-
-function ProjectModal({ isModalVisible, projectId, handleCancel }) {
+import { dateToUTC } from 'components/tools/date';
+import AppTitles from 'components/utils/AppTitles';
+import AppTexts from 'components/utils/AppTexts';
+import { useSelector } from 'react-redux';
+import Collaborators from 'components/utils/Collaborators';
+import Feeds from 'components/Forum/contentPage/Feeds';
+function ProjectModal({
+  isProjectModalVisible,
+  projectId,
+  handleProjectModalCancel,
+}) {
   const { Paragraph, Text } = Typography;
-  const { confirm } = Modal;
   const [data, setData] = useState(null);
-
-  function showConfirm() {
-    confirm({
-      title: 'Do you want to join the project?',
-      icon: <ExclamationCircleOutlined />,
-      onOk() {
-        alert('OK');
-      },
-    });
+  const [followLoading, setFollowLoading] = useState(false);
+  const [collaborators, setCollaborators] = useState(null);
+  const { userId } = useSelector((state) => state.authenticateReducer);
+  const U_id = `U_${userId}`;
+  function handleFollowUnfollow() {
+    setFollowLoading(true);
+    const id = projectId.split('_')[1];
+    if (
+      collaborators &&
+      collaborators?.map((collaborator) => collaborator.user_id)?.includes(U_id)
+    ) {
+      deleteRequest(`project/user_id/${id}/${userId}`)
+        .then((res) => {
+          getCollaborators(id);
+          setFollowLoading(false);
+        })
+        .catch((e) => {
+          setFollowLoading(false);
+        });
+    } else {
+      postRequest(`project/user_id/${id}/${userId}`)
+        .then((res) => {
+          getCollaborators(id);
+          setFollowLoading(false);
+        })
+        .catch((e) => {
+          setFollowLoading(false);
+        });
+    }
   }
   useEffect(() => {
     setData(null);
     const id = projectId.split('_')[1];
-    if (isModalVisible) {
+
+    if (isProjectModalVisible) {
       getRequest(`project/${id}`).then((res) => {
         setData(res.data.data);
       });
+      getCollaborators(id);
     }
     return () => {};
-  }, [isModalVisible]);
+  }, [isProjectModalVisible]);
+  const getCollaborators = (id) => {
+    getRequest(`project/user_id/${id}`).then((res) => {
+      setCollaborators(res.data.data);
+    });
+  };
   const tags = data?.skills?.map((skill) => (
     <Tag color={getRandomColor(skill)}>{skill}</Tag>
   ));
+
   return (
     <div>
       {data ? (
         <Modal
-          title={data?.title}
-          visible={isModalVisible}
-          onCancel={handleCancel}
+          title={<AppTitles className='medium' content={data?.title} />}
+          visible={isProjectModalVisible}
+          onCancel={handleProjectModalCancel}
           // onOk={null}
           className='project-modal-wrapper'
           footer={[
-            <Button key='submit' type='primary' loading={false} onClick={null}>
-              Join
+            <Button
+              key='submit'
+              type='primary'
+              loading={followLoading}
+              onClick={handleFollowUnfollow}
+            >
+              {console.log(collaborators)}
+              {U_id === data?.created_by
+                ? null
+                : collaborators
+                    ?.map((collaborator) => collaborator.user_id)
+                    ?.includes(U_id)
+                ? 'Unfollow'
+                : 'Follow'}
             </Button>,
           ]}
         >
@@ -60,6 +107,17 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
             <Col>
               <Text strong>Description:</Text>
               <Paragraph>{data?.description}</Paragraph>
+              <Divider />
+              <Text strong>Requirements:</Text>
+              <Paragraph>{data?.requirement}</Paragraph>
+              <Text strong>Start Date:</Text>
+              <Paragraph>{dateToUTC(data?.start_date)} AST</Paragraph>
+              <Text strong>End Date:</Text>
+              <Paragraph>{dateToUTC(data?.end_date)} AST</Paragraph>
+              <Text strong>Location:</Text>
+              <Paragraph>{data.location}</Paragraph>
+              <Text strong>Project status:</Text>
+              <Paragraph>{data.status}</Paragraph>
             </Col>
           </Row>
           <Divider />
@@ -74,17 +132,28 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
             <Col span={12}>
               <Row>
                 <Col span={24}>
-                  <Text strong>{`${data?.created_by} Ukesh`}</Text>
-                </Col>
-                <Col span={24} style={{ marginTop: '1%' }}>
-                  <Avatar
-                    style={{
-                      backgroundColor: 'rgb(154 160 164)',
-                    }}
-                    size={30}
-                    icon={<UserOutlined />}
+                  <AppTexts
+                    strong
+                    containerStyles='nomargin'
+                    content='Created By'
+                  />
+
+                  <AppTexts
+                    content={
+                      <>
+                        <Avatar
+                          style={{
+                            backgroundColor: getRandomColor(data?.first_name),
+                          }}
+                          size={30}
+                          icon={<UserOutlined />}
+                        />{' '}
+                        {`${data?.first_name} ${data?.last_name}`}
+                      </>
+                    }
                   />
                 </Col>
+                <Col span={24} style={{ marginTop: '1%' }}></Col>
               </Row>
             </Col>
             <Col span={12}>
@@ -93,26 +162,24 @@ function ProjectModal({ isModalVisible, projectId, handleCancel }) {
                   <Text strong>Contributors:</Text>
                 </Col>
                 <Col span={24} style={{ marginTop: '1%' }}>
-                  {[
-                    'Mark Tom',
-                    'MAtherw Jackk',
-                    'Jikosh jayunga',
-                    'Jintara Filanda',
-                    'Mikoshi Kara',
-                    'Innachi yako',
-                  ].map((value) => (
-                    <Tooltip title={value} placement='bottom'>
-                      <Avatar
-                        style={{
-                          backgroundColor: getRandomColor(value),
-                        }}
-                        size={30}
-                        icon={<UserOutlined />}
-                      />
-                    </Tooltip>
-                  ))}
+                  <Avatar.Group
+                    maxCount={2}
+                    size='medium'
+                    maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}
+                  >
+                    {collaborators &&
+                      collaborators.map((value) => (
+                        <Collaborators value={value} />
+                      ))}
+                  </Avatar.Group>
                 </Col>
               </Row>
+            </Col>
+          </Row>
+          <Row xs={24}>
+            <AppTitles className='strong medium' content='Related posts' />
+            <Col xs={24}>
+              <Feeds projectId={projectId} />
             </Col>
           </Row>
         </Modal>

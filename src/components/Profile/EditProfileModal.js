@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
-import {
-  Row,
-  Col,
-  Typography,
-  Divider,
-  Modal,
-  Input,
-  Tooltip,
-  Tag,
-} from 'antd';
-import {
-  ExclamationCircleOutlined,
-  InfoCircleOutlined,
-  TagsOutlined,
-} from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Typography, Divider, Modal, Select } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Profile/actions';
 
 function EditProfileModal({ isModalVisible, userId, handleCancel }) {
   const { Paragraph, Text } = Typography;
   const { confirm } = Modal;
-  const { Search } = Input;
+  const { Option } = Select;
 
   const { profileData } = useSelector((state) => state.profileReducer);
+  const [editUsername, setUsername] = useState(profileData?.profile?.username);
   const [editFirstName, setFirstName] = useState(
     profileData?.profile?.first_name,
   );
@@ -42,6 +30,25 @@ function EditProfileModal({ isModalVisible, userId, handleCancel }) {
 
   const dispatch = useDispatch();
 
+  // const [interestListComponent, setInterestListComponent] = useState(null);
+  // console.log(profileData?.interest?.topic);
+  // useEffect(() => {
+  //   let interestListComponent1 = null;
+  //   interestListComponent1 = profileData?.interest?.topic
+  //     .substring(1, profileData?.interest?.topic.length - 1)
+  //     .split(',')
+  //     .map(function (intr) {
+  //       return (
+  //         <Option value={intr.substring(1, intr.length - 1)}>
+  //           <div className='demo-option-label-item'>
+  //             {intr.substring(1, intr.length - 1)}
+  //           </div>
+  //         </Option>
+  //       );
+  //     });
+  //   setInterestListComponent(interestListComponent1);
+  // }, []);
+
   function showConfirm() {
     confirm({
       title: 'Do you want to save the changes?',
@@ -52,26 +59,22 @@ function EditProfileModal({ isModalVisible, userId, handleCancel }) {
           payload: {
             user_id: userId,
             profile: {
-              // mail
-
-              firstName: String(editFirstName),
-              lastName: String(editLastName),
-              contactNumber: String(editContactNo),
-              locationCity: String(editCity),
-              locationState: String(editState),
-              locationCountry: String(editCountry),
-              locationZipCode: String(editZipCode),
+              username: String(editUsername),
+              first_name: String(editFirstName),
+              last_name: String(editLastName),
+              email: String(editEmail),
+              contact_number: String(editContactNo),
+              location_city: String(editCity),
+              location_state: String(editState),
+              location_country: String(editCountry),
+              location_zip_code: String(editZipCode),
               title: String(editTitle),
               linkedin: String(editLinkedInURL),
             },
           },
         });
-        dispatch({
-          type: actions.GETUSERDETAILS,
-          payload: {
-            user_id: userId,
-          },
-        });
+
+        handleCancel();
       },
     });
   }
@@ -116,9 +119,17 @@ function EditProfileModal({ isModalVisible, userId, handleCancel }) {
           </Paragraph>
         </Col>
         <Col lg={4} md={15} sm={20} xs={20}>
+          <Text strong>Username:</Text>
+        </Col>
+        <Col lg={8} md={15} sm={20} xs={20}>
+          <Paragraph editable={{ onChange: setUsername }}>
+            {editUsername}
+          </Paragraph>
+        </Col>
+        <Col lg={4} md={15} sm={20} xs={20}>
           <Text strong>Title:</Text>
         </Col>
-        <Col lg={20} md={20} sm={20} xs={20}>
+        <Col lg={8} md={15} sm={20} xs={20}>
           <Paragraph editable={{ onChange: setTitle }}>{editTitle}</Paragraph>
         </Col>
         <Col lg={4} md={15} sm={20} xs={20}>
@@ -158,31 +169,23 @@ function EditProfileModal({ isModalVisible, userId, handleCancel }) {
           </Paragraph>
         </Col>
       </Row>
-      <Divider />
+      {/* <Divider />
       <Row gutter={[16, 24]}>
         <Col lg={4} md={15} sm={20} xs={20}>
           <Text strong>Interests:</Text>
         </Col>
         <Col lg={12} md={15} sm={20} xs={20}>
-          <Search
-            placeholder='Add new tag'
-            enterButton='Add Tag'
-            size='small'
-            prefix={<TagsOutlined className='site-form-item-icon' />}
-            suffix={
-              <Tooltip title='Only Add new tag if already not present!'>
-                <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-              </Tooltip>
-            }
-          />
+          {interestListComponent && (
+            <Select
+              mode='multiple'
+              style={{ width: '80%' }}
+              placeholder='select skills'
+            >
+              {interestListComponent}
+            </Select>
+          )}
         </Col>
-        <Col span={24}>
-          <Tag color='#1890ff'>Python</Tag>
-          <Tag color='#1890ff'>AI</Tag>
-          <Tag color='#1890ff'>Java</Tag>
-          <Tag color='#1890ff'>Node.js</Tag>
-        </Col>
-      </Row>
+      </Row> */}
     </Modal>
   );
 }

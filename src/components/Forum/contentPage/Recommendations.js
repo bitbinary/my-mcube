@@ -3,12 +3,13 @@ import actions from 'redux/Forum/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
 import RecommMM from './utils/RecommM&M';
-import { Space, Empty, Row } from 'antd';
+import { Empty, Row } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import RecommProjects from './utils/RecommProjects';
 import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
 import capitalize from 'components/tools/capitalize';
+import logoimg from 'assets/logo/medium.png';
 
 export default function Recommendations() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ export default function Recommendations() {
     contentRecommMentors,
     contentRecommProjects,
   } = useSelector((state) => state.forumReducer);
+  const { userId } = useSelector((state) => state.authenticateReducer);
   const [idForModal, setIdForModal] = useState('');
   const [isUserModalVisible, setIsUserModalVisible] = useState(false);
   const [isProjectModalVisible, setIsProjectModalVisible] = useState(false);
@@ -34,9 +36,10 @@ export default function Recommendations() {
   useEffect(() => {
     dispatch({
       type: actions.GETRECOMM,
-      params: { user_id: 2, recommType: recommselectedtype },
+      params: { user_id: userId, recommType: recommselectedtype },
     });
     return () => {};
+    //// eslint-disable-next-line
   }, [recommselectedtype, dispatch]);
 
   const addMoreRecomm = () => {
@@ -48,19 +51,19 @@ export default function Recommendations() {
       case 'project':
         dispatch({
           type: actions.ADDRECOMM,
-          params: { user_id: 2, recommType: recommselectedtype },
+          params: { user_id: userId, recommType: recommselectedtype },
         });
         break;
       case 'mentees':
         dispatch({
           type: actions.ADDRECOMM,
-          params: { user_id: 2, recommType: recommselectedtype },
+          params: { user_id: userId, recommType: recommselectedtype },
         });
         break;
       case 'mentor':
         dispatch({
           type: actions.ADDRECOMM,
-          params: { user_id: 2, recommType: recommselectedtype },
+          params: { user_id: userId, recommType: recommselectedtype },
         });
         break;
       default:
@@ -69,6 +72,7 @@ export default function Recommendations() {
   };
 
   const handleMoreDetails = (type, id) => {
+    console.log(id);
     setIdForModal(id);
     if (type === 'project_id') {
       setIsProjectModalVisible(true);
@@ -85,23 +89,23 @@ export default function Recommendations() {
   else if (recommselectedtype === 'mentees') displayData = contentRecommMentees;
   else displayData = contentRecommMentors;
 
-  if (displayData.length > 0) {
+  if (displayData?.length > 0) {
     return (
       <>
         <ProjectModal
-          isModalVisible={isProjectModalVisible}
+          isProjectModalVisible={isProjectModalVisible}
           projectId={idForModal}
-          handleCancel={handleCancel}
+          handleProjectModalCancel={handleCancel}
         />
         <UserModal
           isModalVisible={isUserModalVisible}
-          projectId={idForModal}
+          userID={idForModal}
           handleCancel={handleCancel}
         />
         <InfiniteScroll
           pageStart={0}
           initialLoad={false}
-          loadMore={() => addMoreRecomm()}
+          // loadMore={() => addMoreRecomm()}
           hasMore={true || false}
           // element={ListWrapper}
           loader={
@@ -119,7 +123,7 @@ export default function Recommendations() {
           threshold={150}
         >
           <Row className='recommendation-container' gutter={[16, 16]}>
-            {displayData.map((recomm, index) =>
+            {displayData?.map((recomm, index) =>
               recommselectedtype !== 'project' ? (
                 <RecommMM
                   key={recomm?.first_name + index}
@@ -164,11 +168,12 @@ export default function Recommendations() {
   } else if (recommLoading) {
     return (
       <Empty
-        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+        className='empty-search'
+        image={logoimg}
         imageStyle={{
           height: 60,
         }}
-        description={<span>Collecting Recomm...</span>}
+        description={<span>Collecting Recommendations...</span>}
       >
         {contentRecommMentors}
         {contentRecommMentees}
@@ -178,11 +183,17 @@ export default function Recommendations() {
   } else {
     return (
       <Empty
-        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+        className='empty-search'
+        image={logoimg}
         imageStyle={{
           height: 60,
         }}
-        description={<span>No Recomm...</span>}
+        description={
+          <span>
+            You need minimum of three skill added to your profile to get
+            recommendation.
+          </span>
+        }
       >
         <Buttons handleClick={addMoreRecomm} content='Retry loading Recomm' />
       </Empty>

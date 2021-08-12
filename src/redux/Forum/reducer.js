@@ -46,7 +46,7 @@ function Reducer(state = initialState, action) {
     case actions.ADDFEEDS_SUCCESS:
       return {
         ...state,
-        contentFeeds: [...state.contentFeeds, ...action.data.data],
+        contentFeeds: action.data.data,
         feedLoading: false,
       };
     case actions.ADDFEEDS_FAILURE:
@@ -70,20 +70,20 @@ function Reducer(state = initialState, action) {
         case 'project':
           return {
             ...state,
-            contentRecommProjects: [...action.data],
+            contentRecommProjects: action.data,
             recommLoading: false,
           };
 
         case 'mentees':
           return {
             ...state,
-            contentRecommMentees: [...action.data],
+            contentRecommMentees: action.data,
             recommLoading: false,
           };
         case 'mentor':
           return {
             ...state,
-            contentRecommMentors: [...action.data],
+            contentRecommMentors: action.data,
             recommLoading: false,
           };
         default:
@@ -98,28 +98,19 @@ function Reducer(state = initialState, action) {
         case 'project':
           return {
             ...state,
-            contentRecommProjects: [
-              ...state.contentRecommProjects,
-              ...action.data,
-            ],
+            contentRecommProjects: action.data,
             recommLoading: false,
           };
         case 'mentees':
           return {
             ...state,
-            contentRecommMentees: [
-              ...state.contentRecommMentees,
-              ...action.data,
-            ],
+            contentRecommMentees: action.data,
             recommLoading: false,
           };
         case 'mentor':
           return {
             ...state,
-            contentRecommMentors: [
-              ...state.contentRecommMentors,
-              ...action.data,
-            ],
+            contentRecommMentors: action.data,
             recommLoading: false,
           };
         default:

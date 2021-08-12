@@ -10,21 +10,11 @@ function* getContacts(action) {
       getRequest(`chat_contactlist/${action.userId}`),
     );
     if (response?.data?.success) {
-      // notification['success']({
-      //   message: 'Welcome back',
-      //   description: response?.data?.message,
-      //   placement: 'bottomRight',
-      // });
       yield put({
         type: actions.GETCONTACTS_SUCCESS,
         contacts: response?.data?.data,
       });
     } else {
-      notification['error']({
-        message: 'Failed to login',
-        description: response?.data?.message,
-        placement: 'bottomRight',
-      });
       yield put({ type: actions.GETCONTACTS_FAILURE });
     }
   } catch (e) {
@@ -48,12 +38,10 @@ function* getMessages(action) {
         toUser: action.toUser,
       });
     } else {
-      notification['error']({
-        message: 'Failed to Get Messages',
-        description: response?.data?.message,
-        placement: 'bottomRight',
+      yield put({
+        type: actions.GETMESSAGES_FAILURE,
+        toUser: action.toUser,
       });
-      yield put({ type: actions.GETMESSAGES_FAILURE });
     }
   } catch (e) {
     yield put({ type: actions.GETMESSAGES_FAILURE });
@@ -70,11 +58,6 @@ function* postMessages(action) {
         fromUser: action.payload.from_user_id,
       });
     } else {
-      notification['error']({
-        message: 'Failed to send Messages',
-        description: response?.data?.message,
-        placement: 'bottomRight',
-      });
       yield put({ type: actions.POSTMESSAGE_FAILURE });
     }
   } catch (e) {

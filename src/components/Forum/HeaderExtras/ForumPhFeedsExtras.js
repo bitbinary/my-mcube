@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Buttons from 'components/utils/Buttons';
 import { PlusOutlined } from '@ant-design/icons';
 import { Row, Col, Input, Select } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Forum/actions';
 const { Search } = Input;
-const { Option } = Select;
-let selectOptions = [
-  { key: 'timestamp', value: 'timestamp', label: 'Sort by created date' },
-  {
-    key: 'last_modified',
-    value: 'last_modified',
-    label: 'Sort by modified date',
-  },
-];
+// const { Option } = Select;
+// let selectOptions = [
+//   { key: 'timestamp', value: 'timestamp', label: 'Sort by created date' },
+//   {
+//     key: 'last_modified',
+//     value: 'last_modified',
+//     label: 'Sort by modified date',
+//   },
+// ];
 export default function ForumPhFeedsExtras() {
   const dispatch = useDispatch();
   const { addPostDraftState, feedSortBy, feedSearchString } = useSelector(
@@ -25,12 +25,12 @@ export default function ForumPhFeedsExtras() {
       payload: { label: 'addPostDraftState', value: !addPostDraftState },
     });
   };
-  function onChange(value) {
-    dispatch({
-      type: actions.FORCEUPDATE,
-      payload: { item: 'feedSortBy', value: value },
-    });
-  }
+  // function onChange(value) {
+  //   dispatch({
+  //     type: actions.FORCEUPDATE,
+  //     payload: { item: 'feedSortBy', value: value },
+  //   });
+  // }
 
   const updateSearchString = (value) => {
     dispatch({
@@ -60,26 +60,6 @@ export default function ForumPhFeedsExtras() {
           // onSearch={() => doSearch()}
         />
       </Col>
-      {/* <Col
-        lg={12}
-        md={12}
-        sm={12}
-        xs={24}
-        span={12}
-        justify='space-between'
-        align='end'
-      >
-        <Select
-          style={{ width: 200 }}
-          optionFilterProp='children'
-          defaultValue={feedSortBy}
-          onChange={onChange}
-          options={selectOptions}
-          filterOption={(input, option) =>
-            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        ></Select>
-      </Col> */}
       {!addPostDraftState && (
         <Col
           lg={24}
@@ -89,6 +69,7 @@ export default function ForumPhFeedsExtras() {
           span={12}
           justify='center'
           align='end'
+          className='new-post-button'
         >
           <Buttons
             type='primary'

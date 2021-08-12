@@ -59,7 +59,9 @@ function* addpost(action) {
 function* getRecomm(action) {
   try {
     const response = yield call(() =>
-      getRequest(`recommendation/${action.params.recommType}/7`),
+      getRequest(
+        `recommendation/${action.params.recommType}/${action.params.user_id}`,
+      ),
     );
     if (response.status >= 200 || response.status <= 204) {
       notification['info']({
@@ -74,13 +76,18 @@ function* getRecomm(action) {
       });
     } else throw response.statusText;
   } catch (e) {
-    yield put({ type: actions.GETRECOMM_FAILURE, e });
+    yield put({
+      type: actions.GETRECOMM_FAILURE,
+      e: 'Failed to collect Recommendations',
+    });
   }
 }
 function* addRecomm(action) {
   try {
     const response = yield call(() =>
-      getRequest(`recommendation/${action.params.recommType}/7`),
+      getRequest(
+        `recommendation/${action.params.recommType}/${action.params.user_id}`,
+      ),
     );
     if (response.status >= 200 || response.status <= 204)
       yield put({

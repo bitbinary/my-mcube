@@ -1,64 +1,9 @@
-import React, { useState } from 'react';
-import Buttons from 'components/utils/Buttons';
-import { SearchOutlined } from '@ant-design/icons';
-import { Row, Space, Input } from 'antd';
-import MultipleSelects from 'components/utils/MultipleSelects';
+import React from 'react';
+import { Row, Input } from 'antd';
 import actions from 'redux/Forum/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const { Search } = Input;
-const options = [
-  'JavaScript',
-  'Python',
-  'C',
-  'Java',
-  'Go',
-  'Perl',
-  'Ruby',
-  'Swift',
-  'Scala',
-  'PHP',
-  'C++',
-  'R',
-  'Objective-C',
-  'SQL',
-  'Arduino ',
-  'MATLAB',
-  'Rust',
-  'TypeScript',
-  'Kotlin',
-  'CSS',
-  'Groovy',
-  'Dart',
-  'Assembly Language',
-  'PowerShell',
-  'Julia',
-  'Scratch',
-  'COBOL',
-  'Fortran',
-  'ABAP',
-  'Scheme',
-  'Shell',
-  'Prolog',
-  'VBScript',
-  'Haskell',
-  'Delphi',
-  'Hack',
-  'Pascal',
-  'Ada',
-  'Lua',
-  'Visual Basic',
-  'Lisp',
-  'Bash',
-  'Clojure',
-  'MQL4',
-  'Apex',
-  'LabVIEW',
-  'ABL',
-  'D',
-  'SAS',
-  'Logo',
-];
 
 export default function ForumPhSearchExtras() {
   const dispatch = useDispatch();

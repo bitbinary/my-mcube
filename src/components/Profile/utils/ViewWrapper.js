@@ -4,7 +4,7 @@ export default function ViewWrapper({ children, grid = false }) {
   return (
     <>
       <Row
-        lg={grid ? 18 : 24}
+        lg={grid ? 24 : 24}
         md={grid ? 20 : 24}
         sm={24}
         xs={24}
@@ -12,7 +12,7 @@ export default function ViewWrapper({ children, grid = false }) {
         className='view-wrapper'
       >
         <Col
-          lg={grid ? 18 : 24}
+          lg={grid ? 22 : 24}
           md={grid ? 20 : 24}
           sm={24}
           xs={24}

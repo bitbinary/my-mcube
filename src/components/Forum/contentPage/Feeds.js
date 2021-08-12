@@ -10,7 +10,7 @@ import ProjectModal from 'components/Profile/ProjectModal';
 import sorter from 'components/tools/sorter';
 import capitalize from 'components/tools/capitalize';
 
-export default function Feeds() {
+export default function Feeds({ projectId }) {
   const dispatch = useDispatch();
   const { contentFeeds, feedLoading, feedSortBy, feedSearchString } =
     useSelector((state) => state.forumReducer);
@@ -43,7 +43,16 @@ export default function Feeds() {
   useEffect(() => {
     // eslint-disable-next-line
     // eslint-disable-next-line
-    setData([...currentContentFeed.current, ...getDummy()]);
+    // projectId;
+    var newData = [...currentContentFeed.current, ...getDummy()];
+    if (projectId) {
+      console.log(projectId === data?.project_id);
+
+      newData = newData.filter((data) => {
+        return data?.project_id === projectId;
+      });
+    }
+    setData(newData);
     dispatch({
       type: actions.GETFEEDS,
       params: { filters: [], type: [] },
@@ -53,18 +62,31 @@ export default function Feeds() {
 
   useEffect(() => {
     let sortedContent = sorter([...contentFeeds], feedSortBy);
+    var newData = [...sortedContent];
+    if (projectId) {
+      console.log(projectId === data?.project_id);
 
-    setData(sortedContent);
+      newData = newData.filter((data) => {
+        return data?.project_id === projectId;
+      });
+    }
+    setData(newData);
     return () => {};
   }, [contentFeeds]);
   useEffect(() => {
     let filteredContent = searcher(
       feedSearchString,
       [...contentFeeds],
-      ['post_title'],
+      ['title'],
     );
     let sortedContent = sorter([...filteredContent], feedSortBy);
-    setData(sortedContent);
+    var newData = [...sortedContent];
+    if (projectId) {
+      newData = newData.filter((data) => {
+        return data?.project_id === projectId;
+      });
+    }
+    setData(newData);
     return () => {};
   }, [feedSortBy, feedSearchString]);
 
@@ -83,9 +105,9 @@ export default function Feeds() {
     return (
       <>
         <ProjectModal
-          isModalVisible={isProjectModalVisible}
+          isProjectModalVisible={isProjectModalVisible}
           projectId={idForModal}
-          handleCancel={handleCancel}
+          handleProjectModalCancel={handleCancel}
         />
         <InfiniteScroll
           pageStart={0}
@@ -108,26 +130,29 @@ export default function Feeds() {
           threshold={100}
         >
           <Space size={10} className='full-wide' direction='vertical'>
-            {data.map((feed, index) => (
-              <Feed
-                key={feed.post_id}
-                index={index}
-                project_id={feed.project_id}
-                firstName={capitalize(feed.user_first_name)}
-                lastName={capitalize(feed.user_last_name)}
-                title={feed.post_title || 'Default Post Title'}
-                description={feed.post_content}
-                lastModified={feed.post_last_modified}
-                createdAt={feed.timestamp}
-                postOwner={feed.postOwner}
-                commentCount={feed.comments?.length || 0}
-                comments={feed.comments}
-                loading={feed?.loading}
-                postId={feed.post_id}
-                userId={feed.user_id}
-                handleClick={handleMoreDetails}
-              />
-            ))}
+            {data.map((feed, index) => {
+              return (
+                <Feed
+                  key={feed.post_id}
+                  index={index}
+                  project_id={feed.project_id}
+                  firstName={capitalize(feed.first_name)}
+                  lastName={capitalize(feed.last_name)}
+                  title={feed.title || 'Default Post Title'}
+                  description={feed.content}
+                  lastModified={feed.last_modified}
+                  createdAt={feed.timestamp}
+                  postOwner={feed.user_id}
+                  commentCount={feed.comments?.length || 0}
+                  comments={feed.comments}
+                  loading={feed?.loading}
+                  postId={feed.post_id}
+                  userId={feed.user_id}
+                  handleClick={handleMoreDetails}
+                  dontRenderViewProject={projectId ? true : false}
+                />
+              );
+            })}
           </Space>
         </InfiniteScroll>
       </>

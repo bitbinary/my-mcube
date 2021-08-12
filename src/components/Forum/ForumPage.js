@@ -5,6 +5,7 @@ import Search from './contentPage/Search';
 import Recommendations from './contentPage/Recommendations';
 export default function ForumPage({ activePage }) {
   const { forumpage } = useSelector((state) => state.forumReducer);
+  console.log(forumpage, activePage);
   let page = activePage || forumpage?.toLowerCase();
   return (
     <div className='forum-page-wrapper'>

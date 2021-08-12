@@ -54,7 +54,7 @@ export default function RecommProjects({
           </Button>,
         ]}
       >
-        {projectDescription}
+        <div style={{ display: 'flex', flex: 1 }}>{projectDescription}</div>
         <Divider />
         <Space wrap>
           {skills.split(',').map((skill) => (

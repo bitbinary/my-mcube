@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Profile/actions';
-import { Row, Col, Tag, Button, Typography, Avatar } from 'antd';
+import {
+  Row,
+  Col,
+  Tag,
+  Button,
+  Typography,
+  Avatar,
+  Rate,
+  notification,
+  Empty,
+  Spin,
+} from 'antd';
 import AppTitles from 'components/utils/AppTitles';
 import AppTabs from './AppTabs.js';
 import {
-  UserOutlined,
   WechatOutlined,
   MailOutlined,
   LinkedinOutlined,
@@ -14,45 +24,71 @@ import {
   PhoneOutlined,
   PhoneFilled,
 } from '@ant-design/icons';
+import logoimg from 'assets/logo/medium.png';
+
 import EditProfileModal from './EditProfileModal.js';
 import { getRandomColor } from '../tools/colorGenerator';
 import ViewWrapper from './utils/ViewWrapper.js';
 import AppTexts from 'components/utils/AppTexts.js';
 import { useHistory } from 'react-router-dom';
-import avatarImg from 'assets/avatar.jpg';
+import SkillsList from './utils/skillsList.js';
+import capitalize from 'components/tools/capitalize';
+import { truncateName } from 'components/tools/getTruncatedName.js';
 function Profile({ user_id }) {
   const { Paragraph } = Typography;
   const dispatch = useDispatch();
   let history = useHistory();
-
-  // const [userId, setUserId] = useState('');
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const { profileData } = useSelector((state) => state.profileReducer);
+  const [data, setData] = useState(null);
+  const [avgUserRating, setAvgUserRating] = useState(null);
   const { userId } = useSelector((state) => state.authenticateReducer);
+
+  const { profileData, profileDataTemp, rating } = useSelector(
+    (state) => state.profileReducer,
+  );
+
   useEffect(() => {
-    dispatch({
-      type: actions.GETUSERDETAILS,
-      payload: {
-        user_id: user_id ? user_id : userId,
-      },
-    });
+    user_id
+      ? dispatch({
+          type: actions.GETTEMPUSERDETAILS,
+          payload: {
+            user_id: user_id,
+          },
+        })
+      : dispatch({
+          type: actions.GETUSERDETAILS,
+          payload: {
+            user_id: userId,
+          },
+        });
   }, []);
 
-  var interestsList = profileData?.interest?.topic
-    .substring(1, profileData?.interest?.topic.length - 1)
-    .split(',')
-    .map(function (interest) {
-      return (
-        <Tag color={getRandomColor(interest)}>
-          {interest.substring(1, interest.length - 1)}
-        </Tag>
-      );
-    });
+  useEffect(() => {
+    if (user_id) {
+      setData(profileDataTemp[user_id]);
+    } else {
+      setData(profileData);
+    }
+    return () => {};
+  }, [profileDataTemp, profileData]);
 
-  // const handleClick = () => {
-  //   openEditUsertModel('userId');
-  // };
+  useEffect(() => {
+    if (user_id) {
+      dispatch({
+        type: actions.GETTEMPAVGUSERRATING,
+        payload: {
+          user_id: user_id ? user_id : userId,
+        },
+      });
+    } else {
+      dispatch({
+        type: actions.GETAVGUSERRATING,
+        payload: {
+          user_id: user_id ? user_id : userId,
+        },
+      });
+    }
+  }, []);
 
   const openEditUsertModel = () => {
     // setUserId(UserId);
@@ -64,7 +100,11 @@ function Profile({ user_id }) {
   };
 
   function openChatModule() {
-    history.push('/messages');
+    history.push({
+      pathname: '/messages',
+      search: `?talk=${user_id ? user_id : userId}`,
+      state: { userId: user_id ? user_id : userId },
+    });
   }
 
   const openLinkedinInNewTab = (url) => {
@@ -75,20 +115,28 @@ function Profile({ user_id }) {
     window.open(`mailto: ${url}`, '_blank');
   };
 
-  return profileData ? (
-    <ViewWrapper grid={true}>
-      <EditProfileModal
-        isModalVisible={isModalVisible}
-        userId={userId}
-        handleCancel={handleCancel}
-      />
-      <Row className='profile-wrapper-header'>
+  return data ? (
+    <ViewWrapper key={user_id ? user_id : userId} grid={true}>
+      {user_id === undefined && (
+        <EditProfileModal
+          isModalVisible={isModalVisible}
+          userId={userId}
+          handleCancel={handleCancel}
+        />
+      )}
+      <Row className='profile-wrapper-header' style={{ position: 'relative' }}>
         <div className='profile-wrapper-header-div'>
           <Avatar
-            src={avatarImg}
             style={{
               // backgroundColor: 'rgb(154 160 164)',
-              backgroundColor: getRandomColor('Navya'),
+              fontSize: '24px',
+              backgroundColor: getRandomColor(
+                truncateName(
+                  `${capitalize(data?.profile?.first_name)} ${capitalize(
+                    data?.profile?.last_name,
+                  )}`,
+                ),
+              ),
               margin: 'auto',
             }}
             size={{
@@ -99,31 +147,52 @@ function Profile({ user_id }) {
               xl: 100,
               xxl: 100,
             }}
-            // icon={<UserOutlined />}
-          />
+          >
+            {truncateName(
+              `${capitalize(data?.profile?.first_name)} ${capitalize(
+                data?.profile?.last_name,
+              )}`,
+            )}
+          </Avatar>
         </div>
 
-        <Col lg={15} md={15} sm={24} xs={24}>
+        <Col lg={12} md={12} sm={24} xs={24}>
           <div>
             <AppTitles
+              containerStyles={{ marginLeft: '0px' }}
               className='large'
-              content={`${profileData?.profile?.first_name}
-                ${profileData?.profile?.last_name}`}
+              content={`${capitalize(data?.profile?.first_name)} ${capitalize(
+                data?.profile?.last_name,
+              )}`}
               style={{
                 fontWeight: 'bold',
               }}
             />
+            {capitalize(data?.profile?.user_type) === 'mentee' ? (
+              <Tag key={data?.profile?.user_type} color='#365b74'>
+                {capitalize(data?.profile?.user_type)}
+              </Tag>
+            ) : (
+              <Tag key={data?.profile?.user_type} color='#2db7f5'>
+                {capitalize(data?.profile?.user_type)}
+              </Tag>
+            )}
             <AppTexts
               className='medium italics'
-              content={`Title: ${profileData?.profile?.title}`}
+              content={data?.profile?.title}
             />
-            <div className='italics' style={{ marginLeft: '1%' }}>
-              Interests: {interestsList}
+            <div
+              className='italics'
+              style={{ marginLeft: '2px', marginBottom: '20px' }}
+            >
+              <SkillsList userId={user_id ? user_id : userId} />
             </div>
+            {console.log(avgUserRating)}
+            <Rate key={rating} defaultValue={rating} disabled />
           </div>
         </Col>
         <Col
-          lg={6}
+          lg={8}
           md={12}
           sm={24}
           xs={24}
@@ -135,17 +204,24 @@ function Profile({ user_id }) {
           }}
         >
           <Row justify='start' align='start'>
-            <AppTitles
-              content={<HomeTwoTone style={{ fontSize: '25px' }} size='30px' />}
-              style={{ fontWeight: 'bold' }}
-            />
+            {data?.profile?.city ||
+            data?.profile?.state ||
+            data?.profile?.country ||
+            data?.profile?.zipcode !== 0 ? (
+              <AppTitles
+                content={
+                  <HomeTwoTone style={{ fontSize: '25px' }} size='30px' />
+                }
+                style={{ fontWeight: 'bold' }}
+              />
+            ) : null}
             <AppTitles
               size='small'
               content={`
-              ${profileData?.profile?.city} ,
-              ${profileData?.profile?.state},
-              ${profileData?.profile?.country},
-              ${profileData?.profile?.zipcode}`}
+              ${data?.profile?.city}
+              ${data?.profile?.state}
+              ${data?.profile?.country}
+              ${data?.profile?.zipcode === 0 ? '' : data?.profile?.zipcode}`}
             />
           </Row>
 
@@ -164,7 +240,7 @@ function Profile({ user_id }) {
               icon={<MailOutlined />}
               size={20}
               style={{ margin: '4px' }}
-              onClick={() => openMailInNewTab(profileData?.profile?.email)}
+              onClick={() => openMailInNewTab(data?.profile?.email)}
             />
             <Button
               type='dashed'
@@ -172,17 +248,23 @@ function Profile({ user_id }) {
               icon={<LinkedinOutlined />}
               size={20}
               style={{ margin: '4px' }}
-              onClick={() => openLinkedinInNewTab(profileData?.profile?.links)}
+              onClick={() => openLinkedinInNewTab(data?.profile?.links)}
             />
             <Button
               type='dashed'
               shape='round'
               size={20}
+              onClick={() =>
+                notification['info']({
+                  message: 'Contact number copied',
+                  placement: 'bottomRight',
+                })
+              }
               style={{ margin: '4px' }}
             >
               <Paragraph
                 copyable={{
-                  text: profileData?.profile?.mobile_no,
+                  text: data?.profile?.mobile_no,
                   icon: [
                     <PhoneOutlined key='copy-icon' />,
                     <PhoneFilled key='copied-icon' />,
@@ -192,20 +274,35 @@ function Profile({ user_id }) {
               ></Paragraph>
             </Button>
           </div>
+        </Col>
+        {user_id === undefined && (
           <Button
             type='primary'
             shape='round'
             icon={<EditOutlined />}
             onClick={() => openEditUsertModel()}
-            style={{ position: 'absolute', top: '0px', right: '0px' }}
+            style={{ position: 'absolute', top: '10px', right: '10px' }}
           >
             Edit
           </Button>
-        </Col>
+        )}
       </Row>
-      <AppTabs />
+      <AppTabs user_id={user_id} />
     </ViewWrapper>
-  ) : null;
+  ) : (
+    <Row className='empty-profile-wrapper' justify='middle' align='center'>
+      <Col className='empty-profile-container' justify='middle' align='center'>
+        <Empty
+          className='empty-search'
+          image={logoimg}
+          imageStyle={{
+            height: 60,
+          }}
+          description={<Spin />}
+        ></Empty>
+      </Col>
+    </Row>
+  );
 }
 
 export default Profile;

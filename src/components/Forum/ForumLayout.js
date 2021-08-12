@@ -1,31 +1,34 @@
 import React from 'react';
 import { Tabs, BackTop, PageHeader } from 'antd';
 import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
 import ForumPageHeaderExtras from './HeaderExtras/ForumPageHeaderExtras';
 import ForumPageHeaderSelections from './ForumPageHeaderSelections';
 import AppTitles from 'components/utils/AppTitles';
 import AppTexts from 'components/utils/AppTexts';
 import { useHistory } from 'react-router-dom';
+import capitalizeFirstLetter from 'components/tools/capitalize';
 
 const { TabPane } = Tabs;
 
 export default function ForumLayout({ children, activePage }) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { forumpage } = useSelector((state) => state.forumReducer);
   const onChange = (value) => {
     history.push({
-      pathname: `/${value.toLowerCase()}`,
+      pathname: `/${value?.toLowerCase()}`,
     });
     dispatch({
       type: actions.FORUMPAGECHANGE,
       payload: { forumpage: value },
     });
   };
-  let headerTitle = 'Feeds';
-  if (activePage === 'search') headerTitle = 'Search';
-  if (activePage === 'recommendations') headerTitle = 'Recommendations';
+  let page = capitalizeFirstLetter(activePage) || forumpage;
+  let headerTitle = page;
+  // if (activePage === 'search') headerTitle = 'Search';
+  // if (activePage === 'recommendations') headerTitle = 'Recommendations';
   return (
     <ViewWrapper grid={true}>
       <Tabs onTabClick={onChange} className='forum-tabs' centered type='card'>
@@ -35,14 +38,16 @@ export default function ForumLayout({ children, activePage }) {
               <AppTexts content='Feeds' />
             </div>
           }
-          key='Feeds'
+          key='feeds'
           className='forum-page-content '
         >
           <PageHeader
             className='forum-page-header'
             title={<AppTitles content={headerTitle} />}
             extra={
-              <ForumPageHeaderExtras page={activePage ? activePage : 'feeds'} />
+              <ForumPageHeaderExtras
+                page={activePage ? activePage : forumpage?.toLowerCase()}
+              />
             }
           >
             <ForumPageHeaderSelections page='Feeds' />
@@ -50,20 +55,21 @@ export default function ForumLayout({ children, activePage }) {
           {children}
           <BackTop />
         </TabPane>
+
         <TabPane
           tab={
             <div className='feed-tabs-name'>
               <AppTexts content='Search' />
             </div>
           }
-          key='Search'
+          key='search'
         >
           <PageHeader
             className='forum-page-header'
             title={<AppTitles content={headerTitle} />}
             extra={
               <ForumPageHeaderExtras
-                page={activePage ? activePage : 'search'}
+                page={activePage ? activePage : forumpage}
               />
             }
           >
@@ -72,13 +78,21 @@ export default function ForumLayout({ children, activePage }) {
           {children}
           <BackTop />
         </TabPane>
-        <TabPane tab='Recommendations' key='Recommendations'>
+
+        <TabPane
+          tab={
+            <div className='feed-tabs-name'>
+              <AppTexts content='Recommendations' />
+            </div>
+          }
+          key='recommendations'
+        >
           <PageHeader
             className='forum-page-header'
             title={<AppTitles content={headerTitle} />}
             extra={
               <ForumPageHeaderExtras
-                page={activePage ? activePage : 'recommendations'}
+                page={activePage ? activePage : forumpage?.toLowerCase()}
               />
             }
           >

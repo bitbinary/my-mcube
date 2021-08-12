@@ -13,9 +13,9 @@ function Reducer(state = initialState, action) {
       return { ...state, loader: true };
     case actions.LOGOUT:
       sessionStorage.removeItem('userToken');
-      sessionStorage.removeItem('userToken');
       sessionStorage.removeItem('userType');
       sessionStorage.removeItem('userId');
+      sessionStorage.removeItem('userName');
 
       return {
         ...state,

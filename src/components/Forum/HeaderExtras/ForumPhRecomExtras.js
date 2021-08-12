@@ -1,6 +1,4 @@
 import React from 'react';
-import Buttons from 'components/utils/Buttons';
-import { SearchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import actions from 'redux/Forum/actions';
 import SingleSelect from 'components/utils/SingleSelect';
@@ -22,12 +20,12 @@ export default function ForumPhRecomExtras() {
       payload: { recommendationsselectedtypes: values },
     });
   };
-  const toggleLoading = () => {
-    dispatch({
-      type: actions.TOGGLELOADING,
-      payload: { loader: !loader },
-    });
-  };
+  // const toggleLoading = () => {
+  //   dispatch({
+  //     type: actions.TOGGLELOADING,
+  //     payload: { loader: !loader },
+  //   });
+  // };
   return (
     <Row
       lg={20}

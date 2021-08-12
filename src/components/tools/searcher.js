@@ -4,7 +4,8 @@ const searchValueChange = (searchValue, list, searchIn) => {
   list.forEach((element) => {
     let truthvalue = searchIn.some(
       (index) =>
-        element[index].toLowerCase().indexOf(searchValue.toLowerCase()) !== -1,
+        element[index]?.toLowerCase()?.indexOf(searchValue?.toLowerCase()) !==
+        -1,
     );
     if (truthvalue) {
       tempList.push(element);

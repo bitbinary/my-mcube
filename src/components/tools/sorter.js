@@ -1,4 +1,6 @@
 const sortby = (list, sortOn = '', latestFirst = true) => {
+  console.log(list, sortOn, latestFirst);
+  if (!list) return list;
   if (sortOn !== '') {
     list.sort(function (a, b) {
       let element_a = '';

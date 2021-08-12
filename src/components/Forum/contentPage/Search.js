@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import actions from 'redux/Forum/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroller';
-import Feed from './utils/Feed';
 import { Row, Empty } from 'antd';
-import Buttons from 'components/utils/Buttons';
 import UserCard from './utils/UserCard';
 import ProjectCard from './utils/ProjectCard';
 import ProjectModal from 'components/Profile/ProjectModal';
 import UserModal from 'components/utils/UserModal';
 import ForumPhSearchExtras from '../HeaderExtras/ForumPhSearchExtras';
 import capitalize from 'components/tools/capitalize';
+import logoimg from 'assets/logo/medium.png';
+import sorter from 'components/tools/sorter';
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -47,11 +47,11 @@ export default function Search() {
     setData(results);
     return () => {};
   }, [searchData]);
-  const addMoreFeeds = () => {
-    setData([...getDummy()]);
-    doSearch();
-    return () => {};
-  };
+  // const addMoreFeeds = () => {
+  //   setData([...getDummy()]);
+  //   doSearch();
+  //   return () => {};
+  // };
 
   const handleMoreDetails = (type, id) => {
     console.log(type, id);
@@ -71,9 +71,9 @@ export default function Search() {
     return (
       <>
         <ProjectModal
-          isModalVisible={isProjectModalVisible}
+          isProjectModalVisible={isProjectModalVisible}
           projectId={idForModal}
-          handleCancel={handleCancel}
+          handleProjectModalCancel={handleCancel}
         />
         <UserModal
           isModalVisible={isUserModalVisible}
@@ -101,8 +101,8 @@ export default function Search() {
           }
           threshold={100}
         >
-          <Row className='search-result-container' gutter={[16, 16]}>
-            {data.map((searchResult, index) =>
+          <Row className='search-result-container' gutter={[24, 24]}>
+            {sorter(data, 'score', true)?.map((searchResult, index) =>
               !searchResult?.project_id ? (
                 <UserCard
                   key={searchResult.title + index}
@@ -144,7 +144,8 @@ export default function Search() {
   } else if (searchLoading) {
     return (
       <Empty
-        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
+        className='empty-search'
+        image={logoimg}
         imageStyle={{
           height: 60,
         }}
@@ -154,17 +155,22 @@ export default function Search() {
   } else {
     return (
       <Empty
-        image='https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg'
-        imageStyle={{
-          height: 60,
-        }}
+        className='empty-search'
+        image={logoimg}
         description={
           searchData.length === 0 ? (
-            <div style={{ maxWidth: '300px', margin: 'auto' }}>
+            <div
+              style={{ minWidth: '300px', margin: 'auto', marginTop: '50px' }}
+            >
               <ForumPhSearchExtras />
             </div>
           ) : (
-            <span>No Search Results...</span>
+            <div
+              style={{ minWidth: '300px', margin: 'auto', marginTop: '50px' }}
+            >
+              {' '}
+              <span> No matching results found...</span>
+            </div>
           )
         }
       >

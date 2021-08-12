@@ -54,17 +54,6 @@ export default function ForumPageHeaderSelections({ page }) {
       payload: { searchselectedtypes: newlist },
     });
   };
-  // const removeRecomType = (type) => {
-  //   let newlist = [...recommendationsselectedtypes];
-  //   const index = newlist.indexOf(type);
-  //   if (index > -1) {
-  //     newlist.splice(index, 1);
-  //   }
-  //   dispatch({
-  //     type: actions.UPDATESEARCHTYPES,
-  //     payload: { recommendationsselectedtypes: newlist },
-  //   });
-  // };
   if (page === 'Feeds') {
     return <ForumPageHeaderAddPost />;
   } else if (page === 'Search') {
@@ -117,18 +106,7 @@ function ForumPageHeaderSelectionViewTags({
     </Row>
   );
 }
-const validateMessages = {
-  // eslint-disable-next-line
-  required: '${label} is required!',
-};
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
+
 function ForumPageHeaderAddPost({ ...rest }) {
   const toggleNewPost = () => {
     dispatch({
@@ -137,19 +115,13 @@ function ForumPageHeaderAddPost({ ...rest }) {
     });
   };
   const [content, setcontent] = useState('');
-  const [userId, setuserId] = useState('1');
   const [title, settitle] = useState('');
   const [projectId, setprojectId] = useState('');
   const { addPostDraftState, addPostLoading } = useSelector(
     (state) => state.forumReducer,
   );
+  const { userId } = useSelector((state) => state.authenticateReducer);
   const dispatch = useDispatch();
-  //   {
-  //   "content": "mentoring of projects",
-  //   "user_id": 2,
-  //   "title": "project mentoring",
-  // "project_id":"pj_1"
-  // }
   const submitPost = () => {
     dispatch({
       type: actions.TOGGLESTATE,

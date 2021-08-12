@@ -20,7 +20,7 @@ export default function ProjectCard({
     <Col lg={8} md={12} sm={24} xs={24}>
       <Skeleton loading={loading} avatar active>
         <Card
-          style={{ width: 300, marginTop: 16 }}
+          style={{ marginTop: 16 }}
           className='list-card'
           actions={[
             null,
