@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/my-mcube/static/css/main.b8630af5.chunk.css",
-    "main.js": "/my-mcube/static/js/main.2f4a5694.chunk.js",
-    "main.js.map": "/my-mcube/static/js/main.2f4a5694.chunk.js.map",
+    "main.js": "/my-mcube/static/js/main.f9885d4d.chunk.js",
+    "main.js.map": "/my-mcube/static/js/main.f9885d4d.chunk.js.map",
     "runtime-main.js": "/my-mcube/static/js/runtime-main.2f175181.js",
     "runtime-main.js.map": "/my-mcube/static/js/runtime-main.2f175181.js.map",
     "static/css/2.98f05642.chunk.css": "/my-mcube/static/css/2.98f05642.chunk.css",
@@ -27,6 +27,6 @@
     "static/css/2.98f05642.chunk.css",
     "static/js/2.ba12fb43.chunk.js",
     "static/css/main.b8630af5.chunk.css",
-    "static/js/main.2f4a5694.chunk.js"
+    "static/js/main.f9885d4d.chunk.js"
   ]
 }
