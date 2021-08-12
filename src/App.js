@@ -20,8 +20,8 @@ function App() {
   //Getting isAuthenticated store value from Authentication reducer.
   const { isAuthenticated } = useSelector((state) => state.authenticateReducer);
   return (
-    <Router>
-      <Switch>
+    <Router basename="/my-mcube/">
+      <Switch basename="/my-mcube/">
         <PublicRoute path='/login' isAuthenticated={isAuthenticated}>
           <LoginPage />
         </PublicRoute>
