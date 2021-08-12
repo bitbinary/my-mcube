@@ -33,6 +33,7 @@ export default function Recommendations() {
   //   }
   //   return dummyData;
   // }
+    // eslint-disable-next-line
   useEffect(() => {
     dispatch({
       type: actions.GETRECOMM,

@@ -5,23 +5,17 @@ import {
   Row,
   Col,
   Tag,
-  Form,
   Input,
-  InputNumber,
   List,
   Avatar,
-  Space,
   Skeleton,
-  Tooltip,
   Divider,
 } from 'antd';
 import Buttons from 'components/utils/Buttons';
 import { SendOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import SearchSelector from 'components/utils/SearchSelector';
 import { UserOutlined } from '@ant-design/icons';
-import AppTexts from 'components/utils/AppTexts';
 import ViewWrapper from 'components/Forum/contentPage/utils/ViewWrapper';
-import moment from 'moment';
 import AppTitles from 'components/utils/AppTitles';
 const { TextArea } = Input;
 export default function ForumPageHeaderSelections({ page }) {
@@ -150,9 +144,7 @@ function ForumPageHeaderAddPost({ ...rest }) {
     // eslint-disable-next-line
     setprojectId(key);
   };
-  const defaultText =
-    'The Career Ready Mentoring Program connects UNSW students from their second year of study onwards with established industry professionals, providing students with a significant opportunity to focus on career development during the transition from study to work.';
-  return addPostDraftState ? (
+   return addPostDraftState ? (
     <ViewWrapper>
       <AppTitles
         className='strong'

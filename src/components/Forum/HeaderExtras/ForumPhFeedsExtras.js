@@ -1,7 +1,7 @@
 import React from 'react';
 import Buttons from 'components/utils/Buttons';
 import { PlusOutlined } from '@ant-design/icons';
-import { Row, Col, Input, Select } from 'antd';
+import { Row, Col, Input } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import actions from 'redux/Forum/actions';
 const { Search } = Input;
@@ -16,7 +16,7 @@ const { Search } = Input;
 // ];
 export default function ForumPhFeedsExtras() {
   const dispatch = useDispatch();
-  const { addPostDraftState, feedSortBy, feedSearchString } = useSelector(
+  const { addPostDraftState, feedSearchString } = useSelector(
     (state) => state.forumReducer,
   );
   const toggleNewPost = () => {
