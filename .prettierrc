@@ -1,9 +1,0 @@
-{
-  "tabWidth": 2,
-  "useTabs": false,
-  "endOfLine": "lf",
-  "jsxSingleQuote": true,
-  "singleQuote": true,
-  "embeddedLanguageFormatting": "auto",
-  "trailingComma": "all"
-}
