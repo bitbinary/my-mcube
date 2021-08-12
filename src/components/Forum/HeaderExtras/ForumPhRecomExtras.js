@@ -11,7 +11,7 @@ const optionsType = [
 ];
 export default function ForumPhRecomExtras() {
   const dispatch = useDispatch();
-  const { recommselectedtype, loader } = useSelector(
+  const { recommselectedtype } = useSelector(
     (state) => state.forumReducer,
   );
   const onValueChangeTypes = (values) => {

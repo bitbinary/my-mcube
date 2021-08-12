@@ -17,20 +17,16 @@ export default function Feeds({ projectId }) {
   let currentContentFeed = useRef(contentFeeds);
   const [data, setData] = useState([]);
   const [idForModal, setIdForModal] = useState('');
-  const [isUserModalVisible, setIsUserModalVisible] = useState(false);
   const [isProjectModalVisible, setIsProjectModalVisible] = useState(false);
   const handleMoreDetails = (type, id) => {
     setIdForModal(id);
     if (type === 'project_id') {
       setIsProjectModalVisible(true);
-    } else {
-      setIsUserModalVisible(true);
-    }
+    } 
   };
 
   const handleCancel = () => {
     setIsProjectModalVisible(false);
-    setIsUserModalVisible(false);
   };
   function getDummy() {
     let numberofDummy = 5;
@@ -57,7 +53,8 @@ export default function Feeds({ projectId }) {
       type: actions.GETFEEDS,
       params: { filters: [], type: [] },
     });
-    return () => {};
+    return () => { };
+    // eslint-disable-next-line
   }, [dispatch]);
 
   useEffect(() => {
@@ -71,7 +68,8 @@ export default function Feeds({ projectId }) {
       });
     }
     setData(newData);
-    return () => {};
+    return () => { };
+    // eslint-disable-next-line
   }, [contentFeeds]);
   useEffect(() => {
     let filteredContent = searcher(
@@ -87,7 +85,8 @@ export default function Feeds({ projectId }) {
       });
     }
     setData(newData);
-    return () => {};
+    return () => { };
+    // eslint-disable-next-line
   }, [feedSortBy, feedSearchString]);
 
   const addMoreFeeds = () => {
